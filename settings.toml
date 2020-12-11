@@ -1,0 +1,5 @@
+[default]
+DEBUG = true
+EXTENSIONS = [
+    'app.resources.admin:init_app',
+]
