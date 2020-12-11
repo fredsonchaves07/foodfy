@@ -2,4 +2,5 @@
 DEBUG = true
 EXTENSIONS = [
     'app.resources.admin:init_app',
+    'app.resources.site:init_app',
 ]
