@@ -1,7 +1,7 @@
-from flask import Blueprint
+from flask import Blueprint, redirect, url_for
 
-bp = Blueprint('admin', __name__, url_prefix='/admin')
+admin = Blueprint('admin', __name__, url_prefix='/admin')
 
-@bp.route('/', methods=['GET'])
+@admin.route('/', methods=['GET'])
 def index():
-    return '<h1>Hello World!</h1>'
+    return redirect(url_for('recipes.index'))

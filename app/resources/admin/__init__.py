@@ -1,4 +1,6 @@
-from .main import bp
+from .main import admin
+from .recipes import recipes
 
 def init_app(app):
-    app.register_blueprint(bp)
+    app.register_blueprint(admin)
+    app.register_blueprint(recipes)
