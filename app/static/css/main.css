@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+
+/* Estilizações globais */
+:root{
+    --primary-color: #6558c3;
+    --warning-color: #DC4747
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body, textarea, select{
+    font-family: 'Roboto', sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input[type="button"]{
+    padding: 0;
+    border: none;
+    background-color: white;
+    width: initial;
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+button:focus, input[type="button"]{
+    outline: thin;
+}
+
+form input, textarea, select{
+    padding: 15px;
+    margin-top: 10px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('img/keyboard_arrow_down-black-18dp.svg');
+    background-repeat: no-repeat;
+    background-position: right .7em top 50%, 0 0;
+}
+
+select:invalid {
+    color: gray;
+  }
+
+textarea {
+    resize: none;
+    line-height: 24px;
+    width: 100%;
+    height: 200px;
+    text-align: justify;
+    text-indent: initial
+}
+
+form .item{
+    margin-bottom: 30px;
+}
+
+.button{
+    text-decoration: none;
+    background-color: #6558C3;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    width: 120px;
+    padding: 8px 0;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+}
+
+.button-delete{
+    background-color: var(--warning-color);
+}
+
+.button-disabled{
+    background-color: gray;
+    cursor: initial;
+}
+
+.cards{
+    display:  grid;
+    gap: 5px;
+    row-gap: 30px;
+    margin-bottom: 80px;
+}
+
+.card{
+    display: flex;
+}
+
+.card-details{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 8px;
+}
+
+.card-details  div{
+    padding: 0px 4px 10px;
+    line-height: 18px;
+}
+
+.card-details  div:first-child{
+    font-size: 18px;
+}
+
+.card-details  div:nth-child(2){
+    font-size: 14px;
+    color: #777777;
+}
+
+.container{
+    margin: 50px auto;  
+}
+
+header div, .container{
+    width: 70%;
+    box-sizing: border-box
+}
+
+header div:first-child{
+    padding: 20px 0px;
+    margin: 0px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header div:nth-child(2) {
+    display: flex;
+}
+
+header div:nth-child(2) a{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 15px;
+    margin-right: 30px;
+}
+
+header div:nth-child(2) a:last-child{
+    margin-right: 0;
+}
+
+header div .logo-foodfy{
+    display: inline-block;
+    height: 30px;
+}
+
+header div .logo-foodfy img{
+    box-sizing: border-box;
+    height: 30px;
+}
+
+footer{
+    text-align: center;
+    background-color: #EEEEEE;
+    padding: 1.5% 0;
+    font-size: 14px;
+    color: #999999;
+    margin-top: auto;
+}
+

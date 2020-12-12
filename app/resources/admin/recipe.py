@@ -1,5 +1,4 @@
-from app.controllers.admin import recipes
-
+from app.controllers.admin import recipe
 from flask import Blueprint
 
 recipes = Blueprint('recipes', __name__, url_prefix='/admin/recipes')

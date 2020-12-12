@@ -1,2 +1,3 @@
 flask
 dynaconf
+flask_wtf

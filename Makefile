@@ -1,4 +1,4 @@
 install:
 	pip install --upgrade pip && pip install -r requirements.txt
 run:
-	flask run
+	FLASK_APP=app/app.py FLASK_ENV=development flask run
