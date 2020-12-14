@@ -7,8 +7,10 @@ chefs = Blueprint('chefs', __name__, url_prefix='/admin/chefs')
 @chefs.route('/create', methods=['GET', 'POST'])
 def create_chef():
     form = RegistrationChef(request.form)
-    if request.method == 'POST' and form.validate_on_submit():
-        chef_controler.create_chef(form)
+    file = request.files
+    
+    if request.method == 'POST':
+        chef_controler.create_chef(form, file)
 
-        return redirect(url_for('list_chefs'))
+        # return redirect(url_for('create_chef'))
     return render_template('admin/chef/create.html', form=form)

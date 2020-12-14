@@ -1,0 +1,20 @@
+<form action="/admin/chefs/create" method="post" id="form-create" enctype="multipart/form-data">
+    <div>
+        <fieldset>
+            <div class="item">
+                <label for="name">Nome</label>
+                {{form.name}}
+            </div>
+        
+            <div class="item">
+                <label for="avatar" >Avatar URL</label>
+                    <label id="photo-upload" for="avatar" class="button">
+                        {{form.avatar(
+                            accept="image/*",
+                        )}}
+                        Enviar avatar
+                    </label> 
+            </div>
+        </fieldset>            
+    </div>
+</form>

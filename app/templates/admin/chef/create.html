@@ -5,25 +5,5 @@
         <button form="form-create" type="submit" class="button">Salvar chef</button>
     </div>
 
-    <form action="/admin/chefs" method="post" id="form-create" enctype="multipart/form-data">
-        <div>
-            <fieldset>
-                <div class="item">
-                    <label for="name">Nome</label>
-                    {{form.name}}
-                </div>
-            
-                <div class="item">
-                    <label for="avatar" >Avatar URL</label>
-                        <label id="photo-upload" for="avatar" class="button">
-                            {{form.avatar(
-                                accept="image/*",
-                                onchange="PhotoChef.change(event)"
-                            )}}
-                            Enviar avatar
-                        </label> 
-                </div>
-            </fieldset>            
-        </div>
-    </form>
+    {% include "admin/chef/fields.html" %}
 {% endblock content %}
