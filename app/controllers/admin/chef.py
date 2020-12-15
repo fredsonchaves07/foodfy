@@ -6,5 +6,5 @@ def create_chef(form, file):
     chef_avatar = file['avatar']
     file_id = file_controller.create_file(chef_avatar)
     
-    # Registrar o chef
-
+    return chef_dao.create_chef(name=chef_name, file_id=file_id)
+    
