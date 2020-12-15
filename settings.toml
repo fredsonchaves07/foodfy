@@ -1,9 +1,11 @@
 [default]
 DEBUG = true
 SECRET_KEY = 'Desenvolvedor Python'
+UPLOAD_FOLDER = 'app/static/img'
 SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@localhost/foodfydb'
 SQLALCHEMY_TRACK_MODIFICATIONS = false
 EXTENSIONS = [
     'app.resources.admin:init_app',
     'app.resources.site:init_app',
+    'app.db:init_app'
 ]

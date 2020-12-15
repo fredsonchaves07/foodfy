@@ -1,7 +1,9 @@
+from app.dao import chef as chef_dao
+from app.controllers.admin import file as file_controller
+
 def create_chef(form, file):
-    pass
-    # Registrar o chef na tabela de chef
+    chef_name = form.name.data
+    file_id = file_controller.create_file(file['avatar'])
+    
+    # Registrar o chef
 
-    # Registrar o arquivo na tabela de arquivos
-
-    # Salvar a imagem do avatar no diretório de imagens
