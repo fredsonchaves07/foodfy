@@ -7,3 +7,8 @@ def create_chef(name, file_id, ):
     db.session.commit()
     
     return chef.id
+
+def find_chef(chef_id):
+    chef = Chef.query.filter_by(id=chef_id).first()
+    
+    return chef

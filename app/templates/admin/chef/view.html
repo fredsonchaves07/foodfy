@@ -1,0 +1,47 @@
+{% extends "admin/base.html" %}
+{% block content %}
+    <div class="content-header">
+        <h2>Chef: {{chef.name}}</h2>
+        <a href="/admin/chefs/{{chef.id}}/edit" class="button">Editar chef</a>
+    </div>
+    <section class="chef-show-header">
+        <img src="{{url_for('static', filename='{}'.format(chef.avatar))}}" alt="avatar do chef">
+        <h1>{{chef.name}}</h1>
+        {# 
+        <div>{{recipeChefList.length}} Receita(s)</div>
+        #}
+    </section>
+    <section class="chef-show-detail">
+        <div class="item">
+            <h2>Receitas</h2>
+            {#
+            {% if recipeChefList != "" %}
+                <div class="cards cards-recipes">
+            {% for recipe in recipeChefList %}
+            
+            <div class="card">
+                <section class="card-img-recipe">
+                    <img src="{{recipe.image}}" alt="imagem da receita {{recipe.title}}">
+                </section>
+                <section class="card-details">
+
+                        <div>
+                            {{recipe.title}}
+                        </div>
+                        <div>
+                            por {{recipe.author}}
+                        </div>
+                        <div>
+                            <a href="/admin/recipes/{{recipe.recipeid}}">Visualizar</a>
+                        </div>
+
+                </section>
+            </div>
+            {% endfor %}
+            {%else%}
+                <p>Nenhuma receita cadastrada</p>
+            {% endif %}
+            #}
+        </div>
+    </section>
+{% endblock content %}

@@ -12,4 +12,9 @@ def create_file(file):
 
     return file_dao.create_file(filename, path)
 
+def find_file(file_id):
+    file = file_dao.find_file(file_id)
+
+    return file
+
     

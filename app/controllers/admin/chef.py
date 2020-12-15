@@ -7,4 +7,11 @@ def create_chef(form, file):
     file_id = file_controller.create_file(chef_avatar)
     
     return chef_dao.create_chef(name=chef_name, file_id=file_id)
+
+def show_chef(chef_id):
+    chef = chef_dao.find_chef(chef_id)
+    file = file_controller.find_file(chef.file_id)
+    chef.avatar = file.name
+    print(chef.avatar)
+    return chef
     

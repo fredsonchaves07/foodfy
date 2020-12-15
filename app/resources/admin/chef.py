@@ -14,3 +14,10 @@ def create_chef():
 
         # return redirect(url_for('create_chef'))
     return render_template('admin/chef/create.html', form=form)
+
+
+@chefs.route('/<chef_id>', methods=['GET'])
+def show_chef(chef_id):
+    chef = chef_controler.show_chef(chef_id)
+    
+    return render_template('admin/chef/view.html', chef=chef)
