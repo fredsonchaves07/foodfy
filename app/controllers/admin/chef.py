@@ -15,6 +15,15 @@ def show_chef(chef_id):
     
     return chef
 
-def edit_chef(chef_id):
-    pass
+def edit_chef(chef_id, file, form):
+    chef_name = form.name.data
+    chef_avatar = file['avatar']
+    
+    if chef_avatar:
+        print(chef_avatar)
+        # update do arquivo
+        #pass
+    
+    return chef_dao.update_chef(chef_id, chef_name)
+
     

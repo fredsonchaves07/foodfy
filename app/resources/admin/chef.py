@@ -30,9 +30,8 @@ def edit_chef(chef_id):
     file = request.files
     
     if request.method == 'POST':
-        chef = chef_controler.show_chef(chef_id)
-        form = RegistrationChef(obj=chef)
-        print(form)
+        if request.form['_method']:
+            chef_controler.edit_chef(chef_id, file, form)
 
     return render_template('admin/chef/edit.html', chef=chef, form=form)
 
