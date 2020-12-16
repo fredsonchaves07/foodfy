@@ -21,3 +21,18 @@ def show_chef(chef_id):
     chef = chef_controler.show_chef(chef_id)
     
     return render_template('admin/chef/view.html', chef=chef)
+
+
+@chefs.route('/<chef_id>/edit', methods=['GET', 'POST'])
+def edit_chef(chef_id):
+    chef = chef_controler.show_chef(chef_id)
+    form = RegistrationChef(obj=chef)
+    file = request.files
+    
+    if request.method == 'POST':
+        chef = chef_controler.show_chef(chef_id)
+        form = RegistrationChef(obj=chef)
+        print(form)
+
+    return render_template('admin/chef/edit.html', chef=chef, form=form)
+

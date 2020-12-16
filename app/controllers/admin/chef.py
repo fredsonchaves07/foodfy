@@ -14,4 +14,7 @@ def show_chef(chef_id):
     chef.avatar = file.name
     
     return chef
+
+def edit_chef(chef_id):
+    pass
     
