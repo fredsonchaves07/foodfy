@@ -12,7 +12,7 @@ def create_chef():
     if request.method == 'POST':
         chef_id = chef_controler.create_chef(form, file)
 
-        # return redirect(url_for('create_chef'))
+        return redirect(url_for('chefs.show_chef', chef_id=chef_id))
     return render_template('admin/chef/create.html', form=form)
 
 
