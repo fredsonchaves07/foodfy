@@ -5,4 +5,4 @@ from wtforms.validators import DataRequired
 
 class RegistrationChef(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
-    avatar = FileField('avatar', validators=[FileRequired()])
+    avatar = FileField('avatar')
