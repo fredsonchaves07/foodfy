@@ -1,8 +1,10 @@
 install:
 	pip install --upgrade pip && pip install -r requirements.txt
+dev:
+	export FLASK_APP=app/app.py && export FLASK_ENV=development
 init_db:
-	FLASK_APP=app/app.py FLASK_ENV=development flask db init
-	FLASK_APP=app/app.py FLASK_ENV=development flask db migrate -m "initial database configuration"
-	FLASK_APP=app/app.py FLASK_ENV=development flask db upgrade
+	flask db init
+	flask db migrate -m "initial database configuration"
+	flask db upgrade
 run:
-	FLASK_APP=app/app.py FLASK_ENV=development flask run
+	flask run
