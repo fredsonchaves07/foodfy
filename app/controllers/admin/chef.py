@@ -17,13 +17,13 @@ def show_chef(chef_id):
 
 def edit_chef(chef_id, file, form):
     chef_name = form.name.data
-    chef_avatar = file['avatar']
+    new_file = file['avatar']
     
-    if chef_avatar:
-        print(chef_avatar)
-        # update do arquivo
-        #pass
-    
+    if new_file:
+        chef = chef_dao.find_chef(chef_id)
+        old_file = file_controller.find_file(chef.file_id)
+        file_controller.update_file(new_file, old_file)
+        
     return chef_dao.update_chef(chef_id, chef_name)
 
     

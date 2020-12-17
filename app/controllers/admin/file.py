@@ -17,4 +17,13 @@ def find_file(file_id):
 
     return file
 
+def update_file(new_file, old_file):
+    now = datetime.utcnow()
+    filename = secure_filename(os.path.join(str(now), new_file.filename))
+    path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+    #os.remove(old_file.path)
+    new_file.save(path)
+    
+    return file_dao.update_file(filename, path, old_file.id)
+
     

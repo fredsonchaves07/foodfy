@@ -33,5 +33,7 @@ def edit_chef(chef_id):
         if request.form['_method']:
             chef_controler.edit_chef(chef_id, file, form)
 
+            return redirect(url_for('chefs.show_chef', chef_id=chef_id))
+
     return render_template('admin/chef/edit.html', chef=chef, form=form)
 

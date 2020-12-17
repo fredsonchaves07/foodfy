@@ -14,16 +14,13 @@ def find_chef(chef_id):
     
     return chef
 
-def update_chef(chef_id, chef_name, file_id=None):
+def update_chef(chef_id, chef_name):
     chef = Chef.query.get(chef_id)
 
-    if file_id or chef_name != chef.name:
-        if file_id:
-            pass
-        
+    if chef_name != chef.name:
         chef.name = chef_name
         chef.modified_at = datetime.utcnow()
         db.session.add(chef)
-        db.session.commit()
-
+        db.session.commit()   
+    
     return 
