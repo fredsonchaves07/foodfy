@@ -1,6 +1,11 @@
 from app.dao import chef as chef_dao
 from app.controllers.admin import file as file_controller
 
+def list_chefs():
+    chefs = chef_dao.all_chef()
+
+    return chefs
+
 def create_chef(form, file):
     chef_name = form.name.data
     chef_avatar = file['avatar']

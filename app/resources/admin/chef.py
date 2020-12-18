@@ -4,6 +4,12 @@ from app.controllers.admin import chef as chef_controler
 
 chefs = Blueprint('chefs', __name__, url_prefix='/admin/chefs')
 
+@chefs.route('/', methods=['GET'])
+def list_chefs():
+    chefs = chef_controler.list_chefs()
+    return render_template('admin/chef/index.html', chefs=chefs)
+
+
 @chefs.route('/create', methods=['GET', 'POST'])
 def create_chef():
     form = RegistrationChef(request.form)

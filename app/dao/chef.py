@@ -2,6 +2,23 @@ from datetime import datetime
 from app.db import db
 from app.db.models import File, Chef
 
+def all_chef():
+    sql = db.select([
+        db.text(
+            """
+               c."ID" as id , 
+               f."NAME" as avatar, 
+               c."NAME" as name 
+               FROM "FCHEF" c
+
+               INNER JOIN "FFILES" f
+               ON f."ID" = c."FILEID" 
+            """
+        )
+    ])
+
+    return db.engine.execute(sql).fetchall()
+
 def create_chef(name, file_id, ):
     chef = Chef(name=name, file_id=file_id)
     db.session.add(chef)
