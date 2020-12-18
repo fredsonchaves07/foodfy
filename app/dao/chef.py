@@ -24,3 +24,9 @@ def update_chef(chef_id, chef_name):
         db.session.commit()   
     
     return 
+
+def delete_chef(chef):
+    db.session.delete(chef)
+    db.session.commit()
+    
+    return

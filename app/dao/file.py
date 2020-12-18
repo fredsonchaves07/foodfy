@@ -21,3 +21,7 @@ def update_file(filename, path, file_id):
     db.session.commit()
     
     return
+
+def remove_file(file):
+    db.session.delete(file)
+    db.session.commit()

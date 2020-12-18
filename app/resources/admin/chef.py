@@ -30,10 +30,16 @@ def edit_chef(chef_id):
     file = request.files
     
     if request.method == 'POST':
-        if request.form['_method']:
+        if request.form['_method'] == 'PUT':
             chef_controler.edit_chef(chef_id, file, form)
 
             return redirect(url_for('chefs.show_chef', chef_id=chef_id))
+        
+        if request.form['_method'] == 'DELETE':
+            chef_controler.delete_chef(chef_id)
+
+            return redirect(url_for('chefs.create_chef'))
+        
 
     return render_template('admin/chef/edit.html', chef=chef, form=form)
 
