@@ -1,0 +1,36 @@
+{% extends "admin/base.html" %}
+{% block content %}
+    <div class="content-header">
+        <h2>Editando Chef</h2>
+        <div>
+            <button type="submit" class="button button-delete" form="form-delete">Deletar</button>
+            {#
+            {% if recipes == "" %}
+            <button type="submit" class="button button-delete" form="form-delete">Deletar</button>
+            {%else%}
+            <button type="submit" class="button button-disabled" form="form-delete" disabled>Deletar</button>
+            {{% endif %}
+            #}
+            <button type="submit" class="button" form="form-edit">Salvar</button>
+        </div>
+    </div>
+    <form action="{{url_for('chefs.edit_chef', chef_id=chef.id)}}" method="POST" id="form-edit" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="PUT">
+        <div class="content-form">
+            <div class="content-form-avatar">
+                <img src="{{url_for('static', filename='img/{}'.format(chef.avatar))}}" alt="foto do chef {{chef.name}}">
+            </div>
+
+            <div>
+                {% include "admin/chef/fields.html" %}
+            </div>
+        </div>
+    </form>
+
+    
+    <form action="{{url_for('chefs.edit_chef', chef_id=chef.id)}}" method="POST" id="form-delete">
+        <input type="hidden" name="_method" value="DELETE">
+    </form>
+
+{#{% include 'components/confirmationDelete.njk' %}#}
+{% endblock content %}
