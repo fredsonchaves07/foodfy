@@ -44,7 +44,7 @@ def edit_chef(chef_id):
         if request.form['_method'] == 'DELETE':
             chef_controler.delete_chef(chef_id)
 
-            return redirect(url_for('chefs.create_chef'))
+            return redirect(url_for('chefs.list_chefs'))
         
 
     return render_template('admin/chef/edit.html', chef=chef, form=form)
