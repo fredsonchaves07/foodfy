@@ -1,2 +1,6 @@
 flask
 dynaconf
+flask_wtf
+flask_sqlalchemy
+flask_migrate
+psycopg2

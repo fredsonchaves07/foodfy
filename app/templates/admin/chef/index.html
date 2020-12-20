@@ -1,0 +1,26 @@
+{% extends "admin/base.html" %}
+{% block content %}
+    <div class='content-header'>
+        <h2>Gerenciar chefs</h2>
+        <a href="{{url_for('chefs.create_chef')}}" class="button">Novo Chef</a>
+    </div>
+
+    <div class="cards cards-chefs">
+        {% for chef in chefs %}
+        
+        <div class="card">
+            <section class="card-img-chef">
+                <img src="{{url_for('static', filename='img/{}'.format(chef.avatar))}}" alt="foto do chef {{chef.name}}">
+            </section>
+            <section class="card-details">
+                <div>
+                    {{chef.name}}
+                </div>
+                <div>
+                    <a href="{{url_for('chefs.show_chef', chef_id=chef.id)}}">Visualizar</a>
+                </div>
+            </section>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
