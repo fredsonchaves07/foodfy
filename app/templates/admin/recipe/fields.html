@@ -1,0 +1,108 @@
+<div>
+    <fieldset>
+        <div class="item">
+            <label for="">Imagem da receita</label>
+            <div class="photo-item">
+                <label id="photo-upload" for="recipe_img">
+                    {{form.recipe_img(
+                        accept="image/*",
+                        onchange = "PhotosUpload.fileUpload(event)",
+                    )}}
+                    <i class="material-icons">add</i> 
+                </label> 
+                <div id="photos-preview">
+                </div>
+                <!--
+                {#
+                <div id="photos-preview">
+                    {% if recipe.recipeFiles %}
+                        {% for image in recipe.recipeFiles %}
+                            <div class="photo" id={{image.file_id}}>
+                                <img src="{{image.path}}">
+                                <i class="material-icons" onclick="PhotosUpload.removePhoto(event)">close</i>
+                            </div>
+                        {% endfor %}
+                    <input type="hidden" name="removed_files">
+                    {% endif %}
+                </div>  
+                #}
+                -->
+            </div>
+        </div>
+
+        <div class="item">
+            <label for="chef">Chef</label>
+            {{form.chef}}
+
+            {#
+            <select name="chef" id="" required> 
+                <option value="" disabled selected >Selecione o chef</option>
+                {% for chef in chefs %}
+                    <option value="{{chef.id}}"
+                            {% if recipe.chef_id == chef.id %}
+                                selected
+                            {% endif %}>
+                            {{chef.name}}
+                    </option>
+                {% endfor %}
+               
+            </select>
+            #}
+        </div>
+
+        <div class="item">
+            <label for="name">Título da Receita</label>
+            {{form.name}}
+        </div>
+
+        <div class="item">
+            <label for="ingredients">Ingredientes</label>
+            <div id="ingredients">
+                {{form.ingredients}}
+                {#
+                {% if recipe %}
+                    {% for ingredient in recipe.ingredients %}
+                    <div class="ingredient">
+                        <input value="{{ingredient}}" type="text" name="ingredients[]" placeholder="Digite o ingrediente" required> 
+                    </div> 
+                    {% endfor %}
+                {% else %}
+                    <div class="ingredient">
+                        <input value="{{ingredient}}" type="text" name="ingredients[]" placeholder="Digite o ingrediente" required> 
+                    </div> 
+                {% endif %}
+                #}
+            </div>
+            <input type="button" value="Adicionar novo ingrediente" class="add-ingredient" onclick="addIngredient()">
+        </div>
+
+        <div class="item">
+            <label for="preparation">Modo de Preparo</label>
+            <div id="preparation">
+                {{form.preparation}}
+                {#
+                {% if recipe %}
+                    {% for preparation in recipe.preparation %}
+                    <div class="preparation">
+                        <input value="{{preparation}}" type="text" name="preparation[]" placeholder="Digite o modo de preparo" required>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="preparation">
+                        <input value="{{preparation}}" type="text" name="preparation[]" placeholder="Digite o modo de preparo" required>
+                    </div>
+                {% endif %}
+                #}
+            </div>
+            <input type="button" value="Adicionar novo passo" class="add-preparation" onclick="addPreparation()">
+        </div>
+
+        <div class="item">
+            <label for="adicional_information">Informações adicionais</label>
+            {{form.adicional_information}}
+        </div>
+
+
+    </fieldset>
+</div>
+

@@ -4,4 +4,4 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 @admin.route('/', methods=['GET'])
 def index():
-    return redirect(url_for('chefs.create_chef'))
+    return redirect(url_for('recipes.create_recipe'))
