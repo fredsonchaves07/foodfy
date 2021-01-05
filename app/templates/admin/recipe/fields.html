@@ -58,7 +58,20 @@
         <div class="item">
             <label for="ingredients">Ingredientes</label>
             <div id="ingredients">
-                {{form.ingredients}}
+                {% if form.ingredients %}
+                {% for ingredient in form.ingredients %}
+                    <div class="ingredient">
+                            {{ingredient}}
+                        
+                    </div>
+                {% endfor %} 
+                {% else %}
+                    <div class="ingredient">
+                        {{form.ingredients.append_entry()}}
+                    </div>       
+                {% endif %}
+                
+                
                 {#
                 {% if recipe %}
                     {% for ingredient in recipe.ingredients %}
@@ -67,9 +80,7 @@
                     </div> 
                     {% endfor %}
                 {% else %}
-                    <div class="ingredient">
-                        <input value="{{ingredient}}" type="text" name="ingredients[]" placeholder="Digite o ingrediente" required> 
-                    </div> 
+
                 {% endif %}
                 #}
             </div>
