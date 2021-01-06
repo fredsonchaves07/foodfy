@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for
 from app.controllers.admin.form import RegistrationRecipe
-from app.controllers.admin import recipe
+from app.controllers.admin import recipe as recipe_controller
 
 recipes = Blueprint('recipes', __name__, url_prefix='/admin/recipes')
 
@@ -13,6 +13,7 @@ def list_recipes():
 @recipes.route('/create', methods=['GET', 'POST'])
 def create_recipe():
     form = RegistrationRecipe(request.form)
+    form.chef.choices = form.chef.choices + recipe_controller.list_chef_recipe()
     file = request.files
     
     if request.method == 'POST':

@@ -10,10 +10,9 @@ class RegistrationChef(FlaskForm):
     
 class RegistrationRecipe(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
-    chef = SelectField('chef')
+    chef = SelectField('chef', choices=[("", "Selecione um chef")], validators=[DataRequired()])
     ingredients = FieldList(StringField('ingredients[]', validators=[DataRequired()]))
     preparations = FieldList(StringField('preparations[]', validators=[DataRequired()]))
-    preparation = StringField('preparation[]')
     adicional_information = TextAreaField('adicional_information')
     recipe_img = MultipleFileField('recipe_img')
     
