@@ -62,7 +62,6 @@
                 {% for ingredient in form.ingredients %}
                     <div class="ingredient">
                             {{ingredient}}
-                        
                     </div>
                 {% endfor %} 
                 {% else %}
@@ -70,40 +69,24 @@
                         {{form.ingredients.append_entry()}}
                     </div>       
                 {% endif %}
-                
-                
-                {#
-                {% if recipe %}
-                    {% for ingredient in recipe.ingredients %}
-                    <div class="ingredient">
-                        <input value="{{ingredient}}" type="text" name="ingredients[]" placeholder="Digite o ingrediente" required> 
-                    </div> 
-                    {% endfor %}
-                {% else %}
-
-                {% endif %}
-                #}
             </div>
             <input type="button" value="Adicionar novo ingrediente" class="add-ingredient" onclick="addIngredient()">
         </div>
 
         <div class="item">
-            <label for="preparation">Modo de Preparo</label>
-            <div id="preparation">
-                {{form.preparation}}
-                {#
-                {% if recipe %}
-                    {% for preparation in recipe.preparation %}
+            <label for="preparations">Modo de Preparo</label>
+            <div id="preparations">
+                {% if form.preparations %}
+                {% for preparation in form.preparations %}
                     <div class="preparation">
-                        <input value="{{preparation}}" type="text" name="preparation[]" placeholder="Digite o modo de preparo" required>
+                            {{preparation}}
                     </div>
-                    {% endfor %}
+                {% endfor %} 
                 {% else %}
                     <div class="preparation">
-                        <input value="{{preparation}}" type="text" name="preparation[]" placeholder="Digite o modo de preparo" required>
-                    </div>
+                        {{form.preparations.append_entry()}}
+                    </div>       
                 {% endif %}
-                #}
             </div>
             <input type="button" value="Adicionar novo passo" class="add-preparation" onclick="addPreparation()">
         </div>

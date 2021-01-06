@@ -7,12 +7,12 @@ class RegistrationChef(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     avatar = FileField('avatar')
 
-class IngredientRecipe(FlaskForm):
-    name = StringField('name')
     
 class RegistrationRecipe(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
+    chef = SelectField('chef')
     ingredients = FieldList(StringField('ingredients[]', validators=[DataRequired()]))
+    preparations = FieldList(StringField('preparations[]', validators=[DataRequired()]))
     preparation = StringField('preparation[]')
     adicional_information = TextAreaField('adicional_information')
     recipe_img = MultipleFileField('recipe_img')
