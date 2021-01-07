@@ -20,6 +20,18 @@ def create_recipe(form, file):
         recipe_dao.create_recipe_file(recipe_id=recipe_id, file_id=file_id)
     
     return recipe_id
+
+def show_recipe(recipe_id):
+    files = []
+    recipe = recipe_dao.find_recipe(recipe_id)
+    recipe_file = recipe_dao.find_recipe_file(recipe_id)
+
+    for file in recipe_file:
+        files.append(file_controller.find_file(file.file_id))
+
+    recipe.recipe_img = files
+    
+    return recipe
     
 
 def list_chef_recipe():

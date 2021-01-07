@@ -19,3 +19,14 @@ def create_recipe_file(recipe_id, file_id):
     recipe_file = RecipeFile(recipe_id=recipe_id, file_id=file_id)
     db.session.add(recipe_file)
     db.session.commit()
+
+
+def find_recipe(recipe_id):
+    recipe = Recipe.query.filter_by(id=recipe_id).first()
+    
+    return recipe
+
+def find_recipe_file(recipe_id):
+    recipe_file = RecipeFile.query.filter_by(recipe_id=recipe_id).all()
+
+    return recipe_file
