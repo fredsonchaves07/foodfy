@@ -17,9 +17,9 @@ def create_recipe():
     file = request.files
     
     if request.method == 'POST':
-        # chef_id = chef_controler.create_chef(form, file)
+        recipe_id = recipe_controller.create_recipe(form, file)
 
-        # return redirect(url_for('chefs.show_chef', chef_id=chef_id))
-        print(request.files)
-        print(form.data)
+        return 'ok'
+        return redirect(url_for('recipes.show_recipe', recipe_id=recipe_id))
+
     return render_template('admin/recipe/create.html', form=form)

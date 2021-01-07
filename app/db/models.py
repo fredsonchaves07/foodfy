@@ -34,4 +34,14 @@ class Recipe(db.Model):
     created_at = db.Column('CREATEDAT', db.DateTime, nullable=False, default=datetime.utcnow)
     modified_at = db.Column('MODIFIEDAT', db.DateTime, nullable=False, default=datetime.utcnow)
 
-    chef = db.relationship("File", foreign_keys=chef_id)
+    chef = db.relationship("Chef", foreign_keys=chef_id)
+
+
+class RecipeFile(db.Model):
+    __tablename__ = 'FRECIPEFILES'
+    id = db.Column('ID', db.Integer, primary_key=True)
+    recipe_id = db.Column('RECIPEID', db.Integer, db.ForeignKey('FRECIPE.ID'))
+    file_id = db.Column('FILEID', db.Integer, db.ForeignKey('FFILES.ID'))
+
+    recipe = db.relationship("Recipe", foreign_keys=recipe_id)
+    file = db.relationship("File", foreign_keys=file_id)
