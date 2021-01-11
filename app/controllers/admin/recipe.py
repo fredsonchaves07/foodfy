@@ -24,10 +24,14 @@ def create_recipe(form, file):
 def show_recipe(recipe_id):
     files = []
     recipe = recipe_dao.find_recipe(recipe_id)
-    recipe_file = recipe_dao.find_recipe_file(recipe_id)
+    chef = chef_dao.find_chef(recipe.chef_id)
+    recipe_files = recipe_dao.find_recipe_file(recipe_id)
+    recipe.chef_name = chef.name
+    print(chef.name)
 
-    for file in recipe_file:
-        files.append(file_controller.find_file(file.file_id))
+    for recipe_file in recipe_files:
+        file = file_controller.find_file(recipe_file.file_id)
+        files.append(file.name)
 
     recipe.recipe_img = files
     

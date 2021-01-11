@@ -5,15 +5,15 @@
     <a href="{{url_for('recipes.edit_recipe', recipe_id=recipe.id)}}" class="button">Editar receita</a>
 </div>
 <section class="recipe-show-header">
-    <img src="{{recipe.imagesFile[0]}}" alt="imagem da receita {{recipe.title}}">
+    <img src="{{url_for('static', filename='img/{}'.format(recipe.recipe_img[0]))}}" alt="imagem da receita {{recipe.name}}">
     <div class="recipe-gallery">
-        {% for image in recipe.imagesFile %}
-            <img src="{{image}}" alt="" onclick="ImageGallery.setImage(event)" 
-            {% if image == recipe.imagesFile[0]%} class="active" {% endif %}>
+        {% for image in recipe.recipe_img %}
+            <img src="{{url_for('static', filename='img/{}'.format(image))}}" alt="" onclick="ImageGallery.setImage(event)" 
+            {% if image == recipe.recipe_img[0]%} class="active" {% endif %}>
         {% endfor %}
     </div>
-    <h1>{{recipe.title}}</h1>
-    <div>por {{recipe.author}}</div>
+    <h1>{{recipe.name}}</h1>
+    <div>por {{recipe.chef_name}}</div>
 </section>
 <section class="class-recipe-details">
     <div class="item">
@@ -27,16 +27,16 @@
     <div class="item">
         <h2>Modo de Preparo</h2>
         <ul>
-            {% for preparation in recipe.preparation %}
+            {% for preparation in recipe.preparations %}
                 <li>{{preparation}}</li>
             {% endfor %}
         </ul>
         </div>
-    {% if recipe.information != "" %}
+    {% if recipe.adicional_information != "" %}
     <div class="item">
         <h2>Informações adicionais</h2>
         <p>
-            {{recipe.information}}
+            {{recipe.adicional_information}}
         </p>
     </div>
     {% endif %}
