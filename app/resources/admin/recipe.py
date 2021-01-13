@@ -33,14 +33,17 @@ def show_recipe(recipe_id):
 
 @recipes.route('/<recipe_id>/edit', methods=['GET', 'POST'])
 def edit_recipe(recipe_id):
-    pass
-    # chef = chef_controler.show_chef(chef_id)
-    # form = RegistrationChef(obj=chef)
-    # file = request.files
+    recipe = recipe_controller.show_recipe(recipe_id)
+    form = RegistrationRecipe(obj=recipe)
+    form.chef.choices = form.chef.choices + recipe_controller.list_chef_recipe()
+    file = request.files
+    
+    print(form.chef)
+    
     
     # if request.method == 'POST':
-    #     if request.form['_method'] == 'PUT':
-    #         chef_controler.edit_chef(chef_id, file, form)
+    #      if request.form['_method'] == 'PUT':
+    #          recipe_controller.edit_chef(recipe_id, file, form)
 
     #         return redirect(url_for('chefs.show_chef', chef_id=chef_id))
         
@@ -50,4 +53,4 @@ def edit_recipe(recipe_id):
     #         return redirect(url_for('chefs.list_chefs'))
         
 
-    # return render_template('admin/chef/edit.html', chef=chef, form=form)
+    return render_template('admin/recipe/edit.html', recipe=recipe, form=form)

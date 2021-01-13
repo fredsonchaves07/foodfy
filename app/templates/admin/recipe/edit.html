@@ -1,0 +1,26 @@
+{% extends "admin/base.html" %}
+{% block content %}
+    <div class="content-header">
+        <h2>Editando Receita</h2>
+        <div>
+            <button type="submit" class="button button-delete" form="form-delete">Deletar</button>
+            <button type="submit" class="button" form="form-edit">Salvar</button>
+        </div>
+    </div>
+    
+    <form action="{{url_for('recipes.edit_recipe', recipe_id=recipe.id)}}" method="POST" id="form-edit" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="PUT">
+        <div>
+            {% include "admin/recipe/fields.html" %}
+        </div>
+    </form>
+
+    <form action="{{url_for('recipes.edit_recipe', recipe_id=recipe.id)}}" method="POST" id="form-delete">
+        <input type="hidden" name="_method" value="DELETE">
+    </form>
+
+{#
+{% include "components/confirmationDelete.njk" %}
+{% include "components/utils.njk" %}
+#}
+{% endblock %}
