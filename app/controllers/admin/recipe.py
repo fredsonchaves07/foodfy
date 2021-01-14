@@ -44,13 +44,22 @@ def show_recipe(recipe_id):
     return recipe
     
 
-def edit_recipe(recipe_id, file, form):
-    chef_name = form.name.data
-    new_file = file['avatar']
+def edit_recipe(recipe_id, files, form):
+    recipe_name = form.name.data
+    recipe_chef = form.chef.data
+    recipe_ingredients = form.ingredients.data
+    recipe_preparations = form.preparations.data
+    recipe_adicional_information = form.adicional_information.data
     
-    if new_file:
-        chef = chef_dao.find_chef(chef_id)
-        old_file = file_controller.find_file(chef.file_id)
-        file_controller.update_file(new_file, old_file)
+    if files:
+        for recipe_img in files.getlist('recipe_img'):
+            file_id = file_controller.create_file(recipe_img)
+            recipe_dao.create_recipe_file(recipe_id=recipe_id, file_id=file_id)
+
         
-    return chef_dao.update_chef(chef_id, chef_name)
+    return recipe_dao.update_recipe(recipe_id=recipe_id, 
+                                    name=recipe_name,
+                                    chef_id=recipe_chef,
+                                    ingredients=recipe_ingredients,
+                                    preparations=recipe_preparations,
+                                    adicional_information=recipe_adicional_information)

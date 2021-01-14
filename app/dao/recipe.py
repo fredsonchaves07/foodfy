@@ -26,6 +26,23 @@ def find_recipe(recipe_id):
     
     return recipe
 
+
+def update_recipe(recipe_id, name, chef_id, ingredients, preparations, adicional_information):
+    recipe = Recipe.query.get(recipe_id)
+
+    if name != recipe.name or chef_id != recipe.chef_id or ingredients != recipe.ingredients or preparations != recipe.preparations or adicional_information != recipe.adicional_information:
+        recipe.name = name
+        recipe.chef_id = chef_id
+        recipe.ingredients = ingredients
+        recipe.preparations = preparations
+        recipe.adicional_information = adicional_information
+        recipe.modified_at = datetime.utcnow()
+        db.session.add(recipe)
+        db.session.commit()   
+    
+    return 
+
+
 def find_recipe_file(recipe_id):
     recipe_file = RecipeFile.query.filter_by(recipe_id=recipe_id).all()
 
