@@ -35,10 +35,9 @@ def show_recipe(recipe_id):
 def edit_recipe(recipe_id):
     recipe = recipe_controller.show_recipe(recipe_id)
     form = RegistrationRecipe(obj=recipe)
-    form.chef.choices = form.chef.choices + recipe_controller.list_chef_recipe()
+    form.chef.choices = recipe_controller.list_chef_recipe()
+    form.chef.data = recipe.chef.id
     file = request.files
-    
-    print(form.chef)
     
     
     # if request.method == 'POST':
