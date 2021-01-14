@@ -30,22 +30,6 @@
         <div class="item">
             <label for="chef">Chef</label>
             {{form.chef}}
-            {{form.chef.choices[(2, 'Fredson')]}}
-
-            {#
-            <select name="chef" id="" required> 
-                <option value="" disabled selected >Selecione o chef</option>
-                {% for chef in chefs %}
-                    <option value="{{chef.id}}"
-                            {% if recipe.chef_id == chef.id %}
-                                selected
-                            {% endif %}>
-                            {{chef.name}}
-                    </option>
-                {% endfor %}
-               
-            </select>
-            #}
         </div>
 
         <div class="item">
