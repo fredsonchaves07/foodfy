@@ -37,10 +37,11 @@ def edit_recipe(recipe_id):
     form = RegistrationRecipe(obj=recipe)
     form.chef.choices = recipe_controller.list_chef_recipe()
     form.chef.data = recipe.chef.id
-    files = request.files    
+    files = request.files
     
     if request.method == 'POST':
         if request.form['_method'] == 'PUT':
+            print(request.form)
             recipe_controller.edit_recipe(recipe_id, files, form)
 
             return redirect(url_for('recipes.show_recipe', recipe_id=recipe_id))

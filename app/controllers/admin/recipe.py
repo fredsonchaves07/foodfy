@@ -51,12 +51,14 @@ def edit_recipe(recipe_id, files, form):
     recipe_preparations = form.preparations.data
     recipe_adicional_information = form.adicional_information.data
     
-    if files:
-        for recipe_img in files.getlist('recipe_img'):
+    print(files.getlist('recipe_img'))
+
+    for recipe_img in files.getlist('recipe_img'):
+        if recipe_img.filename:
             file_id = file_controller.create_file(recipe_img)
             recipe_dao.create_recipe_file(recipe_id=recipe_id, file_id=file_id)
-
-        
+      
+               
     return recipe_dao.update_recipe(recipe_id=recipe_id, 
                                     name=recipe_name,
                                     chef_id=recipe_chef,

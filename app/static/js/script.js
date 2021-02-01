@@ -121,7 +121,9 @@ const PhotosUpload = {
         const index = photoArray.indexOf(photoDiv)
 
         PhotosUpload.photosList.splice(index, 1)
+        console.log(PhotosUpload.photosList)
         PhotosUpload.inputFile.files = PhotosUpload.getAllFiles()
+        console.log(PhotosUpload.inputFile.files)
 
         photoDiv.remove()
 
