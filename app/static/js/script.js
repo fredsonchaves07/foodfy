@@ -35,6 +35,7 @@ const PhotosUpload = {
         const {files: fileList} = event.target
         PhotosUpload.inputFile = event.target
 
+
         if(PhotosUpload.hasLimit(event)){
             return
         }
@@ -117,13 +118,30 @@ const PhotosUpload = {
 
     removePhoto(event){
         const photoDiv = event.target.parentNode
+        const teste = event.target
         const photoArray = Array.from(PhotosUpload.photoPreview.children)
         const index = photoArray.indexOf(photoDiv)
+        const removedFiles = document.querySelector('input[name="removed_files"]')
+        
+        
+        console.log(photoDiv.children[0])
+        
+        // if(photoDiv.id){	
+        //     const removedFiles = document.querySelector('input[name="removed_files"]')	
+        //     
+        //     if(removedFiles){	
+        //         PhotosUpload.photosRemoveId.push(photoDiv.id)	
+        //     }	
 
+
+        //     removedFiles.value = PhotosUpload.photosRemoveId	
+        // }	
+
+        // if(PhotosUpload.fileList){	
+        //     Array.from(PhotosUpload.fileList).splice(index, 1);	
+        // }
         PhotosUpload.photosList.splice(index, 1)
-        console.log(PhotosUpload.photosList)
         PhotosUpload.inputFile.files = PhotosUpload.getAllFiles()
-        console.log(PhotosUpload.inputFile.files)
 
         photoDiv.remove()
 

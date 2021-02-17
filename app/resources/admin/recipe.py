@@ -39,8 +39,10 @@ def edit_recipe(recipe_id):
     form.chef.data = recipe.chef.id
     files = request.files
     
+    
     if request.method == 'POST':
         if request.form['_method'] == 'PUT':
+            print(files.items)
             print(request.form)
             recipe_controller.edit_recipe(recipe_id, files, form)
 

@@ -15,14 +15,13 @@
                     {% if form.recipe_img.data %}
                         {% for image in form.recipe_img.data %}
                             <div class="photo">
-                                <img src="{{url_for('static', filename='img/{}'.format(image))}}">
+                                <img id="{{image.id}}" src="{{url_for('static', filename='img/{}'.format(image.name))}}">
                                 <i class="material-icons" onclick="PhotosUpload.removePhoto(event)">close</i>
                             </div>
                         {% endfor %}
-                    <input type="hidden" name="removed_files">
                     {% endif %}
                 </div>  
-                
+               
 
             </div>
         </div>

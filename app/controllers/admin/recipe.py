@@ -37,7 +37,7 @@ def show_recipe(recipe_id):
 
     for recipe_file in recipe_files:
         file = file_controller.find_file(recipe_file.file_id)
-        files.append(file.name)
+        files.append(file)
 
     recipe.recipe_img = files
     
@@ -51,12 +51,12 @@ def edit_recipe(recipe_id, files, form):
     recipe_preparations = form.preparations.data
     recipe_adicional_information = form.adicional_information.data
     
-    print(files.getlist('recipe_img'))
+    # print(files.getlist('recipe_img'))
 
-    for recipe_img in files.getlist('recipe_img'):
-        if recipe_img.filename:
-            file_id = file_controller.create_file(recipe_img)
-            recipe_dao.create_recipe_file(recipe_id=recipe_id, file_id=file_id)
+    # for recipe_img in files.getlist('recipe_img'):
+    #     if recipe_img.filename:
+    #         file_id = file_controller.create_file(recipe_img)
+    #         recipe_dao.create_recipe_file(recipe_id=recipe_id, file_id=file_id)
       
                
     return recipe_dao.update_recipe(recipe_id=recipe_id, 
