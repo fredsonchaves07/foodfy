@@ -18,7 +18,9 @@
                                 <img id="{{image.id}}" src="{{url_for('static', filename='img/{}'.format(image.name))}}">
                                 <i class="material-icons" onclick="PhotosUpload.removePhoto(event)">close</i>
                             </div>
+                            
                         {% endfor %}
+                        <input type="hidden" name="removed_files">
                     {% endif %}
                 </div>  
                

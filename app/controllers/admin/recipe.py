@@ -51,7 +51,7 @@ def edit_recipe(recipe_id, files, form):
     recipe_preparations = form.preparations.data
     recipe_adicional_information = form.adicional_information.data
     
-    # print(files.getlist('recipe_img'))
+    print(files.getlist('recipe_img'))
 
     # for recipe_img in files.getlist('recipe_img'):
     #     if recipe_img.filename:

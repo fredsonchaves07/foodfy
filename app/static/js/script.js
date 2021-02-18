@@ -30,6 +30,7 @@ const PhotosUpload = {
     photosList: [],
     photoPreview: document.querySelector('#photos-preview'),
     inputFile: '',
+    photoRemoveId: [],
 
     fileUpload(event){
         const {files: fileList} = event.target
@@ -118,31 +119,22 @@ const PhotosUpload = {
 
     removePhoto(event){
         const photoDiv = event.target.parentNode
-        const teste = event.target
+        const photoId = photoDiv.children[0].id
         const photoArray = Array.from(PhotosUpload.photoPreview.children)
         const index = photoArray.indexOf(photoDiv)
-        const removedFiles = document.querySelector('input[name="removed_files"]')
-        
-        
-        console.log(photoDiv.children[0])
-        
-        // if(photoDiv.id){	
-        //     const removedFiles = document.querySelector('input[name="removed_files"]')	
-        //     
-        //     if(removedFiles){	
-        //         PhotosUpload.photosRemoveId.push(photoDiv.id)	
-        //     }	
+       
+        if(photoId){
+            const removedFiles = document.querySelector('input[name="removed_files"]')
 
+            if(removedFiles){
+                PhotosUpload.photoRemoveId.push(photoId)
+            }
 
-        //     removedFiles.value = PhotosUpload.photosRemoveId	
-        // }	
+            removedFiles.value = PhotosUpload.photoRemoveId
+        }
 
-        // if(PhotosUpload.fileList){	
-        //     Array.from(PhotosUpload.fileList).splice(index, 1);	
-        // }
-        PhotosUpload.photosList.splice(index, 1)
+        PhotosUpload.photosList.splice(index - 3, 1)
         PhotosUpload.inputFile.files = PhotosUpload.getAllFiles()
-
         photoDiv.remove()
 
     },
