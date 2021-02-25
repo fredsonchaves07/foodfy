@@ -39,12 +39,10 @@ def edit_recipe(recipe_id):
     form.chef.data = recipe.chef.id
     files = request.files
     
-    
     if request.method == 'POST':
         if request.form['_method'] == 'PUT':
-            print(files.items)
-            print(request.form)
-            recipe_controller.edit_recipe(recipe_id, files, form)
+            removed_files = request.form['removed_files']
+            recipe_controller.edit_recipe(recipe_id, files, removed_files, form)
 
             return redirect(url_for('recipes.show_recipe', recipe_id=recipe_id))
         

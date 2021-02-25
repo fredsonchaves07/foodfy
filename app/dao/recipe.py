@@ -21,6 +21,16 @@ def create_recipe_file(recipe_id, file_id):
     db.session.commit()
 
 
+def remove_recipe_file(recipe_id, file_id):
+    query = RecipeFile.query.filter(RecipeFile.recipe_id == recipe_id).\
+        filter(RecipeFile.file_id==file_id)
+
+    recipe = query.all()
+    
+    db.session.delete(recipe[0])
+    db.session.commit()
+
+
 def find_recipe(recipe_id):
     recipe = Recipe.query.filter_by(id=recipe_id).first()
     

@@ -44,19 +44,22 @@ def show_recipe(recipe_id):
     return recipe
     
 
-def edit_recipe(recipe_id, files, form):
+def edit_recipe(recipe_id, files, removed_files, form):
     recipe_name = form.name.data
     recipe_chef = form.chef.data
     recipe_ingredients = form.ingredients.data
     recipe_preparations = form.preparations.data
     recipe_adicional_information = form.adicional_information.data
-    
-    print(files.getlist('recipe_img'))
+    remove_files_id = removed_files.split(',')  
 
-    # for recipe_img in files.getlist('recipe_img'):
-    #     if recipe_img.filename:
-    #         file_id = file_controller.create_file(recipe_img)
-    #         recipe_dao.create_recipe_file(recipe_id=recipe_id, file_id=file_id)
+    for recipe_img in files.getlist('recipe_img'):
+        if recipe_img.filename:
+            file_id = file_controller.create_file(recipe_img)
+            recipe_dao.create_recipe_file(recipe_id=recipe_id, file_id=file_id)
+    
+    if remove_files_id:
+        for file_id in remove_files_id:
+            recipe_dao.remove_recipe_file(recipe_id=recipe_id, file_id=file_id)
       
                
     return recipe_dao.update_recipe(recipe_id=recipe_id, 
