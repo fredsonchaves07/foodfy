@@ -51,5 +51,4 @@ def edit_recipe(recipe_id):
 
     #         return redirect(url_for('chefs.list_chefs'))
         
-
     return render_template('admin/recipe/edit.html', recipe=recipe, form=form)

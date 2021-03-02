@@ -5,10 +5,10 @@
     <a href="{{url_for('recipes.edit_recipe', recipe_id=recipe.id)}}" class="button">Editar receita</a>
 </div>
 <section class="recipe-show-header">
-    <img src="{{url_for('static', filename='img/{}'.format(recipe.recipe_img[0]))}}" alt="imagem da receita {{recipe.name}}">
+    <img src="{{url_for('static', filename='img/{}'.format(recipe.recipe_img[0].name))}}" alt="imagem da receita {{recipe.name}}">
     <div class="recipe-gallery">
         {% for image in recipe.recipe_img %}
-            <img src="{{url_for('static', filename='img/{}'.format(image))}}" alt="" onclick="ImageGallery.setImage(event)" 
+            <img src="{{url_for('static', filename='img/{}'.format(image.name))}}" alt="" onclick="ImageGallery.setImage(event)" 
             {% if image == recipe.recipe_img[0]%} class="active" {% endif %}>
         {% endfor %}
     </div>
