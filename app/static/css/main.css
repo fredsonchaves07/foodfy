@@ -59,7 +59,7 @@ select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url('img/keyboard_arrow_down-black-18dp.svg');
+    background-image: url('/static/img/keyboard_arrow_down-black-18dp.svg');
     background-repeat: no-repeat;
     background-position: right .7em top 50%, 0 0;
 }
