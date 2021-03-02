@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+{% block content %}
+    <div class='content-header'>
+        <h2>Gerenciar receitas</h2>
+        <a href="{{url_for('recipes.create_recipe')}}" class="button">Nova Receita</a>
+    </div>
+
+    <div class="cards cards-recipes">
+        {% for recipe in recipes %}
+        
+        <div class="card">
+            <section class="card-img-recipe">
+                <img src="{{url_for('static', filename='img/{}'.format(recipe.recipe_img))}}" alt="foto da receita {{recipe.name}}">
+            </section>
+            <section class="card-details">
+                <div>
+                    {{recipe.name}}
+                </div>
+                <div>
+                    {{recipe.chef.name}}
+                </div>
+                <div>
+                    <a href="{{url_for('recipes.show_recipe', recipe_id=recipe.id)}}">Visualizar</a>
+                </div>
+            </section>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

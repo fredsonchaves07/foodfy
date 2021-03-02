@@ -3,6 +3,12 @@ from app.db import db
 from app.db.models import File, Recipe, RecipeFile
 
 
+def all_recipes():
+    recipes = Recipe.query.all()
+
+    return recipes
+
+
 def create_recipe(name, chef_id, ingredients, preparations, adicional_information):
     recipe = Recipe(name=name, 
                     chef_id=chef_id, 

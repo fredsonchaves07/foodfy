@@ -2,6 +2,19 @@ from app.dao import chef as chef_dao
 from app.dao import recipe as recipe_dao
 from app.controllers.admin import file as file_controller
 
+
+def list_recipes():
+    recipes = recipe_dao.all_recipes()
+
+    for recipe in recipes:
+        recipe_files_img = recipe_dao.find_recipe_file(recipe.id)
+
+        if recipe_files_img:
+            recipe.recipe_img = recipe_files_img[0].file.name
+
+    return recipes
+
+
 def list_chef_recipe():
     chefs = chef_dao.all_chef() 
 

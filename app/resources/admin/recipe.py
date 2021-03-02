@@ -2,12 +2,15 @@ from flask import Blueprint, request, render_template, redirect, url_for
 from app.controllers.admin.form import RegistrationRecipe
 from app.controllers.admin import recipe as recipe_controller
 
+
 recipes = Blueprint('recipes', __name__, url_prefix='/admin/recipes')
 
 
 @recipes.route('/', methods=['GET'])
 def list_recipes():
-    return render_template('admin/recipes/index')
+    recipes = recipe_controller.list_recipes()
+
+    return render_template('admin/recipe/index.html', recipes=recipes)
 
 
 @recipes.route('/create', methods=['GET', 'POST'])
