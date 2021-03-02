@@ -57,7 +57,7 @@ def edit_recipe(recipe_id, files, removed_files, form):
             file_id = file_controller.create_file(recipe_img)
             recipe_dao.create_recipe_file(recipe_id=recipe_id, file_id=file_id)
     
-    if remove_files_id:
+    if removed_files:
         for file_id in remove_files_id:
             recipe_dao.remove_recipe_file(recipe_id=recipe_id, file_id=file_id)
       
