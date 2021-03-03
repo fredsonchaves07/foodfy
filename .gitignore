@@ -132,4 +132,4 @@ dmypy.json
 migrations/
 
 #vscode
-.vscode/
+.vscode
