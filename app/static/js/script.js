@@ -3,20 +3,27 @@ function addIngredient(){
     const ingredients = document.querySelector('#ingredients')
     const fieldContainer = document.querySelectorAll(".ingredient")
     const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true)
+    const inputId = newField.childNodes[1]
+    inputId.id = `ingredients-${fieldContainer.length}`
+    inputId.name = `ingredients-${fieldContainer.length}`
+
 
     if(newField.children[0].value == ""){
         return false
     }
 
     newField.children[0].value = ""
-            
-        ingredients.appendChild(newField)
+
+    ingredients.appendChild(newField)
     }
 
 function addPreparation(){
     const preparations = document.querySelector('#preparations')
     const fieldContainer = document.querySelectorAll(".preparation")
     const newField = fieldContainer[fieldContainer.length - 1].cloneNode(true)
+    const inputId = newField.childNodes[1]
+    inputId.id = `preparations-${fieldContainer.length}`
+    inputId.name = `preparations-${fieldContainer.length}`
 
     if(newField.children[0].value == ""){
         return false
@@ -25,7 +32,7 @@ function addPreparation(){
     newField.children[0].value = ""
 
     preparations.appendChild(newField)
-            
+
 }
 
 const modal = document.querySelector('.modal-background')
