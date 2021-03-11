@@ -10,7 +10,8 @@
                     <label id="photo-upload" for="avatar" class="button">
                         {% if form.avatar.data %}
                             {{form.avatar(
-                                accept="image/*"
+                                accept="image/*",
+                                onchange = "PhotoChef.change(event)"
                             )}}
                         {% else  %}                           
                             {{form.avatar(
