@@ -8,9 +8,17 @@
             <div class="item">
                 <label for="avatar" >Avatar URL</label>
                     <label id="photo-upload" for="avatar" class="button">
-                        {{form.avatar(
-                            accept="image/*",
-                        )}}
+                        {% if form.avatar.data %}
+                            {{form.avatar(
+                                accept="image/*",
+                                onchange = "PhotoChef.change(event)"
+                            )}}
+                        {% else  %}                           
+                            {{form.avatar(
+                                accept="image/*",
+                                required="true"
+                            )}}
+                        {% endif %}
                         Enviar avatar
                     </label> 
             </div>
