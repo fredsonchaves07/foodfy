@@ -43,6 +43,12 @@ def find_recipe(recipe_id):
     return recipe
 
 
+def list_recipes_chef(id):
+    list_recipes_chef = Recipe.query.filter_by(chef_id=id).all()
+    
+    return list_recipes_chef
+
+
 def update_recipe(recipe_id, name, chef_id, ingredients, preparations, adicional_information):
     recipe = Recipe.query.get(recipe_id)
 
