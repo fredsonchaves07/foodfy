@@ -51,9 +51,7 @@ def edit_chef(chef_id, file, form):
 def delete_chef(chef_id):
     chef = show_chef(chef_id)
     file = file_controller.find_file(chef.file_id)
+    
     chef_dao.delete_chef(chef)
     file_controller.remove_file(file)
-    # Verificia se existe receita. Exclusão não pode realizar se tiver receita
-    return
-
     
