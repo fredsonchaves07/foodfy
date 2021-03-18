@@ -69,3 +69,10 @@ def find_recipe_file(recipe_id):
     recipe_file = RecipeFile.query.filter_by(recipe_id=recipe_id).all()
 
     return recipe_file
+
+
+def delete_recipe(recipe):
+    db.session.delete(recipe)
+    db.session.commit()
+    
+    return

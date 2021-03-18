@@ -49,9 +49,9 @@ def edit_recipe(recipe_id):
 
             return redirect(url_for('recipes.show_recipe', recipe_id=recipe_id))
         
-    #     if request.form['_method'] == 'DELETE':
-    #         chef_controler.delete_chef(chef_id)
+        if request.form['_method'] == 'DELETE':
+            recipe_controller.delete_recipe(recipe_id)
 
-    #         return redirect(url_for('chefs.list_chefs'))
+            return redirect(url_for('recipes.list_recipes'))
         
     return render_template('admin/recipe/edit.html', recipe=recipe, form=form)
