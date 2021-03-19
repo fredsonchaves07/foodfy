@@ -26,8 +26,8 @@ def update_file(new_file, old_file):
     
     return file_dao.update_file(filename, path, old_file.id)
 
+
 def remove_file(file):
-    # os.remove(file.path)
+    os.remove(file.path)
     file_dao.remove_file(file)
-    
     

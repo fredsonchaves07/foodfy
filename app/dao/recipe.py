@@ -43,6 +43,12 @@ def find_recipe(recipe_id):
     return recipe
 
 
+def list_recipes_chef(id):
+    list_recipes_chef = Recipe.query.filter_by(chef_id=id).all()
+    
+    return list_recipes_chef
+
+
 def update_recipe(recipe_id, name, chef_id, ingredients, preparations, adicional_information):
     recipe = Recipe.query.get(recipe_id)
 
@@ -63,3 +69,10 @@ def find_recipe_file(recipe_id):
     recipe_file = RecipeFile.query.filter_by(recipe_id=recipe_id).all()
 
     return recipe_file
+
+
+def delete_recipe(recipe):
+    db.session.delete(recipe)
+    db.session.commit()
+    
+    return

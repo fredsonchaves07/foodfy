@@ -1,4 +1,5 @@
 from app.dao import chef as chef_dao
+from app.dao import recipe as recipe_dao
 from app.controllers.admin import file as file_controller
 
 def list_chefs():
@@ -16,7 +17,22 @@ def create_chef(form, file):
 def show_chef(chef_id):
     chef = chef_dao.find_chef(chef_id)
     file = file_controller.find_file(chef.file_id)
+    list_recipes_chef = recipe_dao.list_recipes_chef(chef_id)
+    list_recipes = []
+    
+    for recipe in list_recipes_chef:
+        image = recipe_dao.find_recipe_file(recipe.id)[0]
+        
+        recipes = {
+            'id': recipe.id,
+            'name': recipe.name,
+            'image': image.file.name
+        }
+        
+        list_recipes.append(recipes)
+    
     chef.avatar = file.name
+    chef.recipes = list_recipes
     
     return chef
 
@@ -35,9 +51,7 @@ def edit_chef(chef_id, file, form):
 def delete_chef(chef_id):
     chef = show_chef(chef_id)
     file = file_controller.find_file(chef.file_id)
+    
     chef_dao.delete_chef(chef)
     file_controller.remove_file(file)
-    # Verificia se existe receita. Exclusão não pode realizar se tiver receita
-    return
-
     

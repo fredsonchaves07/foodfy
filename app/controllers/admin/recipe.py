@@ -81,3 +81,14 @@ def edit_recipe(recipe_id, files, removed_files, form):
                                     ingredients=recipe_ingredients,
                                     preparations=recipe_preparations,
                                     adicional_information=recipe_adicional_information)
+    
+    
+def delete_recipe(recipe_id):
+    recipe = show_recipe(recipe_id)
+    list_recipe_imgs = recipe.recipe_img
+    
+    for file in list_recipe_imgs:
+        recipe_dao.remove_recipe_file(recipe_id=recipe_id, file_id=file.id)
+        file_controller.remove_file(file)
+    
+    recipe_dao.delete_recipe(recipe)
