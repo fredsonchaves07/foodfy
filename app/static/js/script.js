@@ -1,4 +1,12 @@
 // TODO -> refatorar todo os scripts
+const formDelete = document.getElementById('form-delete')
+formDelete.addEventListener('submit', function(event){
+const confirmation = confirm('Deseja deletar?')
+if(!confirmation){
+    event.preventDefault()
+}
+})
+
 function addIngredient(){
     const ingredients = document.querySelector('#ingredients')
     const fieldContainer = document.querySelectorAll(".ingredient")
