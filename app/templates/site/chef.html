@@ -1,0 +1,18 @@
+{% extends 'site/base.html' %}
+{% block content %}
+    <div class="cards cards-chefs">
+        {% for chef in chefs %}
+        
+        <div class="card">
+            <section class="card-img-chef">
+                <img src="{{url_for('static', filename='img/{}'.format(chef.avatar))}}" alt="foto do chef {{chef.name}}">
+            </section>
+            <section class="card-details">
+                <div>
+                    {{chef.name}}
+                </div>
+            </section>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
