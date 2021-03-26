@@ -19,14 +19,21 @@ def about():
 
 
 @site.route('/recipes', methods=['GET'])
-def recipes():
+def list_recipes():
     recipes = recipe_controller.list_recipes()
     
     return render_template('site/recipe.html', recipes=recipes)
 
 
+@site.route('/recipes/<recipe_id>', methods=['GET'])
+def show_recipe(recipe_id):
+    recipe = recipe_controller.show_recipe(recipe_id)
+    
+    return render_template('site/view-recipe.html', recipe=recipe)
+
+
 @site.route('/chefs', methods=['GET'])
-def chefs():
+def list_chefs():
     chefs = chef_controller.list_chefs()
     
     return render_template('site/chef.html', chefs=chefs)
