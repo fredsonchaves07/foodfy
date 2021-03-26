@@ -37,3 +37,10 @@ def list_chefs():
     chefs = chef_controller.list_chefs()
     
     return render_template('site/chef.html', chefs=chefs)
+
+
+@site.route('/chefs/<chef_id>', methods=['GET'])
+def show_chef(chef_id):
+    chef = chef_controller.show_chef(chef_id)
+    
+    return render_template('site/view-chef.html', chef=chef)
