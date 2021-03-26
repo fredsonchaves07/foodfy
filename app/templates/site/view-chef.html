@@ -1,0 +1,41 @@
+{% extends 'site/base.html' %}
+{% block content %}
+<section class="chef-show-header">
+    <img src="{{url_for('static', filename='img/{}'.format(chef.avatar))}}" alt="avatar do chef">
+    <h1>{{chef.name}}</h1>
+    <div>{{chef.recipes | length}} Receita(s)</div>
+</section>
+<section class="chef-show-detail">
+    <div class="item">
+        <h2>Receitas</h2>
+        
+        {% if chef.recipes  %}
+            <div class="cards cards-recipes">
+        {% for recipe in chef.recipes %}
+        
+        <div class="card">
+            <section class="card-img-recipe">
+                <img src="{{url_for('static', filename='img/{}'.format(recipe['image']))}}" alt="imagem da receita {{recipe['name']}}">
+            </section>
+            <section class="card-details">
+
+                    <div>
+                        {{recipe['name']}}
+                    </div>
+                    <div>
+                        por {{chef.name}}
+                    </div>
+                    <div>
+                        <a href="/recipes/{{recipe['id']}}">Visualizar</a>
+                    </div>
+
+            </section>
+        </div>
+        {% endfor %}
+        {%else%}
+            <p>Nenhuma receita cadastrada</p>
+        {% endif %}
+        
+    </div>
+</section>
+{% endblock %}

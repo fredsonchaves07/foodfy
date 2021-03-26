@@ -213,3 +213,11 @@ const PhotoChef = {
         })
     }
 }
+
+const formDelete = document.getElementById('form-delete')
+formDelete.addEventListener('submit', function(event){
+const confirmation = confirm('Deseja deletar?')
+if(!confirmation){
+    event.preventDefault()
+}
+})
