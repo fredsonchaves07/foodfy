@@ -92,3 +92,15 @@ def delete_recipe(recipe_id):
         file_controller.remove_file(file)
     
     recipe_dao.delete_recipe(recipe)
+
+
+def filter_recipe(data_filter):
+    recipes = recipe_dao.filter_recipe(data_filter)
+
+    for recipe in recipes:
+        recipe_files_img = recipe_dao.find_recipe_file(recipe.id)
+
+        if recipe_files_img:
+            recipe.recipe_img = recipe_files_img[0].file.name
+
+    return recipes
