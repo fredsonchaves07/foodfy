@@ -14,7 +14,7 @@
 - [Running the Application](#running-the-application)
 - [Issues](#-issues)
 - [Contribution](#-contribution)
-- [License](#license)
+- [License](#balance_scale-license)
 
 ## 🚀 About
 
@@ -77,7 +77,7 @@ I would love to review your pull request! Open a new [issue](https://github.com/
 
 Feel free to contribute to the project. I am open for suggestions. Click [here](https://github.com/fredsonchaves07/christmas-letter-api/issues) to open a new issue or take part in the development [project](https://github.com/fredsonchaves07/foodfy/projects/1) :smile:
 
-## ⚖️ License
+## :balance_scale: License
 
 This project uses MIT License. Click [here](https://github.com/fredsonchaves07/foodfy/blob/main/LICENSE) to access
 
