@@ -11,7 +11,7 @@
    - [Database](#database)
    - [Installation of Dependencies](#installation-of-dependencies)
    - [Flask Env](#flask-env)
-- [Running the Application](#running-the-application)
+- [Running the Application](#gear-running-the-application)
 - [Issues](#-issues)
 - [Contribution](#-contribution)
 - [License](#balance_scale-license)
@@ -61,7 +61,7 @@ pip install -r requirements.txt
 It is necessary to configure the flask environment variables with the values `FLASK_ENV='development'` e `FLASK_APP=app/app.py`
 
 
-## ⚙️ Running the Application
+## :gear: Running the Application
 
 Run Application in development mode after installation and configuration
 
