@@ -76,3 +76,13 @@ def delete_recipe(recipe):
     db.session.commit()
     
     return
+
+
+def filter_recipe(data_filter):
+    search = '%{}%'.format(data_filter)
+    
+    recipes = Recipe.query.filter(
+        Recipe.name.like(search)
+    ).all()
+
+    return recipes

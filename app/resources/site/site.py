@@ -18,6 +18,15 @@ def about():
     return render_template('site/about.html')
 
 
+@site.route('/filter', methods=['GET'])
+def filtro():
+    data_filter = request.args['filter']
+
+    recipes = recipe_controller.filter_recipe(data_filter)
+    
+    return render_template('site/filter.html', recipes=recipes, filter=data_filter)
+
+
 @site.route('/recipes', methods=['GET'])
 def list_recipes():
     recipes = recipe_controller.list_recipes()
