@@ -3,6 +3,19 @@ from datetime import datetime
 from sqlalchemy.dialects.postgresql import ARRAY
 
 
+class User(db.Model):
+    __tablename__ = 'FUSER'
+    id = db.Column('ID', db.Integer, primary_key=True)
+    name = db.Column('NAME', db.String(100), nullable=False)
+    email = db.Column('EMAIL', db.String(100), nullable=False)
+    password = db.Column('PASSWORD', db.String(10), nullable=False)
+    reset_token = db.Column('TOKEN', db.String(100))
+    reset_token_expires = db.Column('RESETTOKEN', db.String(100))
+    is_admin = db.Column('ADMIN', db.Boolean(), default=False)
+    created_at = db.Column('CREATEDAT', db.DateTime, nullable=False, default=datetime.utcnow)
+    modified_at = db.Column('MODIFIEDAT', db.DateTime, nullable=False, default=datetime.utcnow) 
+
+
 class File(db.Model):
     __tablename__ = 'FFILES'
     id = db.Column('ID', db.Integer, primary_key=True)
