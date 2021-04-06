@@ -41,6 +41,7 @@ class Recipe(db.Model):
     id = db.Column('ID', db.Integer, primary_key=True)
     name = db.Column('NAME', db.String(100), nullable=False)
     chef_id = db.Column('CHEFID', db.Integer, db.ForeignKey('FCHEF.ID'))
+    user_id = db.Column('USERID', db.Integer, db.ForeignKey('FUSER.ID'))
     ingredients= db.Column('INGREDIENTS', ARRAY(db.Text), nullable=False)
     preparations = db.Column('PREPARATIONS', ARRAY(db.Text), nullable=False)
     adicional_information = db.Column('ADDICIONALINFORMATIONS', db.Text)
@@ -48,6 +49,7 @@ class Recipe(db.Model):
     modified_at = db.Column('MODIFIEDAT', db.DateTime, nullable=False, default=datetime.utcnow)
 
     chef = db.relationship("Chef", foreign_keys=chef_id)
+    user = db.relationship("USER", foreign_keys=user_id)
 
 
 class RecipeFile(db.Model):
