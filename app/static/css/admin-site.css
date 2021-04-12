@@ -472,3 +472,32 @@ footer{
     background-color: black;
     color: white;
 }
+
+/* Login */
+.form-login{
+    width: 50%;
+    margin: auto;
+}
+
+.form-login img{
+    margin: auto;
+    margin-bottom: 80px;
+    display: block;
+}
+
+.form-login h2{
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 35px;
+}
+
+.form-login .item div:first-child{
+    font-weight: bold;
+}
+
+.form-login div:last-child{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}

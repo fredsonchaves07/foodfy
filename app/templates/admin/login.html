@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/admin-site.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/chef.png')}}" type="image/x-icon">
+    <title>Receitas Foodfy</title>
+</head>
+<body>
+    <body>
+        <div class="container">
+            {% block content %}
+            
+            <form action="" method="post" class="form-login">
+       
+                <img src="{{url_for('static', filename='img/logo-black.png')}}" alt="logo foodfy preto">
+
+                <h2>Iniciar sessão</h2>
+                <div class="item">
+                    <div>Email</div>
+                    <div>
+                        <input type="email" name="email" placeholder="Digite seu email" required>
+                    </div>
+                </div>
+    
+                <div class="item">
+                    <div>Senha</div>
+                    <div>
+                        <input type="password" name="senha" placeholder="Digite sua senha" required>
+                    </div>
+                </div>
+                <div>
+                    <a href="">Perdeu a senha?</a>
+                    <button type="submit" class="button">Acessar</button>
+                </div>
+                
+            {% endblock content%}
+        </div>
+        <footer>
+            <p>&copy; Todos os direitos reservados a Receitas Foodfy</p>
+        </footer>
+    </body>
+</body>
+
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+</html>
