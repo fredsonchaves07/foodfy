@@ -49,7 +49,7 @@ class Recipe(db.Model):
     modified_at = db.Column('MODIFIEDAT', db.DateTime, nullable=False, default=datetime.utcnow)
 
     chef = db.relationship("Chef", foreign_keys=chef_id)
-    user = db.relationship("USER", foreign_keys=user_id)
+    user = db.relationship("User", foreign_keys=user_id)
 
 
 class RecipeFile(db.Model):
