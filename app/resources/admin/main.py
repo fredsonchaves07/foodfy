@@ -4,4 +4,4 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 @admin.route('/', methods=['GET'])
 def index():
-    return redirect(url_for('user.login'))
+    return redirect(url_for('auth.login'))
