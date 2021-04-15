@@ -1,16 +1,15 @@
 from flask import Blueprint, request, render_template, redirect, url_for
+from app.controllers.admin.form import RegistrationUser
 from app.controllers.admin import user as user_controller
 
-user = Blueprint('user', __name__)
+user = Blueprint('user', __name__, url_prefix='/admin/user')
 
-@user.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        
-        user = user_controller.login(request.form)
-        
-        if user:
-            return redirect(url_for('recipes.list_recipes'))
-        
+@user.route('/create', methods=['GET', 'POST'])
+def create_user():
+    form = RegistrationUser(request.form)
     
-    return render_template('admin/login.html')
+    if request.method == 'POST':
+        user_controller.create_user(form)
+    
+    return render_template('admin/user/create.html', form=form)
+    
