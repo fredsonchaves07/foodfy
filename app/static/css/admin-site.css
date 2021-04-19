@@ -501,3 +501,23 @@ footer{
     align-content: center;
     align-items: center;
 }
+
+#form-user fieldset section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px
+}
+
+#form-user fieldset section div.item:last-child{
+    display: flex;
+    align-items: center;
+}
+
+#form-user fieldset section div.item{
+    margin-bottom: 25px;
+}
+
+#form-user fieldset .item input[type='checkbox']{
+    width: auto;
+    margin-right: 10px;
+}
