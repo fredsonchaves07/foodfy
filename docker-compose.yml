@@ -1,9 +1,0 @@
-version: "3.8"
-services:
-  receitas-foodfy:
-    build: 
-      context: .
-    ports:
-      - 5000:3200
-    volumes:
-      - ./app:/app
