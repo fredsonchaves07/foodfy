@@ -6,6 +6,16 @@ from app.controllers.admin import chef as chef_controller
 site = Blueprint('site', __name__, url_prefix='/')
 
 
+@site.app_errorhandler(404)
+def page_not_found(e):
+    return render_template('site/404.html'), 404
+
+
+@site.app_errorhandler(500)
+def internal_error_serve(e):
+    return render_template('site/500.html'), 500
+
+
 @site.route('/', methods=['GET'])
 def index():
     recipes = recipe_controller.list_recipes()
@@ -53,3 +63,5 @@ def show_chef(chef_id):
     chef = chef_controller.show_chef(chef_id)
     
     return render_template('site/view-chef.html', chef=chef)
+
+
