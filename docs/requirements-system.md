@@ -1,4 +1,4 @@
-## Usuário
+## Sessão
 
 ### Logout
 - [ ] Somente usuário autenticado poderá realizar logout
@@ -8,77 +8,62 @@
 - [ ] Usuário deverá informar um email válido
 - [ ] Usuário deverá informar uma senha válida
 - [ ] Deverá ter link para recuperação de senha
-- [ ] Deverá ter link para cadastro de usuário
+
+### Esqueceu a senha
+- [ ] Deverá informar o mesmo email já cadastrado no sistema para recuperação de senha
+- [ ] O link de recuperação conterá um token de 1 dia para acessar a página de recuperação
+
+
+## Usuário
 
 ### Cadastro
-- [ ] Deverá preencher o nome do usuário
+- [ ] Somente usuário admin poderá realizar o cadastro de usuários no sistema
 - [ ] Deverá preencher o email válido
 - [ ] Não é possível cadastrar com email já cadastrado no sistema
-- [ ] Deverá informar uma senha
-- [ ] Deverá repetir a senha
-- [ ] Deverá informar o CPF ou CNPJ
-- [ ] Não é possível cadastrar com cpf ou cnpj já cadastrado no sistema
-- [ ] Deverá informar o cep da cidade
-- [ ] Deverá informar o endereço completo
+- [ ] Quando administrador cadastrar usuário, será enviado um link com token para acessar a pagina de perfil do usuário e alterar a senha
+- [ ] Deve possuir a opção se o usuário é administrador
 
-### Minha conta
+### Perfil
 - [ ] Somente usuário autenticado poderá visualizar detalhes de sua conta
+- [ ] Somente usuário comum poderá atualizar a sua senha
 - [ ] Será possível editar o nome do usuário
-- [ ] Será possível possível editar a senha do usuário
+- [ ] Será possível possível editar o email do usuário
+- [ ] Só é possível alterar o email se não existir o email já cadastrado
 - [ ] Será possível editar o cep da cidade
 - [ ] Será possível editar o endereço completo
-- [ ] Não será possível editar o email (Apenas visualização)
-- [ ] Não será possível eidtar a cpf / cnpj (Apenas visualização)
-- [ ] O usuário poderá excluir sua conta (Todos os vinculos da conta deverão ser excluidos)
+- [ ] Somente o usuário administrador poderá excluir a conta
+- [ ] Usuário administrador não pode exlcuir sua própria conta
+
+### Listagem de usuários
+- [ ] Somente usuários administradores poderão visualizar informações de outros usuários
 
 
-## Anuncios
+## Chefs
 
-### Novo Anúncio
-- [ ] Somente usuário autenticado poderá cadastrar seu anúncio
-- [ ] Categoria do produto deverá retornar dados já definidos
-- [ ] Usuário deverá informar o título do anuncio
-- [ ] Usuário deverá informar a descrição do anúncio
-- [ ] Usuário deverá selecionar no máximo 6 fotos do anúncio
-- [ ] Usuário deverá informar o valor do produto
-- [ ] Usuário deverá informar a quantidade disponível do produto
+### Cadastro de chef
+- [ ] Somente usuaŕio administrador poderá cadastrar o chef
+- [ ] Somente usuário administrador poderá excluir o chef
+- [ ] Deverá ser informado o nome do chef
+- [ ] Deverá ser enviado a foto avatar do chef
 
-### Meus Anúncios
-- [ ] Somente usuário autenticado poderá visualizar seus próprios anúncios
-- [ ] Nesta tela será possível visualizar o anúncio e editar o anúncio
-- [ ] Deverá conter apenas a foto principal de cada anúncio
-- [ ] Deverá conter o nome de cada anúncio
-- [ ] Deverá conter a data de publicação do cada anúncio
-- [ ] Deverá conter o preço de cada anúncio
+### Edição do chef
+- [ ] Somente usuaŕio administrador poderá atualizar o chef
+- [ ] Somente usuário administrador poderá excluir o chef
+- [ ] Será possível editar o nome do chef
+- [ ] Será possível atualizar a imagem avatar do chef
 
-### Visualização do anúncio
-- [ ] Somente usuário autenticado poderá visualizar seu anúncio específico
-- [ ] A foto principal do anúncio será a primeira foto
-- [ ] Deverá conter as fotos do anúncio
-- [ ] Deverá conter o nome do anúncio
-- [ ] Deverá conter a data e hora de publicação
-- [ ] Deverá conter a descrição do produto
-- [ ] Deverá conter o nome do produto
-- [ ] Deverá conter o preço atual do produto
-- [ ] Deverá conter o preço antigo do preço
-- [ ] Deverá conter informação que é o vendedor do produto
+### Visualização do chef
+- [ ] Somente usuário autenticado poderá visualizar o chef
+- [ ] Deverá conter a imagem avatar do chef
+- [ ] Deverá conter o nome do chef
+- [ ] Deverá conter as receitas vinculadas
 
-### Editar Anúncio
-- [ ] Somente usuário autenticado poderá editar seu próprio produto
-- [ ] Se o produto for vendido, não será possível editar o produto
-- [ ] Será possível editar a categoria do produto
-- [ ] Será possível editar o título do produto
-- [ ] Será possível editar a descrição do produto
-- [ ] Será possível editar o preço do produto
-- [ ] Será possível editar a quantidade do produto
-- [ ] Será possível editar as fotos do anúncio, respeitando o limite de 6
-- [ ] Poderá editar a disponibilidade do produto
-- [ ] O usuário poderá exlcluir o anúncio em editar
+### Listagem de chefs
+- [ ] Somente usuário autenticado poderá visualizar a lista de chefs cadastrados
+- [ ] Deverá conter o link para acesso a detalhes do chef
+- [ ] Deverá conter a imagem avatar do chef
+- [ ] Deverá conter o nome do chef
 
-### Excluir Anúncio
-- [ ] Somente usuário autenticado poderá excluir seu próprio anúncio
-- [ ] Se o produto for vendido, não será possível excluir o produto
-- [ ] Deverá haver confirmação quando usuário excluir anúncio
 
 ## Pedidos
 
