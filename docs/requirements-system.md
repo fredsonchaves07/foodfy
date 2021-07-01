@@ -1,4 +1,4 @@
-## Usuário
+## Sessão
 
 ### Logout
 - [ ] Somente usuário autenticado poderá realizar logout
@@ -8,176 +8,101 @@
 - [ ] Usuário deverá informar um email válido
 - [ ] Usuário deverá informar uma senha válida
 - [ ] Deverá ter link para recuperação de senha
-- [ ] Deverá ter link para cadastro de usuário
+
+### Esqueceu a senha
+- [ ] Deverá informar o mesmo email já cadastrado no sistema para recuperação de senha
+- [ ] O link de recuperação conterá um token de 1 dia para acessar a página de recuperação
+
+
+## Usuário
 
 ### Cadastro
-- [ ] Deverá preencher o nome do usuário
+- [ ] Somente usuário admin poderá realizar o cadastro de usuários no sistema
 - [ ] Deverá preencher o email válido
 - [ ] Não é possível cadastrar com email já cadastrado no sistema
-- [ ] Deverá informar uma senha
-- [ ] Deverá repetir a senha
-- [ ] Deverá informar o CPF ou CNPJ
-- [ ] Não é possível cadastrar com cpf ou cnpj já cadastrado no sistema
-- [ ] Deverá informar o cep da cidade
-- [ ] Deverá informar o endereço completo
+- [ ] Quando administrador cadastrar usuário, será enviado um link com token para acessar a pagina de perfil do usuário e alterar a senha
+- [ ] Deve possuir a opção se o usuário é administrador
 
-### Minha conta
+### Perfil
 - [ ] Somente usuário autenticado poderá visualizar detalhes de sua conta
+- [ ] Somente usuário comum poderá atualizar a sua senha
 - [ ] Será possível editar o nome do usuário
-- [ ] Será possível possível editar a senha do usuário
-- [ ] Será possível editar o cep da cidade
-- [ ] Será possível editar o endereço completo
-- [ ] Não será possível editar o email (Apenas visualização)
-- [ ] Não será possível eidtar a cpf / cnpj (Apenas visualização)
-- [ ] O usuário poderá excluir sua conta (Todos os vinculos da conta deverão ser excluidos)
+- [ ] Será possível possível editar o email do usuário
+- [ ] Só é possível alterar o email se não existir o email já cadastrado
+- [ ] Somente o usuário administrador poderá excluir a conta
+- [ ] Usuário administrador não pode exlcuir sua própria conta
+
+### Listagem de usuários
+- [ ] Somente usuários administradores poderão visualizar informações de outros usuários
 
 
-## Anuncios
+## Chefs
 
-### Novo Anúncio
-- [ ] Somente usuário autenticado poderá cadastrar seu anúncio
-- [ ] Categoria do produto deverá retornar dados já definidos
-- [ ] Usuário deverá informar o título do anuncio
-- [ ] Usuário deverá informar a descrição do anúncio
-- [ ] Usuário deverá selecionar no máximo 6 fotos do anúncio
-- [ ] Usuário deverá informar o valor do produto
-- [ ] Usuário deverá informar a quantidade disponível do produto
+### Cadastro de chef
+- [ ] Somente usuaŕio administrador poderá cadastrar o chef
+- [ ] Deverá ser informado o nome do chef
+- [ ] Deverá ser enviado a foto avatar do chef
 
-### Meus Anúncios
-- [ ] Somente usuário autenticado poderá visualizar seus próprios anúncios
-- [ ] Nesta tela será possível visualizar o anúncio e editar o anúncio
-- [ ] Deverá conter apenas a foto principal de cada anúncio
-- [ ] Deverá conter o nome de cada anúncio
-- [ ] Deverá conter a data de publicação do cada anúncio
-- [ ] Deverá conter o preço de cada anúncio
+### Edição do chef
+- [ ] Somente usuaŕio administrador poderá atualizar o chef
+- [ ] Somente usuário administrador poderá excluir o chef
+- [ ] Será possível editar o nome do chef
+- [ ] Será possível atualizar a imagem avatar do chef
 
-### Visualização do anúncio
-- [ ] Somente usuário autenticado poderá visualizar seu anúncio específico
-- [ ] A foto principal do anúncio será a primeira foto
-- [ ] Deverá conter as fotos do anúncio
-- [ ] Deverá conter o nome do anúncio
-- [ ] Deverá conter a data e hora de publicação
-- [ ] Deverá conter a descrição do produto
-- [ ] Deverá conter o nome do produto
-- [ ] Deverá conter o preço atual do produto
-- [ ] Deverá conter o preço antigo do preço
-- [ ] Deverá conter informação que é o vendedor do produto
+### Visualização do chef
+- [ ] Somente usuário autenticado poderá visualizar o chef
+- [ ] Deverá conter a imagem avatar do chef
+- [ ] Deverá conter o nome do chef
+- [ ] Deverá conter as receitas vinculadas
 
-### Editar Anúncio
-- [ ] Somente usuário autenticado poderá editar seu próprio produto
-- [ ] Se o produto for vendido, não será possível editar o produto
-- [ ] Será possível editar a categoria do produto
-- [ ] Será possível editar o título do produto
-- [ ] Será possível editar a descrição do produto
-- [ ] Será possível editar o preço do produto
-- [ ] Será possível editar a quantidade do produto
-- [ ] Será possível editar as fotos do anúncio, respeitando o limite de 6
-- [ ] Poderá editar a disponibilidade do produto
-- [ ] O usuário poderá exlcluir o anúncio em editar
+### Listagem de chefs
+- [ ] Somente usuário autenticado poderá visualizar a lista de chefs cadastrados
+- [ ] Deverá conter o link para acesso a detalhes do chef
+- [ ] Deverá conter a imagem avatar do chef
+- [ ] Deverá conter o nome do chef
 
-### Excluir Anúncio
-- [ ] Somente usuário autenticado poderá excluir seu próprio anúncio
-- [ ] Se o produto for vendido, não será possível excluir o produto
-- [ ] Deverá haver confirmação quando usuário excluir anúncio
 
-## Pedidos
+## Receitas
 
-### Meus Pedidos
-- [ ] Somente usuário autenticado poderá visualizar seus próprios pedidos
-- [ ] Caso não tenha nenhum pedido, deverá ser exibido o botão para procurar produto
-- [ ] Deverá conter o nome do produto
-- [ ] Deverá conter o preço do produto
-- [ ] Deverá conter a data do pedido
-- [ ] Se estiver aberto, deverá apresentar informação que o pedido está em aberto
-- [ ] Se estiver vendido, deverá apresentar informação que o pedido está realizado
-- [ ] Se estiver cancelado pelo vendedor, deverá apresentar informação que o pedido está cancelado
-- [ ] Deverá conter o link para informações do pedido
+### Cadastrar receita
+- [ ] Somente usuário autenticado poderá editar a
+- [ ] Deverá ser informado o nome da receita
+- [ ] Deve ser incluído uma imagem da receita
+- [ ] É possível inserir no máximo 6 imagens da receita
+- [ ] Deverá ser vinculado apenas 1 chefe a receita
+- [ ] Deverá ser informado no mínimo 1 ingrediente
+- [ ] Deverá ser informado no mínimo 1 mode de preparo
+- [ ] As informações adicionais não são obrigatórias
 
-## Informações do pedido
-- [ ] Somente usuário autenticado poderá visualizar seus próprio pedido
-- [ ] Deverá conter o nome do comprador
-- [ ] Deverá conter o email do comprador
-- [ ] Deverá conter o endereço do comprador
-- [ ] Deverá conter o cpf do comprador
-- [ ] Deverá conter o nome do vendedor
-- [ ] Deverá conter o email do vendedor
-- [ ] Deverá conter o endereço do vendedor
-- [ ] Deverá conter o cpf do vendedor
-- [ ] Deverá conter a data e hora da realização do pedido
-- [ ] Deverá conter o status do pedido
-- [ ] Deverá conter o nome do produto
-- [ ] Deverá conter o preço do produto
-- [ ] Deverá conter a quantidade do produto
-- [ ] Deverá conter o total do pedido
+## Edição da receita
+- [ ] Somente usuário autenticado poderá editar a sua própria receita
+- [ ] Somente usuário administrador poderá editar receitas de outros usuários
+- [ ] É possível excluir a receita, somente ao que o usuário criou.
+- [ ] Somente usuário administrador poderá excluir receitas de outros usuários
+- [ ] Será possível editar o nome da receita
+- [ ] Será possível remover ou acrescentar novas imagens da receita
+- [ ] A receita deverá ter no máximo 6 imagens
+- [ ] Será possível selecionar o chef da receita
+- [ ] Será possível editar ou incluir novos ingredientes
+- [ ] Será possível editar ou incluir novos modos de preparo
+- [ ] Será possível editar ou incluir informações adicionais
 
-## Vendas
+### Visualização da receita
+- [ ] Somente usuário autenticado poderá visualizar a receita
+- [ ] Deverá conter as imagens da receita
+- [ ] A imagem principal deverá ser a primeira cadastrada
+- [ ] Deverá conter o nome da receita
+- [ ] Deverá conter o nome do chef
+- [ ] Deverá conter os ingredientes
+- [ ] Deverá conter o modo de preparo
+- [ ] Se houve, poderá ser visualizado as informações adicionais
 
-### Minhas Vendas
-- [ ] Somente usuário autenticado poderá visualizar suas próprias vendas realizadas
-- [ ] Caso não tenha nenhuma venda, deverá exibir o botão para cadastrar anúncio
-- [ ] Deverá conter o nome do produto
-- [ ] Deverá conter o preço do produto
-- [ ] Deverá conter a data do pedido
-- [ ] Deverá conter o total de vendas realizadas no final da página
-- [ ] Se estiver aberto, deverá apresentar informação que a venda está em aberto
-- [ ] Se estiver vendido, deverá apresentar informação que o pedido está realizado
-- [ ] Se estiver cancelado deverá apresentar informação que o pedido está cancelado
-- [ ] Deverá conter o link para informações do pedido
-- [ ] Será possível cancelar a venda somente se não foi vendido ainda
-- [ ] Será possível realizar venda somente se não foi vendido ainda 
-
-## Produtos da Loja
-
-### Últimos produtos cadastrados (página principal)
-- [ ] Poderá ser visualizada sem autenticação
-- [ ] Deverá conter 3 últimos produtos cadastrados
-- [ ] Deverá conter a foto principal do produto
-- [ ] Deverá conter o nome do produto
-- [ ] Deverá conter o preço atual do produto
-- [ ] Deverá conter  o link para visualizar informações do produto
-
-### Buscar Produto
-- [ ] Poderá ser visualizada sem autenticação
-- [ ] Será possível realizar a busca de produto por nome
-- [ ] Deverá conter a foto principal do produto
-- [ ] Deverá conter o preço atual do produto
-- [ ] Deverá conter o nome do produto
-- [ ] Deverá conter a quantidade de resultados da busca
-- [ ] Deverá conter a palavra pesquisada
-- [ ] Deverá conter a categoria(s) da busca realizada
-- [ ] Deverá apresentar o link para informações do produto
-
-## Visualizar produto
-- [ ] Poderá ser visualizada sem autenticação
-- [ ] Deverá conter o nome do produto
-- [ ] Deverá conter a data e hora de publicação
-- [ ] Deverá conter as fotos do produto
-- [ ] Deverá conter a descrição do produto
-- [ ] Deverá conter o preço atual do produto
-- [ ] Deverá conter o preço antigo do produto
-- [ ] Deverá apresentar o link para adicionar ao carrinho caso não seja vendedor do produto
-
-## Carrinho de compra
-
-## Informações do carrinho de compra
-- [ ] Poderá ser visualizada sem autenticação
-- [ ] Deverá conter o nome do produto
-- [ ] Deverá conter a foto principal do produto
-- [ ] Deverá conter o preço atual do produto
-- [ ] Deverá conter a quantidade do produto
-- [ ] Deverá conter o preço total do carrinho no final
-- [ ] Usuário poderá selecionar varias quantidades de acordo com a disponibilidade do produto
-- [ ] É possível excluir o item do carrinho
-- [ ] Se estiver vazio deverá conter uma mensagem de que o carrinho está vazio
-- [ ] Se estiver vazio deverá conter um link para realizar a compra (redirecionar para bussca)
-- [ ] Deverá conter o link 'Continuar comprando' onde será redirecionado para página de busca
-- [ ] Deverá conter o link 'Realizar pedido' onde será redirecionado para página de pedidos
-
-## Realizar pedido
-- [ ] Somente usuário autenticado poderá realizar o pedido
-- [ ] Se disponível, deverá apresentar a informação que o pedido foi realizado
-- [ ] Deverá conter o link 'Continuar comprando'
-- [ ] Deverá conter a mensagem para aguardar resposta do vendedor
+### Listagem de chefs
+- [ ] Somente usuário autenticado poderá visualizar a lista de receitas cadastradas
+- [ ] Deverá conter o link para acesso a detalhes da receita
+- [ ] Deverá conter a primeira imagem cadastradas da receita
+- [ ] Deverá conter o nome da receita
+- [ ] Deverá conter o nome do chef da receita
 
 
 ## Testes
