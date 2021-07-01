@@ -29,8 +29,6 @@
 - [ ] Será possível editar o nome do usuário
 - [ ] Será possível possível editar o email do usuário
 - [ ] Só é possível alterar o email se não existir o email já cadastrado
-- [ ] Será possível editar o cep da cidade
-- [ ] Será possível editar o endereço completo
 - [ ] Somente o usuário administrador poderá excluir a conta
 - [ ] Usuário administrador não pode exlcuir sua própria conta
 
