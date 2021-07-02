@@ -65,7 +65,7 @@
 ## Receitas
 
 ### Cadastrar receita
-- [ ] Somente usuário autenticado poderá editar a
+- [ ] Somente usuário autenticado poderá cadastrar a receita
 - [ ] Deverá ser informado o nome da receita
 - [ ] Deve ser incluído uma imagem da receita
 - [ ] É possível inserir no máximo 6 imagens da receita
@@ -97,7 +97,7 @@
 - [ ] Deverá conter o modo de preparo
 - [ ] Se houve, poderá ser visualizado as informações adicionais
 
-### Listagem de chefs
+### Listagem de receitas
 - [ ] Somente usuário autenticado poderá visualizar a lista de receitas cadastradas
 - [ ] Deverá conter o link para acesso a detalhes da receita
 - [ ] Deverá conter a primeira imagem cadastradas da receita
