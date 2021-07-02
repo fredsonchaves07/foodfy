@@ -130,6 +130,7 @@ dmypy.json
 
 # Other directories
 migrations/
+.secrets.*
 
 #vscode
 .vscode
