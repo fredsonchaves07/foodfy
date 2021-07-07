@@ -1,6 +1,5 @@
-from flask import Flask
 from dynaconf import FlaskDynaconf
-
+from flask import Flask
 
 dynaconf = FlaskDynaconf()
 
