@@ -1,15 +1,11 @@
-from flask import Flask
 from dynaconf import FlaskDynaconf
+from flask import Flask
 
-app = Flask(__name__)
-
-FlaskDynaconf(app)
-
-
-@app.route("/")
-def index():
-    return "Foodfy"
+dynaconf = FlaskDynaconf()
 
 
-if __name__ == "__main__":
-    app.run()
+def create_app():
+    app = Flask(__name__)
+    dynaconf.init_app(app)
+
+    return app
