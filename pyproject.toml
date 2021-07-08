@@ -19,6 +19,8 @@ pylint = "^2.9.3"
 pytest = "^6.2.4"
 pytest-flask = "^1.2.0"
 pre-commit = "^2.13.0"
+ipdb = "^0.13.9"
+ipython = "^7.25.0"
 
 [tool.black]
 line-length = 88
