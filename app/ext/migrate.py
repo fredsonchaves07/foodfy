@@ -1,5 +1,6 @@
 from app.ext import db
-from app.ext.api import models  # noqa
+
+# from app.ext.api import models  # noqa
 from flask_migrate import Migrate
 
 migrate = Migrate()
