@@ -8,7 +8,6 @@ EXTENSIONS = [
 ]
 
 [development]
-DEBUG = true
 SQLALCHEMY_DATABASE_URI = "sqlite://foodfy.db"
 
 [test]
