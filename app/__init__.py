@@ -1,17 +1,9 @@
-from dynaconf import FlaskDynaconf
 from flask import Flask
 
-from app.ext import api, db, migrate
-
-dynaconf = FlaskDynaconf()
+from app.ext import config
 
 
 def create_app():
     app = Flask(__name__)
-
-    dynaconf.init_app(app)
-    db.init_app(app)
-    migrate.init_app(app)
-    api.init_app(app)
-
+    config.init_app(app)
     return app
