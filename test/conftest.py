@@ -2,7 +2,7 @@ import pytest
 from app import create_app
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def app():
-    """instance of main flask app"""
+    """Inicialize app"""
     return create_app()
