@@ -16,4 +16,4 @@ class User(db.Model):
     updated_at = db.Column("updated_at", db.DateTime, default=datetime.now())
 
     def __init__(self):
-        self.id = uuid4()
+        self.id = str(uuid4())
