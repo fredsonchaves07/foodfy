@@ -37,7 +37,7 @@ exclude = '''
   | \.tox
   | \.venv
   | \.vscode
-  | migrations/
+  | migrations
   | _build
   | buck-out
   | build
