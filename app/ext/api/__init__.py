@@ -1,6 +1,5 @@
-from flask import Blueprint
+from .resources.user import user_api
 
 
 def init_app(app):
-    user = Blueprint("user", __name__)
-    app.register_blueprint(user, url_prefix="/api/v1/user")
+    app.register_blueprint(user_api, url_prefix="/api/v1/user")
