@@ -37,7 +37,7 @@ exclude = '''
   | \.tox
   | \.venv
   | \.vscode
-  | \migrations\env.py
+  | \migrations
   | _build
   | buck-out
   | build
