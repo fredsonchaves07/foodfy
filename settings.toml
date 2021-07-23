@@ -2,7 +2,7 @@
 DEBUG = false
 SQLALCHEMY_TRACK_MODIFICATIONS = false
 EXTENSIONS = [
-    "app.ext.db:init_app",
+    "app.ext.database:init_app",
     "app.ext.migrate:init_app",
     "app.ext.api:init_app"
 ]
@@ -11,6 +11,6 @@ EXTENSIONS = [
 DEBUG = true
 
 [test]
-SQLALCHEMY_DATABASE_URI = "sqlite://foodfy-test.db"
+SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
 
 [production]
