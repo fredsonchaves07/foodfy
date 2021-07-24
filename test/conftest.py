@@ -10,7 +10,7 @@ def app():
     """Inicialize app"""
     app = create_app()
     config.init_app(app, FORCE_ENV_FOR_DYNACONF="test")
-    settings.SECRET_KEY = "xd3xa6_xe94x15x8bMxe0xe8xc7qFV"
+    settings.SECRET_KEY = "xd3xa6_xe94x15x8bMxe0xe8xcqFV"
 
     return app
 
