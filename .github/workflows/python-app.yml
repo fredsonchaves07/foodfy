@@ -27,9 +27,9 @@ jobs:
         poetry install
     - name: Config enviroment
       run: |
-        touch .secrets.toml
+        touch /home/runner/work/foodfy/foodfy/.secrets.toml
         echo SECRET_KEY=\'xd3xa6_xe94x15x8bMxe0xe8xc7qFV\' > .secrets.toml
-        pwd
+        ls -l
     - name: Test
       run: |
         poetry run pytest
