@@ -2,21 +2,14 @@
 DEBUG = false
 SQLALCHEMY_TRACK_MODIFICATIONS = false
 EXTENSIONS = [
-    "app.ext.database:init_app",
+    "app.ext.db:init_app",
     "app.ext.migrate:init_app",
-    "app.ext.api:init_app",
-    "app.ext.mail:init_app"
+    "app.ext.api:init_app"
 ]
-MAIL_SERVER="smtp.mailtrap.io"
-MAIL_PORT="2525"
-MAIL_USE_TLS=true
-MAIL_USERNAME="c0ce86e978a7d3"
-MAIL_PASSWORD="39feb26c850205"
 
 [development]
-DEBUG = true
 
 [test]
-SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
+SQLALCHEMY_DATABASE_URI = "sqlite://foodfy-test.db"
 
 [production]
