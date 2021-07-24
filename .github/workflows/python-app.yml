@@ -25,11 +25,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install poetry
         poetry install
-    - name: Config enviroment
-      run: |
-        touch /home/runner/work/foodfy/.secrets.toml
-        echo SECRET_KEY=\'xd3xa6_xe94x15x8bMxe0xe8xc7qFV\' > /home/runner/work/foodfy/.secrets.toml
-        ls -l
     - name: Test
       run: |
         poetry run pytest
