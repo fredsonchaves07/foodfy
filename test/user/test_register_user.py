@@ -4,6 +4,7 @@ from app.ext.api.exceptions import AdminPermissionRequired, EmailAlreadyExist
 
 def test_valid_post_request(client):
     assert client.post("/api/v1/user").status_code == 201
+    assert client.post("/api/v1/user/confirm").status_code == 200
 
 
 def test_create_user(app, database):
@@ -15,7 +16,7 @@ def test_create_user(app, database):
 
     user = users_controller.create_user(new_user, "admin@email.com")
 
-    assert user["id"], "Unable to create user"
+    assert user["id"]
 
 
 def test_no_create_user_if_email_already_exist(app, database):
@@ -52,3 +53,30 @@ def test_no_create_user_if_not_admin(app, database):
     except AdminPermissionRequired:
         assert True
         assert AdminPermissionRequired.code == 401
+
+
+def test_confirm_user(app, database):
+    new_user1 = {
+        "name": "Usuário teste",
+        "email": "email@email.com",
+        "password": "12346",
+    }
+
+    user = users_controller.create_user(new_user1, "admin@email.com")
+
+    users_controller.confirm_user(user["id"])
+
+    assert True
+
+
+def test_no_user_confirmed(app, database):
+    new_user1 = {
+        "name": "Usuário teste",
+        "email": "email@email.com",
+        "password": "12346",
+    }
+
+    user = users_controller.create_user(new_user1, "admin@email.com")
+
+    users_controller.confirm_user(user["id"])
+    assert users_controller.confirm_user(user["id"]) is False
