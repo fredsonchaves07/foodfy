@@ -29,6 +29,7 @@ jobs:
       run: |
         touch .secrets.toml
         echo SECRET_KEY=\'xd3xa6_xe94x15x8bMxe0xe8xc7qFV\' > .secrets.toml
+        ls -l
     - name: Test
       run: |
         poetry run pytest
