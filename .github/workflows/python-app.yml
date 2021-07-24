@@ -28,7 +28,7 @@ jobs:
     - name: Config enviroment
       run: |
         touch /home/runner/work/foodfy/foodfy/.secrets.toml
-        echo SECRET_KEY=\'xd3xa6_xe94x15x8bMxe0xe8xc7qFV\' > .secrets.toml
+        echo SECRET_KEY=\'xd3xa6_xe94x15x8bMxe0xe8xc7qFV\' > /home/runner/work/foodfy/foodfy/.secrets.toml
         ls -l
     - name: Test
       run: |
