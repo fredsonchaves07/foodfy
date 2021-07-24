@@ -8,3 +8,10 @@ user_api = Blueprint("user", __name__)
 def create_user(**kwargs):
     # users_controller.create_user()
     return "ok", 201
+
+
+@user_api.route("/confirm", methods=["POST"])
+def confirm_user(**kwargs):
+    # token = request.form.get("token")
+    # users_controller.confirm_user()
+    return "ok", 200
