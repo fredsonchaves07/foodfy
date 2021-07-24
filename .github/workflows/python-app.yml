@@ -27,7 +27,8 @@ jobs:
         poetry install
     - name: Config enviroment
       run: |
-        export SECRET_KEY='\xd3\xa6_\xe94\x15\x8bM\xe0\xe8\xc7qFV'
+        touch .secrets.toml
+        echo SECRET_KEY=\"xd3xa6_xe94x15x8bMxe0xe8xc7qFV\" > .secrets.toml
     - name: Test
       run: |
         poetry run pytest
