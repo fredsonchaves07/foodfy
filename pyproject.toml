@@ -11,8 +11,6 @@ Flask = "^2.0.1"
 dynaconf = "^3.1.4"
 Flask-SQLAlchemy = "^2.5.1"
 Flask-Migrate = "^3.0.1"
-PyJWT = "^2.1.0"
-Flask-Mail = "^0.9.1"
 
 [tool.poetry.dev-dependencies]
 black = "^21.6b0"
@@ -39,7 +37,7 @@ exclude = '''
   | \.tox
   | \.venv
   | \.vscode
-  | migrations
+  | \migrations
   | _build
   | buck-out
   | build
