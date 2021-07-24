@@ -12,6 +12,7 @@ class User(db.Model):
     email = db.Column("email", db.String(100), nullable=False, unique=True)
     password = db.Column("password", db.String(), nullable=False)
     is_admin = db.Column("is_admin", db.Boolean(), default=False)
+    confirmed = db.Column("confirmed", db.Boolean(), default=False)
     created_at = db.Column("created_at", db.DateTime, default=datetime.now())
     updated_at = db.Column("updated_at", db.DateTime, default=datetime.now())
 
