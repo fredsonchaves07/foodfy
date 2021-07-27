@@ -3,11 +3,12 @@ from app.ext.database import db
 from werkzeug.security import generate_password_hash
 
 
-def create_user(name, email, password):
+def create_user(name, email, password, admin=False):
     user = User()
     user.name = name
     user.email = email
     user.password = generate_password_hash(password)
+    user.admin = admin
 
     db.session.add(user)
     db.session.commit()

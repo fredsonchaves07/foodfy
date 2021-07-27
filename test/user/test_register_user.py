@@ -10,6 +10,7 @@ def test_create_user(client, database):
         "name": "Usuário teste",
         "email": "email@email.com",
         "password": "123456",
+        "admin": False,
     }
 
     headers = {"Authorization": token, "content-type": "application/json"}
