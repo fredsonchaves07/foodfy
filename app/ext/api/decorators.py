@@ -35,14 +35,11 @@ def authentication(f):
     return decorated_function
 
 
-def admin_required(user_id):
-    def decorator(f):
-        def decorated_function(*args, **kwargs):
-            if not users_services.is_admin(user_id):
-                raise AdminPermissionRequired
+def admin_required(f):
+    def decorated_function(*args, **kwargs):
+        if not users_services.is_admin(kwargs.get("user_id")):
+            raise AdminPermissionRequired
 
-            return f(*args, **kwargs)
+        return f(*args, **kwargs)
 
-        return decorated_function
-
-    return decorator
+    return decorated_function

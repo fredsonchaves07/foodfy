@@ -31,19 +31,30 @@ def find_by_id(user_id):
 def is_confirmed(user_id):
     user = find_by_id(user_id)
 
+    if not user:
+        return False
+
     return user.confirmed
 
 
 def confirm_user(user_id):
     user = find_by_id(user_id)
 
+    if not user:
+        return False
+
     user.confirmed = True
     db.session.add(user)
     db.session.commit()
 
+    return {"id": user.id, "name": user.name, "email": user.email}
+
 
 def is_admin(user_id):
     user = find_by_id(user_id)
+
+    if not user:
+        return False
 
     if not user.is_admin:
         return False

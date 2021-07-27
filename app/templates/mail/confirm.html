@@ -1,14 +1,7 @@
 <p>
 Welcome to Foodfy!
 
-{# 
-To confirm your account please click 
-<form method="post" act>
-    <input type="hidden" name="token", id="token" value="{{token}}">
-    <button type="submit">Confirm</button>
-</form>
-
-#}
+<p>To confirm your account please <a href="localhost:5000/api/v1/user/confirm/{{token}}">click here</a>.</p>
 
 Sincerely,
 
