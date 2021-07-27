@@ -1,13 +1,18 @@
-# from app.ext.api.controller import users_controller
-from flask import Blueprint
+from app.ext.api.controller import users_controller
+from app.ext.api.decorators import authentication
+from flask import Blueprint, request
 
 user_api = Blueprint("user", __name__)
 
 
 @user_api.route("", methods=["POST"])
+@authentication
 def create_user(**kwargs):
-    # users_controller.create_user()
-    return "ok", 201
+    new_user = request.get_json()
+
+    user = users_controller.create_user(new_user)
+
+    return user
 
 
 @user_api.route("/confirm", methods=["POST"])

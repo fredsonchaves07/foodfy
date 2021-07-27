@@ -1,11 +1,8 @@
-from app.ext.api.exceptions import AdminPermissionRequired, EmailAlreadyExist
+from app.ext.api.exceptions import EmailAlreadyExist
 from app.ext.api.services import token_services, users_services, util_services
 
 
-def create_user(new_user, admin):
-    if not admin:
-        raise AdminPermissionRequired
-
+def create_user(new_user):
     name = new_user["name"]
     email = new_user["email"]
     password = new_user["password"]
@@ -16,7 +13,7 @@ def create_user(new_user, admin):
         raise EmailAlreadyExist
 
     user = users_services.create_user(name, email, password)
-    token = token_services.generate_confirm_token(user["id"], user["email"])
+    token = token_services.generate_token(user["id"], user["email"])
 
     # TODO -> Url for auth confirmation
     util_services.send_mail(

@@ -40,4 +40,11 @@ def confirm_user(user_id):
     db.session.add(user)
     db.session.commit()
 
+
+def is_admin(user_id):
+    user = find_by_id(user_id)
+
+    if not user.is_admin:
+        return False
+
     return True
