@@ -18,3 +18,6 @@ class User(db.Model):
 
     def __init__(self):
         self.id = str(uuid4())
+
+    def as_dict(self):
+        return {"id": self.id, "name": self.name, "email": self.email}

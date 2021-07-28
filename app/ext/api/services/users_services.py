@@ -13,7 +13,7 @@ def create_user(name, email, password, admin=False):
     db.session.add(user)
     db.session.commit()
 
-    return {"id": user.id, "name": user.name, "email": user.email}
+    return user.as_dict()
 
 
 def find_by_email(email):
@@ -47,7 +47,7 @@ def confirm_user(user_id):
     db.session.add(user)
     db.session.commit()
 
-    return {"id": user.id, "name": user.name, "email": user.email}
+    return user.as_dict()
 
 
 def is_admin(user_id):
@@ -60,3 +60,14 @@ def is_admin(user_id):
         return False
 
     return True
+
+
+def password_reset(user_id, password):
+    user = find_by_id(user_id)
+
+    user.password = generate_password_hash(password)
+
+    db.session.add(user)
+    db.session.commit()
+
+    return user.as_dict()
