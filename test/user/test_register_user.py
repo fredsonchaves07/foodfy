@@ -1,82 +1,151 @@
+import json
+
 from app.ext.api.controller import users_controller
-from app.ext.api.exceptions import AdminPermissionRequired, EmailAlreadyExist
+from app.ext.api.exceptions import (
+    AdminPermissionRequired,
+    EmailAlreadyExist,
+    InvalidUser,
+    UserNotFound,
+)
+from app.ext.api.services import token_services
 
 
-def test_valid_post_request(client):
-    assert client.post("/api/v1/user").status_code == 201
-    assert client.post("/api/v1/user/confirm").status_code == 200
+def test_create_user(client, database, admin_user):
 
-
-def test_create_user(app, database):
-    new_user = {
-        "name": "Usuário teste",
-        "email": "email@email.com",
-        "password": "12346",
-    }
-
-    user = users_controller.create_user(new_user, "admin@email.com")
-
-    assert user["id"]
-
-
-def test_no_create_user_if_email_already_exist(app, database):
     new_user1 = {
         "name": "Usuário teste",
         "email": "email@email.com",
-        "password": "12346",
+        "password": "123456",
+        "admin": False,
     }
 
-    users_controller.create_user(new_user1, "admin@email.com")
+    headers = {
+        "Authorization": admin_user.get("token"),
+        "content-type": "application/json",
+    }
+
+    response = client.post(
+        "/api/v1/user",
+        data=json.dumps(new_user1),
+        headers=headers,
+    )
+
+    assert response.content_type == "application/json"
+    assert response.json["email"] == new_user1["email"]
+    assert response.status_code == 201
+
+
+def test_no_create_user_with_email_already_exist(client, database, admin_user):
+    new_user1 = {
+        "name": "Usuário teste",
+        "email": "email@email.com",
+        "password": "123456",
+        "admin": False,
+    }
+
+    headers = {
+        "Authorization": admin_user.get("token"),
+        "content-type": "application/json",
+    }
+
+    client.post(
+        "/api/v1/user",
+        data=json.dumps(new_user1),
+        headers=headers,
+    )
 
     new_user2 = {
         "name": "Usuário teste2",
         "email": "email@email.com",
-        "password": "12564",
+        "password": "123416",
+        "admin": False,
     }
 
     try:
-        users_controller.create_user(new_user2, "admin@email.com")
+        client.post(
+            "/api/v1/user",
+            data=json.dumps(new_user2),
+            headers=headers,
+        )
     except EmailAlreadyExist:
         assert True
-        assert EmailAlreadyExist.code == 422
 
 
-def test_no_create_user_if_not_admin(app, database):
+def test_no_create_user_not_an_administrator(client, database):
+    token = token_services.generate_token("10", "false_admin@email.com")
+
+    headers = {
+        "Authorization": token,
+        "content-type": "application/json",
+    }
+
     new_user1 = {
         "name": "Usuário teste",
         "email": "email@email.com",
-        "password": "12346",
+        "password": "123456",
+        "admin": False,
     }
 
     try:
-        users_controller.create_user(new_user1, None)
+        client.post(
+            "/api/v1/user",
+            data=json.dumps(new_user1),
+            headers=headers,
+        )
     except AdminPermissionRequired:
         assert True
-        assert AdminPermissionRequired.code == 401
 
 
-def test_confirm_user(app, database):
+def test_confirm_user(client, database):
     new_user1 = {
         "name": "Usuário teste",
         "email": "email@email.com",
-        "password": "12346",
+        "password": "123456",
+        "admin": False,
     }
 
-    user = users_controller.create_user(new_user1, "admin@email.com")
+    user = users_controller.create_user(new_user1)
 
-    users_controller.confirm_user(user["id"])
+    token = token_services.generate_token(user.get("id"), user.get("email"))
 
-    assert True
+    response = client.get(f"/api/v1/user/confirm/{token}")
+
+    assert response.content_type == "application/json"
+    assert response.json["email"] == new_user1["email"]
+    assert response.status_code == 200
 
 
-def test_no_user_confirmed(app, database):
+def test_no_confirm_user_if_user_already_confirmed(client, database):
     new_user1 = {
         "name": "Usuário teste",
         "email": "email@email.com",
-        "password": "12346",
+        "password": "123456",
+        "admin": False,
     }
 
-    user = users_controller.create_user(new_user1, "admin@email.com")
+    user = users_controller.create_user(new_user1)
 
-    users_controller.confirm_user(user["id"])
-    assert users_controller.confirm_user(user["id"]) is False
+    token = token_services.generate_token(user.get("id"), user.get("email"))
+
+    client.get(f"/api/v1/user/confirm/{token}")
+
+    try:
+        client.get(f"/api/v1/user/confirm/{token}")
+    except InvalidUser:
+        return True
+
+
+def test_no_confirm_user_if_user_not_found(client, database):
+    new_user1 = {
+        "name": "Usuário teste",
+        "email": "email@email.com",
+        "password": "123456",
+        "admin": False,
+    }
+
+    token = token_services.generate_token(new_user1.get("id"), new_user1.get("email"))
+
+    try:
+        client.get(f"/api/v1/user/confirm/{token}")
+    except UserNotFound:
+        return True

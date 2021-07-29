@@ -1,6 +1,6 @@
 from dynaconf import FlaskDynaconf
 
 
-def init_app(app, **kwargs):
-    FlaskDynaconf(app, **kwargs)
+def init_app(app):
+    FlaskDynaconf(app)
     app.config.load_extensions("EXTENSIONS")
