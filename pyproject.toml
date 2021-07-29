@@ -9,6 +9,10 @@ license = "MIT"
 python = "^3.9"
 Flask = "^2.0.1"
 dynaconf = "^3.1.4"
+Flask-SQLAlchemy = "^2.5.1"
+Flask-Migrate = "^3.0.1"
+PyJWT = "^2.1.0"
+Flask-Mail = "^0.9.1"
 
 [tool.poetry.dev-dependencies]
 black = "^21.6b0"
@@ -19,6 +23,10 @@ pylint = "^2.9.3"
 pytest = "^6.2.4"
 pytest-flask = "^1.2.0"
 pre-commit = "^2.13.0"
+ipython = "^7.25.0"
+python-dotenv = "^0.18.0"
+flask-shell-ipython = "^0.4.1"
+pytest-cov = "^2.12.1"
 
 [tool.black]
 line-length = 88
@@ -31,6 +39,7 @@ exclude = '''
   | \.tox
   | \.venv
   | \.vscode
+  | migrations
   | _build
   | buck-out
   | build

@@ -129,8 +129,10 @@ dmypy.json
 .pyre/
 
 # Other directories
-migrations/
 .secrets.*
 
-#vscode
+# vscode
 .vscode
+
+# Database test
+*.db

@@ -1,19 +1,10 @@
-from unittest import TestCase
-
-import app
-from flask import Flask
+def test_app_is_created(app):
+    assert app.name == "app"
 
 
-class TestFlaskApp(TestCase):
-    def test_exist_create_app(self):
-        self.assertEqual(hasattr(app, "create_app"), True, "app factory doesnt exist!")
+def test_config_is_loaded(config):
+    assert config["DEBUG"] is False
 
-    def test_invoke_create_app(self):
-        self.assertEqual(
-            hasattr(app.create_app, "__call__"), True, "app factory doesnt invoke"
-        )
 
-    def test_returns_flask_app_create_app(self):
-        self.assertIsInstance(
-            app.create_app(), Flask, "app factory doesnt Flask instance"
-        )
+def test_request_returns_404(client):
+    assert client.get("/url_doesn't_exist!").status_code == 404

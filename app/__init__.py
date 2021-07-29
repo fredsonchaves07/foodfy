@@ -1,11 +1,9 @@
-from dynaconf import FlaskDynaconf
 from flask import Flask
 
-dynaconf = FlaskDynaconf()
+from app.ext import config
 
 
 def create_app():
     app = Flask(__name__)
-    dynaconf.init_app(app)
-
+    config.init_app(app)
     return app
