@@ -6,8 +6,17 @@ auth_api = Blueprint("auth", __name__)
 
 @auth_api.route("/reset", methods=["PATCH"])
 def password_reset():
-    user = request.get_json()
+    user_data = request.get_json()
 
-    user = auth_controller.password_reset(user)
+    user = auth_controller.password_reset(user_data)
 
-    return user, 202
+    return user, 200
+
+
+@auth_api.route("/login", methods=["POST"])
+def login():
+    user_data = request.get_json()
+
+    auth_data = auth_controller.login(user_data)
+
+    return auth_data, 200

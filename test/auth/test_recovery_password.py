@@ -23,7 +23,7 @@ def test_recovery_password(client, database):
     )
 
     assert response.content_type == "application/json"
-    assert response.status_code == 202
+    assert response.status_code == 200
     assert response.json["email"] == new_user1.get("email")
 
 

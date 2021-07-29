@@ -1,6 +1,6 @@
 from app.ext.api.models.user import User
 from app.ext.database import db
-from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 def create_user(name, email, password, admin=False):
@@ -17,7 +17,7 @@ def create_user(name, email, password, admin=False):
 
 
 def find_by_email(email):
-    user = User.query.filter_by(email=email).all()
+    user = User.query.filter_by(email=email).first()
 
     return user
 
@@ -31,17 +31,11 @@ def find_by_id(user_id):
 def is_confirmed(user_id):
     user = find_by_id(user_id)
 
-    if not user:
-        return False
-
     return user.confirmed
 
 
 def confirm_user(user_id):
     user = find_by_id(user_id)
-
-    if not user:
-        return False
 
     user.confirmed = True
     db.session.add(user)
@@ -53,13 +47,7 @@ def confirm_user(user_id):
 def is_admin(user_id):
     user = find_by_id(user_id)
 
-    if not user:
-        return False
-
-    if not user.is_admin:
-        return False
-
-    return True
+    return user.is_admin
 
 
 def password_reset(user_id, password):
@@ -71,3 +59,9 @@ def password_reset(user_id, password):
     db.session.commit()
 
     return user.as_dict()
+
+
+def password_match(email, password):
+    user = find_by_email(email)
+
+    return check_password_hash(user.password, password)
