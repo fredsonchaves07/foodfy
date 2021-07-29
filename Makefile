@@ -1,2 +1,2 @@
 pytest:
-	FLASK_ENV=test pytest -v --cov=app
+	FLASK_ENV=test poetry run pytest -v --cov=app
