@@ -39,6 +39,7 @@ def authentication(f):
 
 
 def admin_required(f):
+    @wraps(f)
     def decorated_function(*args, **kwargs):
         if not users_services.is_admin(kwargs.get("user_id")):
             raise AdminPermissionRequired
