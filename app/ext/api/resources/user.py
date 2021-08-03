@@ -16,24 +16,33 @@ def create_user(**kwargs):
     return user, 201
 
 
-@user_api.route("/profile", methods=["GET"])
+@user_api.route("/<user_id>", methods=["DELETE"])
 @authentication
-def show_profile(**kwargs):
+@admin_required
+def delete_user(user_id, **kwargs):
+    users_controller.delete_user(user_id)
+
+    return {}, 204
+
+
+@user_api.route("", methods=["GET"])
+@authentication
+def get_user(**kwargs):
     user_id = kwargs.get("user_id")
 
-    user = users_controller.get_profile_user(user_id)
+    user = users_controller.get_user(user_id)
 
     return user, 200
 
 
-@user_api.route("/profile", methods=["PATCH"])
+@user_api.route("", methods=["PATCH"])
 @authentication
-def update_profile(**kwargs):
+def update_user(**kwargs):
     user_id = kwargs.get("user_id")
 
     user_data = request.get_json()
 
-    user = users_controller.update_profile_user(user_id, user_data)
+    user = users_controller.update_user(user_id, user_data)
 
     return user, 200
 

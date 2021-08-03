@@ -22,7 +22,7 @@ def test_show_profile(database, client):
     }
 
     response = client.get(
-        "/api/v1/user/profile",
+        "/api/v1/user",
         headers=headers,
     )
 
@@ -50,7 +50,7 @@ def test_no_show_profile_user_if_user_not_exist(database, client):
 
     try:
         client.get(
-            "/api/v1/user/profile",
+            "/api/v1/user",
             headers=headers,
         )
     except UserNotFound:
@@ -76,7 +76,7 @@ def test_update_profile_name(client, database):
     }
 
     response = client.patch(
-        "/api/v1/user/profile", headers=headers, data=json.dumps(update_user)
+        "/api/v1/user", headers=headers, data=json.dumps(update_user)
     )
 
     assert response.content_type == "application/json"
@@ -103,7 +103,7 @@ def test_update_profile_password(client, database):
     }
 
     response = client.patch(
-        "/api/v1/user/profile", headers=headers, data=json.dumps(update_user)
+        "/api/v1/user", headers=headers, data=json.dumps(update_user)
     )
 
     user_data = {
@@ -141,7 +141,7 @@ def test_update_profile_email(client, database):
     }
 
     response = client.patch(
-        "/api/v1/user/profile", headers=headers, data=json.dumps(update_user)
+        "/api/v1/user", headers=headers, data=json.dumps(update_user)
     )
 
     assert response.content_type == "application/json"
@@ -176,9 +176,7 @@ def test_not_update_profile_if_email_already_exist(client, database):
     }
 
     try:
-        client.patch(
-            "/api/v1/user/profile", headers=headers, data=json.dumps(update_user)
-        )
+        client.patch("/api/v1/user", headers=headers, data=json.dumps(update_user))
     except EmailAlreadyExist:
         return True
 
@@ -202,8 +200,30 @@ def test_not_update_profile_if_user_not_already_exist(client, database):
     }
 
     try:
-        client.patch(
-            "/api/v1/user/profile", headers=headers, data=json.dumps(update_user)
-        )
+        client.patch("/api/v1/user", headers=headers, data=json.dumps(update_user))
     except UserNotFound:
         return True
+
+
+def test_delete_user(client, admin_user):
+    new_user1 = {
+        "name": "Usuário teste",
+        "email": "email@email.com",
+        "password": "123456",
+        "admin": False,
+    }
+
+    user = users_controller.create_user(new_user1)
+
+    headers = {
+        "Authorization": admin_user.get("token"),
+        "content-type": "application/json",
+    }
+
+    response = client.delete(
+        f"/api/v1/user/{user.get('id')}",
+        headers=headers,
+    )
+
+    assert response.content_type == "application/json"
+    assert response.status_code == 204

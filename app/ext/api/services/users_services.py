@@ -82,3 +82,9 @@ def update_user(user_id, email, password, name):
     db.session.commit()
 
     return user
+
+
+def delete_user(user_id):
+    user = find_by_id(user_id)
+
+    db.session.delete(user)

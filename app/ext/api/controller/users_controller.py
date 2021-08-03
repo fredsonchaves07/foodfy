@@ -37,7 +37,7 @@ def confirm_user(token):
     return user
 
 
-def get_profile_user(user_id):
+def get_user(user_id):
     user = users_services.find_by_id(user_id)
 
     if not user:
@@ -51,7 +51,7 @@ def get_profile_user(user_id):
     }
 
 
-def update_profile_user(user_id, user_data):
+def update_user(user_id, user_data):
     user = users_services.find_by_id(user_id)
 
     if not user:
@@ -73,3 +73,12 @@ def update_profile_user(user_id, user_data):
         "email": user.email,
         "is_admin": user.is_admin,
     }
+
+
+def delete_user(user_id):
+    user = users_services.find_by_id(user_id)
+
+    if not user:
+        UserNotFound
+
+    users_services.delete_user(user_id)
