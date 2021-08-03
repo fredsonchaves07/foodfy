@@ -1,3 +1,5 @@
+from functools import wraps
+
 from app.ext.api.exceptions import AdminPermissionRequired, InvalidToken
 from app.ext.api.services import token_services, users_services
 from flask import request
@@ -10,6 +12,7 @@ from jwt import (
 
 
 def authentication(f):
+    @wraps(f)
     def decorated_function(*args, **kwargs):
         try:
             token = request.headers.get("Authorization")
