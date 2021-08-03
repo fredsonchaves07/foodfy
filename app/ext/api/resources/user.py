@@ -16,6 +16,16 @@ def create_user(**kwargs):
     return user, 201
 
 
+@user_api.route("/profile", methods=["GET"])
+@authentication
+def show_profile(**kwargs):
+    user_id = kwargs.get("user_id")
+
+    user = users_controller.get_profile_user(user_id)
+
+    return user, 200
+
+
 @user_api.route("/confirm/<token>", methods=["GET"])
 def confirm_user(token):
     user = users_controller.confirm_user(token)

@@ -35,3 +35,17 @@ def confirm_user(token):
         raise UserNotFound
 
     return user
+
+
+def get_profile_user(user_id):
+    user = users_services.find_by_id(user_id)
+
+    if not user:
+        raise UserNotFound
+
+    return {
+        "user_id": user.id,
+        "name": user.name,
+        "email": user.email,
+        "is_admin": user.is_admin,
+    }
