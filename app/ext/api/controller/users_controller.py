@@ -49,3 +49,27 @@ def get_profile_user(user_id):
         "email": user.email,
         "is_admin": user.is_admin,
     }
+
+
+def update_profile_user(user_id, user_data):
+    user = users_services.find_by_id(user_id)
+
+    if not user:
+        raise UserNotFound
+
+    email = user_data.get("email")
+
+    if users_services.find_by_email(email):
+        raise EmailAlreadyExist
+
+    password = user_data.get("password")
+    name = user_data.get("name")
+
+    user = users_services.update_user(user_id, email, password, name)
+
+    return {
+        "user_id": user.id,
+        "name": user.name,
+        "email": user.email,
+        "is_admin": user.is_admin,
+    }

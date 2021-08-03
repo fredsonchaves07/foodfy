@@ -26,6 +26,18 @@ def show_profile(**kwargs):
     return user, 200
 
 
+@user_api.route("/profile", methods=["PATCH"])
+@authentication
+def update_profile(**kwargs):
+    user_id = kwargs.get("user_id")
+
+    user_data = request.get_json()
+
+    user = users_controller.update_profile_user(user_id, user_data)
+
+    return user, 200
+
+
 @user_api.route("/confirm/<token>", methods=["GET"])
 def confirm_user(token):
     user = users_controller.confirm_user(token)

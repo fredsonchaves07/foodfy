@@ -65,3 +65,20 @@ def password_match(email, password):
     user = find_by_email(email)
 
     return check_password_hash(user.password, password)
+
+
+def update_user(user_id, email, password, name):
+    user = find_by_id(user_id)
+
+    if email:
+        user.email = email
+
+    if password:
+        user.password = generate_password_hash(password)
+
+    if name:
+        user.name = name
+
+    db.session.commit()
+
+    return user
