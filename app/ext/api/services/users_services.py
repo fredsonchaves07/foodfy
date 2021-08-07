@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 def create_user(name, email, password, admin=False):
     user = User()
+
     user.name = name
     user.email = email
     user.password = generate_password_hash(password)
@@ -65,6 +66,12 @@ def password_match(email, password):
     user = find_by_email(email)
 
     return check_password_hash(user.password, password)
+
+
+def list_user():
+    users = User.query.all()
+
+    return [user.as_dict() for user in users]
 
 
 def update_user(user_id, email, password, name):

@@ -16,6 +16,15 @@ def create_user(**kwargs):
     return user, 201
 
 
+@user_api.route("/list", methods=["GET"])
+@authentication
+@admin_required
+def list_user(**kwargs):
+    users = users_controller.list_user()
+
+    return users, 200
+
+
 @user_api.route("/<user_id>", methods=["DELETE"])
 @authentication
 @admin_required

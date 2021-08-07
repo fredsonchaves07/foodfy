@@ -37,6 +37,12 @@ def confirm_user(token):
     return user
 
 
+def list_user():
+    users = users_services.list_user()
+
+    return {"users": users}
+
+
 def get_user(user_id):
     user = users_services.find_by_id(user_id)
 
