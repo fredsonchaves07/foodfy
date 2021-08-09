@@ -36,3 +36,11 @@ class UserNotFound(Exception):
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
+
+
+class FileNotFound(Exception):
+    code = 400
+    message = "File not found"
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
