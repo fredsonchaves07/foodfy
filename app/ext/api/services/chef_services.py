@@ -12,3 +12,20 @@ def create_chef(name, avatar):
     db.session.commit()
 
     return chef.as_dict()
+
+
+def find_by_id(chef_id):
+    chef = Chef.query.filter_by(id=chef_id).first()
+
+    return chef
+
+
+def update_chef(chef_id, name):
+    chef = Chef.query.filter_by(id=chef_id).first()
+
+    if name:
+        chef.name = name
+
+    db.session.commit()
+
+    return chef.as_dict()

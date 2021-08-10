@@ -1,16 +1,24 @@
-from app.ext.api.services import chef_services, file_services
-from app.ext.api.utils import file_utils
+from app.ext.api.controller import file_controller
+from app.ext.api.services import chef_services
 
 
 def create_chef(chef, file):
     name = chef.get("name")
 
-    file_uploaded = file_utils.upload(file)
+    new_file = file_controller.create_file(file)
 
-    avatar_chef = file_services.create_file(
-        file_uploaded.get("filename"), file_uploaded.get("path")
-    )
+    chef = chef_services.create_chef(name, new_file.get("id"))
 
-    chef = chef_services.create_chef(name, avatar_chef.get("id"))
+    return chef
+
+
+def update_chef(chef_id, chef_data, file):
+    chef = chef_services.find_by_id(chef_id)
+
+    name = chef_data.get("name")
+
+    file_controller.update_file(chef.file_id, file)
+
+    chef = chef_services.update_chef(chef_id, name)
 
     return chef
