@@ -39,17 +39,21 @@ def test_no_recovery_password_if_user_not_already_exist(client, database):
     user_data = {"token": token, "password": "1234"}
     headers = {"content-type": "application/json"}
 
-    try:
-        client.patch("/api/v1/auth/reset", data=json.dumps(user_data), headers=headers)
-    except UserNotFound:
-        assert True
+    response = client.patch(
+        "/api/v1/auth/reset", data=json.dumps(user_data), headers=headers
+    )
+
+    assert response.status_code == UserNotFound.code
+    assert response.json["message"] == UserNotFound.message
 
 
 def test_no_recovery_password_with_invalid_token(client, database):
     user_data = {"token": "asas100c547896210", "password": "1234"}
     headers = {"content-type": "application/json"}
 
-    try:
-        client.patch("/api/v1/auth/reset", data=json.dumps(user_data), headers=headers)
-    except InvalidToken:
-        assert True
+    response = client.patch(
+        "/api/v1/auth/reset", data=json.dumps(user_data), headers=headers
+    )
+
+    assert response.status_code == InvalidToken.code
+    assert response.json["message"] == InvalidToken.message

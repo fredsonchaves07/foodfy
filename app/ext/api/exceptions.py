@@ -1,4 +1,16 @@
-class EmailAlreadyExist(Exception):
+class BadRequestError(Exception):
+    pass
+
+
+class ServerError(Exception):
+    code = 500
+    message = "Server error."
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
+class EmailAlreadyExist(BadRequestError):
     code = 422
     message = "Email already exist."
 
@@ -6,15 +18,15 @@ class EmailAlreadyExist(Exception):
         super().__init__({"code": self.code, "message": self.message})
 
 
-class InvalidUser(Exception):
+class InvalidUser(BadRequestError):
     code = 401
-    message = "Invalid User. Consult the administrador"
+    message = "Invalid User. Consult the administrador."
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
 
 
-class AdminPermissionRequired(Exception):
+class AdminPermissionRequired(BadRequestError):
     code = 401
     message = "Operation not allowed. Consult the administrator."
 
@@ -22,7 +34,7 @@ class AdminPermissionRequired(Exception):
         super().__init__({"code": self.code, "message": self.message})
 
 
-class InvalidToken(Exception):
+class InvalidToken(BadRequestError):
     code = 498
     message = "Expired or invalid token."
 
@@ -30,7 +42,7 @@ class InvalidToken(Exception):
         super().__init__({"code": self.code, "message": self.message})
 
 
-class UserNotFound(Exception):
+class UserNotFound(BadRequestError):
     code = 404
     message = "User not found."
 
@@ -38,9 +50,25 @@ class UserNotFound(Exception):
         super().__init__({"code": self.code, "message": self.message})
 
 
-class FileNotFound(Exception):
-    code = 400
-    message = "File not found"
+class FileNotFound(BadRequestError):
+    code = 404
+    message = "File not found."
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
+class URLNotFound(BadRequestError):
+    code = 404
+    message = "Api URL not found."
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
+class MethodNotAllowed(BadRequestError):
+    code = 405
+    message = "Method not allowed."
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})

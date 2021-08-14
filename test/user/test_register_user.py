@@ -4,6 +4,7 @@ from app.ext.api.controller import users_controller
 from app.ext.api.exceptions import (
     AdminPermissionRequired,
     EmailAlreadyExist,
+    InvalidToken,
     InvalidUser,
     UserNotFound,
 )
@@ -61,14 +62,10 @@ def test_no_create_user_with_email_already_exist(client, database, admin_user):
         "admin": False,
     }
 
-    try:
-        client.post(
-            "/api/v1/user",
-            data=json.dumps(new_user2),
-            headers=headers,
-        )
-    except EmailAlreadyExist:
-        assert True
+    response = client.post("/api/v1/user", data=json.dumps(new_user2), headers=headers)
+
+    assert response.status_code == EmailAlreadyExist.code
+    assert response.json["message"] == EmailAlreadyExist.message
 
 
 def test_no_create_user_not_an_administrator(client, database):
@@ -86,14 +83,10 @@ def test_no_create_user_not_an_administrator(client, database):
         "admin": False,
     }
 
-    try:
-        client.post(
-            "/api/v1/user",
-            data=json.dumps(new_user1),
-            headers=headers,
-        )
-    except AdminPermissionRequired:
-        assert True
+    response = client.post("/api/v1/user", data=json.dumps(new_user1), headers=headers)
+
+    assert response == AdminPermissionRequired.code
+    assert response.json["message"] == AdminPermissionRequired.message
 
 
 def test_confirm_user(client, database):
@@ -129,10 +122,10 @@ def test_no_confirm_user_if_user_already_confirmed(client, database):
 
     client.get(f"/api/v1/user/confirm/{token}")
 
-    try:
-        client.get(f"/api/v1/user/confirm/{token}")
-    except InvalidUser:
-        return True
+    response = client.get(f"/api/v1/user/confirm/{token}")
+
+    assert response.status_code == InvalidUser.code
+    assert response.json["message"] == InvalidUser.message
 
 
 def test_no_confirm_user_if_user_not_found(client, database):
@@ -145,7 +138,14 @@ def test_no_confirm_user_if_user_not_found(client, database):
 
     token = token_services.generate_token(new_user1.get("id"), new_user1.get("email"))
 
-    try:
-        client.get(f"/api/v1/user/confirm/{token}")
-    except UserNotFound:
-        return True
+    response = client.get(f"/api/v1/user/confirm/{token}")
+
+    assert response.status_code == UserNotFound.code
+    assert response.json["message"] == UserNotFound.message
+
+
+def test_no_confirm_user_if_token_is_invalid(client, database):
+    response = client.get("/api/v1/user/confirm/105021054ascfr9")
+
+    assert response.status_code == InvalidToken.code
+    assert response.json["message"] == InvalidToken.message

@@ -1,3 +1,6 @@
+from app.ext.api.exceptions import URLNotFound
+
+
 def test_app_is_created(app):
     assert app.name == "app"
 
@@ -7,4 +10,7 @@ def test_config_is_loaded(config):
 
 
 def test_request_returns_404(client):
-    assert client.get("/url_doesn't_exist!").status_code == 404
+    response = client.get("/url_doesn't_exist!")
+
+    assert response.status_code == URLNotFound.code
+    assert response.json["message"] == URLNotFound.message
