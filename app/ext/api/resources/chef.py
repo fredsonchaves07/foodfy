@@ -27,3 +27,12 @@ def update_chef(chef_id, **kwargs):
     chef = chef_controller.update_chef(chef_id, chef_data, avatar_file)
 
     return chef, 200
+
+
+@chef_api.route("/<chef_id>", methods=["DELETE"])
+@authentication
+@admin_required
+def delete_chef(chef_id, **kwargs):
+    chef_controller.delete_chef(chef_id)
+
+    return {}, 204

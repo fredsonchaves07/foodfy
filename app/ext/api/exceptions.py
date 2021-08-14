@@ -44,3 +44,11 @@ class FileNotFound(Exception):
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
+
+
+class ChefNotFound(Exception):
+    code = 400
+    message = "Chef not found"
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})

@@ -29,3 +29,9 @@ def update_chef(chef_id, name):
     db.session.commit()
 
     return chef.as_dict()
+
+
+def delete_chef(chef_id):
+    chef = find_by_id(chef_id)
+
+    db.session.delete(chef)
