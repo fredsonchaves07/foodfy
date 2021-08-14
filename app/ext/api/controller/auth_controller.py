@@ -1,4 +1,4 @@
-from app.ext.api.exceptions import UserNotFound
+from app.ext.api.exceptions import InvalidToken, UserNotFound
 from app.ext.api.services import token_services, users_services
 from dynaconf import settings
 from jwt import (
@@ -19,7 +19,7 @@ def password_reset(user_data):
         InvalidSignatureError,
         InvalidTokenError,
     ):
-        raise InvalidTokenError
+        raise InvalidToken
 
     if not users_services.find_by_id(user.get("user_id")):
         raise UserNotFound

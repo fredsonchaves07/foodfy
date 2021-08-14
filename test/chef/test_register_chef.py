@@ -27,16 +27,16 @@ def test_no_register_chef_if_file_not_found(client, admin_user):
 
     headers = {"Authorization": admin_user.get("token")}
 
-    try:
-        client.post(
-            "/api/v1/chef",
-            data=new_chef,
-            headers=headers,
-            follow_redirects=True,
-            content_type="multipart/form-data",
-        )
-    except FileNotFound:
-        return True
+    response = client.post(
+        "/api/v1/chef",
+        data=new_chef,
+        headers=headers,
+        follow_redirects=True,
+        content_type="multipart/form-data",
+    )
+
+    assert response.status_code == FileNotFound.code
+    assert response.json["message"] == FileNotFound.message
 
 
 def test_no_register_chef_if_user_not_admin(client, database):
@@ -49,13 +49,13 @@ def test_no_register_chef_if_user_not_admin(client, database):
         "content-type": "application/json",
     }
 
-    try:
-        client.post(
-            "/api/v1/chef",
-            data=new_chef,
-            headers=headers,
-            follow_redirects=True,
-            content_type="multipart/form-data",
-        )
-    except AdminPermissionRequired:
-        return True
+    response = client.post(
+        "/api/v1/chef",
+        data=new_chef,
+        headers=headers,
+        follow_redirects=True,
+        content_type="multipart/form-data",
+    )
+
+    assert response.status_code == AdminPermissionRequired.code
+    assert response.json["message"] == AdminPermissionRequired.message

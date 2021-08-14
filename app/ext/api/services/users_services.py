@@ -32,11 +32,17 @@ def find_by_id(user_id):
 def is_confirmed(user_id):
     user = find_by_id(user_id)
 
+    if not user:
+        return False
+
     return user.confirmed
 
 
 def confirm_user(user_id):
     user = find_by_id(user_id)
+
+    if not user:
+        return False
 
     user.confirmed = True
     db.session.add(user)
@@ -47,6 +53,9 @@ def confirm_user(user_id):
 
 def is_admin(user_id):
     user = find_by_id(user_id)
+
+    if not user:
+        return False
 
     return user.is_admin
 
