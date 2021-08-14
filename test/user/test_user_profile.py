@@ -48,13 +48,10 @@ def test_no_show_profile_user_if_user_not_exist(database, client):
         "content-type": "application/json",
     }
 
-    try:
-        client.get(
-            "/api/v1/user",
-            headers=headers,
-        )
-    except UserNotFound:
-        return True
+    response = client.get("/api/v1/user", headers=headers)
+
+    assert response.status_code == UserNotFound.code
+    assert response.json["message"] == UserNotFound.message
 
 
 def test_update_profile_name(client, database):
@@ -175,10 +172,12 @@ def test_not_update_profile_if_email_already_exist(client, database):
         "content-type": "application/json",
     }
 
-    try:
-        client.patch("/api/v1/user", headers=headers, data=json.dumps(update_user))
-    except EmailAlreadyExist:
-        return True
+    response = client.patch(
+        "/api/v1/user", headers=headers, data=json.dumps(update_user)
+    )
+
+    assert response.status_code == EmailAlreadyExist.code
+    assert response.json["message"] == EmailAlreadyExist.message
 
 
 def test_not_update_profile_if_user_not_already_exist(client, database):
@@ -199,10 +198,12 @@ def test_not_update_profile_if_user_not_already_exist(client, database):
         "content-type": "application/json",
     }
 
-    try:
-        client.patch("/api/v1/user", headers=headers, data=json.dumps(update_user))
-    except UserNotFound:
-        return True
+    response = client.patch(
+        "/api/v1/user", headers=headers, data=json.dumps(update_user)
+    )
+
+    assert response.status_code == UserNotFound.code
+    assert response.json["message"] == UserNotFound.message
 
 
 def test_delete_user(client, admin_user):

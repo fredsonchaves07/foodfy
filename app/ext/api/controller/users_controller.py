@@ -1,4 +1,9 @@
-from app.ext.api.exceptions import EmailAlreadyExist, InvalidUser, UserNotFound
+from app.ext.api.exceptions import (
+    EmailAlreadyExist,
+    InvalidToken,
+    InvalidUser,
+    UserNotFound,
+)
 from app.ext.api.services import token_services, users_services, util_services  # noqa
 
 
@@ -24,7 +29,10 @@ def create_user(new_user):
 
 
 def confirm_user(token):
-    user = token_services.verify_token(token)
+    try:
+        user = token_services.verify_token(token)
+    except Exception:
+        raise InvalidToken
 
     if users_services.is_confirmed(user.get("user_id")):
         raise InvalidUser
