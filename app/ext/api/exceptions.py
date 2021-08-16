@@ -74,8 +74,8 @@ class MethodNotAllowed(BadRequestError):
         super().__init__({"code": self.code, "message": self.message})
 
 
-class ChefNotFound(Exception):
-    code = 400
+class ChefNotFound(BadRequestError):
+    code = 404
     message = "Chef not found"
 
     def __init__(self):

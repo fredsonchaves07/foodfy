@@ -35,10 +35,10 @@ def test_no_edit_chef_if_chef_is_not_already_exist(client, admin_user, database)
 
     update_chef = {"name": "chef test1"}
 
-    assert isinstance(
-        client.patch("/api/v1/chef/1000000", data=update_chef, headers=headers),
-        ChefNotFound,
-    )
+    response = client.patch("/api/v1/chef/1000000", data=update_chef, headers=headers)
+
+    assert response.status_code == ChefNotFound.code
+    assert response.json["message"] == ChefNotFound.message
 
 
 def test_no_edit_chef_if_user_is_not_admin(client, admin_user):
@@ -64,10 +64,12 @@ def test_no_edit_chef_if_user_is_not_admin(client, admin_user):
         "content-type": "application/json",
     }
 
-    try:
-        client.patch(f"/api/v1/chef/{chef_id}", data=update_chef, headers=headers)
-    except AdminPermissionRequired:
-        assert True
+    response = client.patch(
+        f"/api/v1/chef/{chef_id}", data=update_chef, headers=headers
+    )
+
+    assert response.status_code == AdminPermissionRequired.code
+    assert response.json["message"] == AdminPermissionRequired.message
 
 
 def test_delete_chef(client, admin_user):
@@ -94,7 +96,7 @@ def test_delete_chef(client, admin_user):
 def test_no_delete_if_chef_is_not_already_exist(client, admin_user):
     headers = {"Authorization": admin_user.get("token")}
 
-    try:
-        client.delete("/api/v1/chef/10", headers=headers)
-    except ChefNotFound:
-        assert True
+    response = client.delete("/api/v1/chef/10", headers=headers)
+
+    assert response.status_code == ChefNotFound.code
+    assert response.json["message"] == ChefNotFound.message
