@@ -4,7 +4,6 @@ from app.ext.api.services import token_services
 
 
 def test_list_users(client, admin_user):
-
     users = [
         {
             "name": "Usuário 1",
