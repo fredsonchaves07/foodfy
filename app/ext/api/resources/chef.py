@@ -36,3 +36,11 @@ def delete_chef(chef_id, **kwargs):
     chef_controller.delete_chef(chef_id)
 
     return {}, 204
+
+
+@chef_api.route("/<chef_id>", methods=["GET"])
+@authentication
+def get_chef(chef_id, **kwargs):
+    chef = chef_controller.get_chef(chef_id)
+
+    return chef, 200

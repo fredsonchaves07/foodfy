@@ -12,7 +12,6 @@ from app.ext.api.services import token_services
 
 
 def test_create_user(client, database, admin_user):
-
     new_user1 = {
         "name": "Usuário teste",
         "email": "email@email.com",
