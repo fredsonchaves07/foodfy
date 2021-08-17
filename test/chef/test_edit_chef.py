@@ -100,3 +100,31 @@ def test_no_delete_if_chef_is_not_already_exist(client, admin_user):
 
     assert response.status_code == ChefNotFound.code
     assert response.json["message"] == ChefNotFound.message
+
+
+def test_update_avatar_file_chef(client, admin_user):
+    new_chef = {"name": "chef test", "avatar": (BytesIO(b"avatar"), "test.jpg")}
+
+    headers = {"Authorization": admin_user.get("token")}
+
+    chef = client.post(
+        "/api/v1/chef",
+        data=new_chef,
+        headers=headers,
+        follow_redirects=True,
+        content_type="multipart/form-data",
+    )
+
+    chef_id = chef.json.get("id")
+    avatar = chef.json.get("avatar")
+
+    update_chef = {"avatar": (BytesIO(b"avatar1"), "avatar1.jpg")}
+
+    response = client.patch(
+        f"/api/v1/chef/{chef_id}", data=update_chef, headers=headers
+    )
+
+    assert response.content_type == "application/json"
+    assert response.status_code == 200
+    assert response.json.get("id") == chef_id
+    assert response.json.get("avatar") != avatar

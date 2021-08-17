@@ -23,6 +23,10 @@ def update_file(file_id, file):
     file_old = file_services.get_file_by_id(file_id)
 
     file_utils.remove(file_old)
-    new_file = file_utils.upload(file)
+    file_uploaded = file_utils.upload(file)
 
-    return new_file
+    update_file = file_services.update_file(
+        file_id, file_uploaded.get("filename"), file_uploaded.get("path")
+    )
+
+    return update_file

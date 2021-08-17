@@ -12,9 +12,12 @@ class Chef(db.Model):
     file_id = db.Column("file_id", db.String, db.ForeignKey("files.id"), nullable=False)
     created_at = db.Column("created_at", db.DateTime, default=datetime.now())
     updated_at = db.Column("updated_at", db.DateTime, default=datetime.now())
+    files = db.relationship(
+        "Files", lazy="select", backref=db.backref("chef", lazy="joined")
+    )
 
     def __init__(self):
         self.id = str(uuid4())
 
     def as_dict(self):
-        return {"id": self.id, "name": self.name, "file_id": self.file_id}
+        return {"id": self.id, "name": self.name, "avatar": self.files.path}

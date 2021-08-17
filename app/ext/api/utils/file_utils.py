@@ -9,7 +9,7 @@ def upload(file):
     if not file:
         raise FileNotFound
 
-    filename = f"{datetime.now()} - filename"
+    filename = f"{datetime.now()}-{file.filename}"
     path = os.path.join(settings.get("UPLOAD_FOLDER"), filename)
 
     file.save(path)
