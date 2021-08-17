@@ -35,3 +35,9 @@ def delete_chef(chef_id):
         raise ChefNotFound
 
     chef_services.delete_chef(chef_id)
+
+
+def list_chef():
+    chefs = chef_services.list_chef()
+
+    return {"chefs": chefs}
