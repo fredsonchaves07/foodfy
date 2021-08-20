@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from uuid import uuid4
 
@@ -31,7 +32,7 @@ class Recipe(db.Model):
             "id": self.id,
             "name": self.name,
             "chef": self.chef.as_dict(),
-            "preparation_mode": self.preparation_mode,
-            "ingredients": self.ingredients,
+            "preparation_mode": json.loads(self.preparation_mode),
+            "ingredients": json.loads(self.ingredients),
             "additional_information": self.additional_information,
         }
