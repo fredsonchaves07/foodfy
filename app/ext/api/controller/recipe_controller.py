@@ -1,5 +1,10 @@
 from app.ext.api.controller import file_controller
-from app.ext.api.exceptions import MaximumImageCapacityError, RecipeWithoutImage
+from app.ext.api.exceptions import (
+    MaximumImageCapacityError,
+    RecipeWithoutImage,
+    RecipeWithoutIngredient,
+    RecipeWithoutPreparationMode,
+)
 from app.ext.api.services import recipe_services
 
 
@@ -9,6 +14,12 @@ def create_recipe(recipe, files):
 
     if len(files) > 6:
         raise MaximumImageCapacityError
+
+    if not recipe.getlist("ingredients"):
+        raise RecipeWithoutIngredient
+
+    if not recipe.getlist("preparation_mode"):
+        raise RecipeWithoutPreparationMode
 
     recipe_img_list = []
 

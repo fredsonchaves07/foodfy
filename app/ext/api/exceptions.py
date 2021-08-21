@@ -96,3 +96,19 @@ class RecipeWithoutImage(BadRequestError):
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
+
+
+class RecipeWithoutIngredient(BadRequestError):
+    code = 400
+    message = "At least 1 ingredient of the recipe must be sent"
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
+class RecipeWithoutPreparationMode(BadRequestError):
+    code = 400
+    message = "At least 1 preparation mode of the recipe must be sent"
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
