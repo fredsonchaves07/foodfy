@@ -10,18 +10,6 @@ def create_recipe(recipe, files):
     if len(files) > 6:
         raise MaximumImageCapacityError
 
-    # TODO -> Verificar se o chef_id existe
-    chef_id = recipe.get("chef_id")
-
-    name = recipe.get("name")
-    ingredients = recipe.getlist("ingredients")
-    preparation_mode = recipe.getlist("preparation_mode")
-    additional_information = recipe.get("additional_information")
-
-    recipe = recipe_services.create_recipe(
-        name, ingredients, preparation_mode, additional_information, chef_id
-    )
-
     recipe_img_list = []
 
     for file in files:
@@ -31,6 +19,20 @@ def create_recipe(recipe, files):
         )
         recipe_img_list.append(recipe_file)
 
-    recipe_services.update_recipe_img(recipe.get("id"), recipe_img_list)
+    # TODO -> Verificar se o chef_id existe
+    chef_id = recipe.get("chef_id")
+    name = recipe.get("name")
+    ingredients = recipe.getlist("ingredients")
+    preparation_mode = recipe.getlist("preparation_mode")
+    additional_information = recipe.get("additional_information")
+
+    recipe = recipe_services.create_recipe(
+        name,
+        ingredients,
+        preparation_mode,
+        additional_information,
+        chef_id,
+        recipe_img_list,
+    )
 
     return recipe
