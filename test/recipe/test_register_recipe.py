@@ -63,4 +63,6 @@ def test_register_recipe(client, admin_user):
     assert response.json["additional_information"] == recipe.get(
         "additional_information"
     )
+    assert len(response.json["recipe_imgs"]) == len(recipe.get("recipe_imgs"))
+
     assert response.status_code == 201

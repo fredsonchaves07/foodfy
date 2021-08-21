@@ -35,4 +35,5 @@ class Recipe(db.Model):
             "preparation_mode": json.loads(self.preparation_mode),
             "ingredients": json.loads(self.ingredients),
             "additional_information": self.additional_information,
+            "recipe_imgs": [recipe_img.as_dict() for recipe_img in self.recipe_files],
         }
