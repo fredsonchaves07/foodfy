@@ -44,3 +44,11 @@ def get_chef(chef_id, **kwargs):
     chef = chef_controller.get_chef(chef_id)
 
     return chef, 200
+
+
+@chef_api.route("", methods=["GET"])
+@authentication
+def list_chef(**kwargs):
+    chefs = chef_controller.list_chef()
+
+    return chefs, 200

@@ -44,3 +44,9 @@ def get_chef(chef_id):
         raise ChefNotFound
 
     return chef.as_dict()
+
+
+def list_chef():
+    chefs = chef_services.list_chef()
+
+    return {"chefs": chefs}

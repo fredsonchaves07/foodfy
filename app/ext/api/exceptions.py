@@ -80,3 +80,35 @@ class ChefNotFound(BadRequestError):
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
+
+
+class MaximumImageCapacityError(BadRequestError):
+    code = 400
+    message = "Maximum image capacity reached. Check the required quantity."
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
+class RecipeWithoutImage(BadRequestError):
+    code = 400
+    message = "At least 1 image of the recipe must be sent"
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
+class RecipeWithoutIngredient(BadRequestError):
+    code = 400
+    message = "At least 1 ingredient of the recipe must be sent"
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
+class RecipeWithoutPreparationMode(BadRequestError):
+    code = 400
+    message = "At least 1 preparation mode of the recipe must be sent"
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
