@@ -21,7 +21,10 @@ class Recipe(db.Model):
         "Chef", lazy="select", backref=db.backref("recipe", lazy="joined")
     )
     recipe_files = db.relationship(
-        "RecipeFiles", lazy="select", backref=db.backref("recipe", lazy="joined")
+        "RecipeFiles",
+        lazy="select",
+        cascade="all, delete-orphan",
+        backref=db.backref("recipe", lazy="joined"),
     )
 
     def __init__(self):

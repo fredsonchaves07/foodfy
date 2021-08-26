@@ -22,4 +22,8 @@ class RecipeFiles(db.Model):
         self.id = str(uuid4())
 
     def as_dict(self):
-        return {"recipe_id": self.recipe_id, "path": self.files.path}
+        return {
+            "recipe_id": self.recipe_id,
+            "path": self.files.path,
+            "file_id": self.file_id,
+        }
