@@ -29,3 +29,9 @@ def get_file_by_id(file_id):
     file = Files.query.filter_by(id=file_id).first()
 
     return file
+
+
+def delete_file(file_id):
+    file = get_file_by_id(file_id)
+
+    db.session.delete(file)

@@ -30,3 +30,13 @@ def update_file(file_id, file):
     )
 
     return update_file
+
+
+def delete_file(file_id):
+    file_old = file_services.get_file_by_id(file_id)
+
+    if not file_old:
+        raise FileNotFound
+
+    file_services.delete_file(file_id)
+    file_utils.remove(file_old)
