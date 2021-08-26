@@ -8,8 +8,8 @@ def create_user(name, email, password, admin=False):
 
     user.name = name
     user.email = email
+    user.is_admin = admin
     user.password = generate_password_hash(password)
-    user.admin = admin
 
     db.session.add(user)
     db.session.commit()
