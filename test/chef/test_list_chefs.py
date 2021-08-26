@@ -7,10 +7,10 @@ from app.ext.api.services import token_services
 
 def test_list_chefs(client, admin_user):
     chefs = [
-        {"name": "chef 1", "avatar": (BytesIO(b"avatar"), "chef1.jpg")},
-        {"name": "chef 2", "avatar": (BytesIO(b"avatar"), "chef2.jpg")},
-        {"name": "chef 3", "avatar": (BytesIO(b"avatar"), "chef3.jpg")},
-        {"name": "chef 4", "avatar": (BytesIO(b"avatar"), "chef4.jpg")},
+        {"name": "chef 1", "avatar": (BytesIO(b"avatar"), "test1.jpg")},
+        {"name": "chef 2", "avatar": (BytesIO(b"avatar"), "test2.jpg")},
+        {"name": "chef 3", "avatar": (BytesIO(b"avatar"), "test3.jpg")},
+        {"name": "chef 4", "avatar": (BytesIO(b"avatar"), "test4.jpg")},
     ]
 
     headers = {
@@ -53,10 +53,10 @@ def test_list_chefs(client, admin_user):
 
 def test_no_list_chef_is_user_is_not_authenticate(client, admin_user):
     chefs = [
-        {"name": "chef 1", "avatar": (BytesIO(b"avatar"), "chef1.jpg")},
-        {"name": "chef 2", "avatar": (BytesIO(b"avatar"), "chef2.jpg")},
-        {"name": "chef 3", "avatar": (BytesIO(b"avatar"), "chef3.jpg")},
-        {"name": "chef 4", "avatar": (BytesIO(b"avatar"), "chef4.jpg")},
+        {"name": "chef 1", "avatar": (BytesIO(b"avatar"), "test1.jpg")},
+        {"name": "chef 2", "avatar": (BytesIO(b"avatar"), "test2.jpg")},
+        {"name": "chef 3", "avatar": (BytesIO(b"avatar"), "test3.jpg")},
+        {"name": "chef 4", "avatar": (BytesIO(b"avatar"), "test4.jpg")},
     ]
 
     headers = {
