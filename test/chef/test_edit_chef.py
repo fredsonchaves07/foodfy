@@ -118,7 +118,7 @@ def test_update_avatar_file_chef(client, admin_user):
     chef_id = chef.json.get("id")
     avatar = chef.json.get("avatar")
 
-    update_chef = {"avatar": (BytesIO(b"avatar1"), "avatar1.jpg")}
+    update_chef = {"avatar": (BytesIO(b"avatar1"), "test.jpg")}
 
     response = client.patch(
         f"/api/v1/chef/{chef_id}", data=update_chef, headers=headers
