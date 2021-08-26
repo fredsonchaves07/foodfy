@@ -136,3 +136,6 @@ dmypy.json
 
 # Database test
 *.db
+
+# Tmp directories
+tmp/*
