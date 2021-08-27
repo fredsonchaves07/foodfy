@@ -103,3 +103,21 @@ def update_recipe(recipe_id, user_id, recipe_data, files):
     )
 
     return recipe
+
+
+def delete_recipe(recipe_id, user_id):
+    recipe = recipe_services.find_by_id(recipe_id)
+
+    if not recipe:
+        raise RecipeNotFound
+
+    if recipe.user_id != user_id and not users_services.is_admin(user_id):
+        raise InvalidUser
+
+    for file in recipe.recipe_files:
+        file_id = file.file_id
+
+        recipe_services.delete_recipe_files(recipe_id, file_id)
+        file_controller.delete_file(file_id)
+
+    recipe_services.delete_recipe(recipe_id)

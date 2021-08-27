@@ -35,3 +35,4 @@ def delete_file(file_id):
     file = get_file_by_id(file_id)
 
     db.session.delete(file)
+    db.session.commit()

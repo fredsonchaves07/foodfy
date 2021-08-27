@@ -45,6 +45,7 @@ def delete_recipe_files(recipe_id, file_id):
     for file in recipe.recipe_files:
         if file.file_id == file_id:
             db.session.delete(file)
+            db.session.commit()
 
             return True
     return False
@@ -95,3 +96,9 @@ def is_img_capacity_max(recipe_id, files, delete_imgs=None):
         return True
 
     return False
+
+
+def delete_recipe(recipe_id):
+    recipe = find_by_id(recipe_id)
+
+    db.session.delete(recipe)

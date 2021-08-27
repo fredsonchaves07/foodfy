@@ -28,3 +28,13 @@ def update_recipe(recipe_id, **kwargs):
     )
 
     return recipe, 200
+
+
+@recipe_api.route("/<recipe_id>", methods=["DELETE"])
+@authentication
+def delete_recipe(recipe_id, **kwargs):
+    user_id = kwargs.get("user_id")
+
+    recipe_controller.delete_recipe(recipe_id, user_id)
+
+    return {}, 204
