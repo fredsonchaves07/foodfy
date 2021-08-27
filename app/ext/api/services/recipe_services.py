@@ -6,7 +6,13 @@ from app.ext.database import db
 
 
 def create_recipe(
-    name, ingredients, preparation_mode, additional_information, chef_id, recipe_imgs
+    name,
+    ingredients,
+    preparation_mode,
+    additional_information,
+    chef_id,
+    recipe_imgs,
+    user_id,
 ):
     recipe = Recipe()
 
@@ -16,6 +22,7 @@ def create_recipe(
     recipe.additional_information = additional_information
     recipe.chef_id = chef_id
     recipe.recipe_files = recipe_imgs
+    recipe.user_id = user_id
 
     db.session.add(recipe)
     db.session.commit()
@@ -49,7 +56,9 @@ def find_by_id(recipe_id):
     return recipe
 
 
-def update_recipe(recipe_id, name, recipe_img_list):
+def update_recipe(
+    recipe_id, name, chef_id, ingredients, preparation_mode, recipe_img_list
+):
     recipe = find_by_id(recipe_id)
 
     if name:
@@ -57,6 +66,15 @@ def update_recipe(recipe_id, name, recipe_img_list):
 
     if recipe_img_list:
         recipe.recipe_files.extend(recipe_img_list)
+
+    if chef_id:
+        recipe.chef_id = chef_id
+
+    if ingredients:
+        recipe.ingredients = json.dumps(ingredients)
+
+    if preparation_mode:
+        recipe.preparation_mode = json.dumps(preparation_mode)
 
     db.session.commit()
 

@@ -1,15 +1,17 @@
 from app.ext.api.controller import file_controller
 from app.ext.api.exceptions import (
     ChefNotFound,
+    InvalidUser,
     MaximumImageCapacityError,
+    RecipeNotFound,
     RecipeWithoutImage,
     RecipeWithoutIngredient,
     RecipeWithoutPreparationMode,
 )
-from app.ext.api.services import chef_services, recipe_services
+from app.ext.api.services import chef_services, recipe_services, users_services
 
 
-def create_recipe(recipe, files):
+def create_recipe(user_id, recipe, files):
     if not files:
         raise RecipeWithoutImage
 
@@ -48,15 +50,27 @@ def create_recipe(recipe, files):
         additional_information,
         chef_id,
         recipe_img_list,
+        user_id,
     )
 
     return recipe
 
 
-def update_recipe(recipe_id, recipe_data, files):
+def update_recipe(recipe_id, user_id, recipe_data, files):
+    recipe = recipe_services.find_by_id(recipe_id)
+
+    if not recipe:
+        raise RecipeNotFound
+
+    if recipe.user_id != user_id and not users_services.is_admin(user_id):
+        raise InvalidUser
 
     name = recipe_data.get("name")
+
+    chef_id = recipe_data.get("chef_id")
     delete_imgs = recipe_data.getlist("delete_imgs")
+    ingredients = recipe_data.getlist("ingredients")
+    preparation_mode = recipe_data.getlist("preparation_mode")
 
     for file_id in delete_imgs:
         recipe_services.delete_recipe_files(recipe_id, file_id)
@@ -69,6 +83,8 @@ def update_recipe(recipe_id, recipe_data, files):
         recipe_file = recipe_services.create_recipe_files(new_file.get("id"), recipe_id)
         recipe_img_list.append(recipe_file)
 
-    recipe = recipe_services.update_recipe(recipe_id, name, recipe_img_list)
+    recipe = recipe_services.update_recipe(
+        recipe_id, name, chef_id, ingredients, preparation_mode, recipe_img_list
+    )
 
     return recipe
