@@ -65,12 +65,27 @@ def update_recipe(recipe_id, user_id, recipe_data, files):
     if recipe.user_id != user_id and not users_services.is_admin(user_id):
         raise InvalidUser
 
-    name = recipe_data.get("name")
+    delete_imgs = recipe_data.getlist("delete_imgs")
+
+    if recipe_services.is_img_capacity_max(recipe_id, files, delete_imgs):
+        raise MaximumImageCapacityError
 
     chef_id = recipe_data.get("chef_id")
-    delete_imgs = recipe_data.getlist("delete_imgs")
+
+    if chef_services.find_by_id(chef_id):
+        raise ChefNotFound
+
     ingredients = recipe_data.getlist("ingredients")
+
+    if len(ingredients) == 0:
+        raise RecipeWithoutIngredient
+
     preparation_mode = recipe_data.getlist("preparation_mode")
+
+    if len(preparation_mode) == 0:
+        raise RecipeWithoutPreparationMode
+
+    name = recipe_data.get("name")
 
     for file_id in delete_imgs:
         recipe_services.delete_recipe_files(recipe_id, file_id)

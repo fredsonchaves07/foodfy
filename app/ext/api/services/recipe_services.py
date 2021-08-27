@@ -79,3 +79,19 @@ def update_recipe(
     db.session.commit()
 
     return recipe.as_dict()
+
+
+def is_img_capacity_max(recipe_id, files, delete_imgs=None):
+    capacity_max = 6
+
+    if len(files) > capacity_max:
+        return True
+
+    recipe = find_by_id(recipe_id)
+
+    recipe_files = recipe.recipe_files
+
+    if (len(recipe_files) - len(delete_imgs)) + len(files) > capacity_max:
+        return True
+
+    return False
