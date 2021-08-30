@@ -77,12 +77,12 @@ def update_recipe(recipe_id, user_id, recipe_data, files):
 
     ingredients = recipe_data.getlist("ingredients")
 
-    if ingredients and len(ingredients) == 0:
+    if len(ingredients) == 0:
         raise RecipeWithoutIngredient
 
     preparation_mode = recipe_data.getlist("preparation_mode")
 
-    if preparation_mode and len(preparation_mode) == 0:
+    if len(preparation_mode) == 0:
         raise RecipeWithoutPreparationMode
 
     name = recipe_data.get("name")

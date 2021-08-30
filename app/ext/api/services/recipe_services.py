@@ -102,3 +102,4 @@ def delete_recipe(recipe_id):
     recipe = find_by_id(recipe_id)
 
     db.session.delete(recipe)
+    db.session.commit()

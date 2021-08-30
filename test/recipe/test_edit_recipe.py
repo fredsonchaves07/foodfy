@@ -4,8 +4,8 @@ from io import BytesIO
 from app.ext.api.exceptions import (
     ChefNotFound,
     InvalidToken,
-    InvalidUser,
     MaximumImageCapacityError,
+    OperationNotAllowed,
     RecipeWithoutIngredient,
     RecipeWithoutPreparationMode,
 )
@@ -346,8 +346,8 @@ def test_no_edit_recipe_if_recipe_is_other_user(client, admin_user):
         content_type="multipart/form-data",
     )
 
-    assert response.status_code == InvalidUser.code
-    assert response.json["message"] == InvalidUser.message
+    assert response.status_code == OperationNotAllowed.code
+    assert response.json["message"] == OperationNotAllowed.message
 
 
 def test_no_edit_recipe_if_have_maximum_capacity_images(client, admin_user):
@@ -882,5 +882,5 @@ def test_no_delete_recipe_if_recipe_is_other_user(client, admin_user):
         content_type="multipart/form-data",
     )
 
-    assert response.status_code == InvalidUser.code
-    assert response.json["message"] == InvalidUser.message
+    assert response.status_code == OperationNotAllowed.code
+    assert response.json["message"] == OperationNotAllowed.message
