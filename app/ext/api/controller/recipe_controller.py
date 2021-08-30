@@ -1,8 +1,8 @@
 from app.ext.api.controller import file_controller
 from app.ext.api.exceptions import (
     ChefNotFound,
-    InvalidUser,
     MaximumImageCapacityError,
+    OperationNotAllowed,
     RecipeNotFound,
     RecipeWithoutImage,
     RecipeWithoutIngredient,
@@ -63,7 +63,7 @@ def update_recipe(recipe_id, user_id, recipe_data, files):
         raise RecipeNotFound
 
     if recipe.user_id != user_id and not users_services.is_admin(user_id):
-        raise InvalidUser
+        raise OperationNotAllowed
 
     delete_imgs = recipe_data.getlist("delete_imgs")
 
@@ -112,7 +112,7 @@ def delete_recipe(recipe_id, user_id):
         raise RecipeNotFound
 
     if recipe.user_id != user_id and not users_services.is_admin(user_id):
-        raise InvalidUser
+        raise OperationNotAllowed
 
     for file in recipe.recipe_files:
         file_id = file.file_id
