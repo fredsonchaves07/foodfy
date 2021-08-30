@@ -34,6 +34,14 @@ class AdminPermissionRequired(BadRequestError):
         super().__init__({"code": self.code, "message": self.message})
 
 
+class OperationNotAllowed(BadRequestError):
+    code = 401
+    message = "Operation not allowed. Consult the administrator."
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
 class InvalidToken(BadRequestError):
     code = 498
     message = "Expired or invalid token."
