@@ -72,7 +72,7 @@ def update_recipe(recipe_id, user_id, recipe_data, files):
 
     chef_id = recipe_data.get("chef_id")
 
-    if not chef_services.find_by_id(chef_id):
+    if chef_id and not chef_services.find_by_id(chef_id):
         raise ChefNotFound
 
     ingredients = recipe_data.getlist("ingredients")
