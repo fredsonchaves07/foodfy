@@ -34,6 +34,14 @@ class AdminPermissionRequired(BadRequestError):
         super().__init__({"code": self.code, "message": self.message})
 
 
+class OperationNotAllowed(BadRequestError):
+    code = 401
+    message = "Operation not allowed. Consult the administrator."
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
 class InvalidToken(BadRequestError):
     code = 498
     message = "Expired or invalid token."
@@ -76,7 +84,7 @@ class MethodNotAllowed(BadRequestError):
 
 class ChefNotFound(BadRequestError):
     code = 404
-    message = "Chef not found"
+    message = "Chef not found."
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
@@ -92,7 +100,7 @@ class MaximumImageCapacityError(BadRequestError):
 
 class RecipeWithoutImage(BadRequestError):
     code = 400
-    message = "At least 1 image of the recipe must be sent"
+    message = "At least 1 image of the recipe must be sent."
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
@@ -100,7 +108,7 @@ class RecipeWithoutImage(BadRequestError):
 
 class RecipeWithoutIngredient(BadRequestError):
     code = 400
-    message = "At least 1 ingredient of the recipe must be sent"
+    message = "At least 1 ingredient of the recipe must be sent."
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
@@ -108,7 +116,15 @@ class RecipeWithoutIngredient(BadRequestError):
 
 class RecipeWithoutPreparationMode(BadRequestError):
     code = 400
-    message = "At least 1 preparation mode of the recipe must be sent"
+    message = "At least 1 preparation mode of the recipe must be sent."
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
+
+
+class RecipeNotFound(BadRequestError):
+    code = 404
+    message = "Recipe not found."
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
