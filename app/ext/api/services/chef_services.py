@@ -35,6 +35,7 @@ def delete_chef(chef_id):
     chef = find_by_id(chef_id)
 
     db.session.delete(chef)
+    db.session.commit()
 
 
 def list_chef():
