@@ -13,8 +13,8 @@ class Recipe(db.Model):
     ingredients = db.Column("ingredients", db.JSON)
     preparation_mode = db.Column("preparation", db.JSON)
     additional_information = db.Column("additional_information", db.String)
-    user_id = db.Column("user_id", db.String, db.ForeignKey("user.id"))
-    chef_id = db.Column("chef_id", db.String, db.ForeignKey("chef.id"))
+    user_id = db.Column("user_id", db.String, db.ForeignKey("user.id"), nullable=False)
+    chef_id = db.Column("chef_id", db.String, db.ForeignKey("chef.id"), nullable=False)
     created_at = db.Column("created_at", db.DateTime, default=datetime.now())
     updated_at = db.Column("updated_at", db.DateTime, default=datetime.now())
     chef = db.relationship(
