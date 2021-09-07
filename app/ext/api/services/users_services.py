@@ -104,3 +104,4 @@ def delete_user(user_id):
     user = find_by_id(user_id)
 
     db.session.delete(user)
+    db.session.commit()
