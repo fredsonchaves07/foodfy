@@ -9,7 +9,7 @@ def create_user(name, email, password, admin=False):
     user.name = name
     user.email = email
     user.is_admin = admin
-    user.password = generate_password_hash(password)
+    user.password = generate_password_hash(str(password))
 
     db.session.add(user)
     db.session.commit()
@@ -63,7 +63,7 @@ def is_admin(user_id):
 def password_reset(user_id, password):
     user = find_by_id(user_id)
 
-    user.password = generate_password_hash(password)
+    user.password = generate_password_hash(str(password))
 
     db.session.add(user)
     db.session.commit()
@@ -74,7 +74,7 @@ def password_reset(user_id, password):
 def password_match(email, password):
     user = find_by_email(email)
 
-    return check_password_hash(user.password, password)
+    return check_password_hash(user.password, str(password))
 
 
 def list_user():
@@ -90,7 +90,7 @@ def update_user(user_id, email, password, name):
         user.email = email
 
     if password:
-        user.password = generate_password_hash(password)
+        user.password = generate_password_hash(str(password))
 
     if name:
         user.name = name
