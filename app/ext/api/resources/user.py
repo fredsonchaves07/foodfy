@@ -25,11 +25,11 @@ def list_user(**kwargs):
     return users, 200
 
 
-@user_api.route("/<user_id>", methods=["DELETE"])
+@user_api.route("/<id>", methods=["DELETE"])
 @authentication
 @admin_required
-def delete_user(user_id, **kwargs):
-    users_controller.delete_user(user_id)
+def delete_user(id, **kwargs):
+    users_controller.delete_user(id)
 
     return {}, 204
 

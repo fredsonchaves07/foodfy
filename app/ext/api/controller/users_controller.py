@@ -1,3 +1,4 @@
+from app.ext.api.controller import recipe_controller
 from app.ext.api.exceptions import (
     EmailAlreadyExist,
     InvalidToken,
@@ -94,5 +95,8 @@ def delete_user(user_id):
 
     if not user:
         UserNotFound
+
+    for recipe in user.recipes:
+        recipe_controller.delete_recipe(recipe.id, user_id)
 
     users_services.delete_user(user_id)
