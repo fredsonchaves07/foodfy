@@ -1,4 +1,4 @@
-from app.ext.api.exceptions import InvalidToken, UserNotFound
+from app.ext.api.exceptions import IncorrectLogin, InvalidToken, UserNotFound
 from app.ext.api.services import token_services, users_services
 from dynaconf import settings
 from jwt import (
@@ -35,12 +35,12 @@ def login(user_data):
     user = users_services.find_by_email(email)
 
     if not user:
-        raise UserNotFound
+        raise IncorrectLogin
 
     password = user_data.get("password")
 
     if not users_services.password_match(email, password):
-        raise UserNotFound
+        raise IncorrectLogin
 
     if not users_services.is_confirmed(user.id):
         users_services.confirm_user(user.id)

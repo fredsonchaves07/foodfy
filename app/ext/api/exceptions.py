@@ -136,3 +136,11 @@ class RecipeLinkedChef(BadRequestError):
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
+
+
+class IncorrectLogin(BadRequestError):
+    code = 401
+    message = "Data access incorrect."
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
