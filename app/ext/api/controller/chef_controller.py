@@ -1,5 +1,5 @@
 from app.ext.api.controller import file_controller
-from app.ext.api.exceptions import ChefNotFound
+from app.ext.api.exceptions import ChefNotFound, RecipeLinkedChef
 from app.ext.api.services import chef_services
 
 
@@ -33,6 +33,9 @@ def delete_chef(chef_id):
 
     if not chef:
         raise ChefNotFound
+
+    if chef_services.is_recipe_linked_chef(chef_id):
+        raise RecipeLinkedChef
 
     chef_services.delete_chef(chef_id)
 

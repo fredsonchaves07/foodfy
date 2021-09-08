@@ -128,3 +128,11 @@ class RecipeNotFound(BadRequestError):
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
+
+
+class RecipeLinkedChef(BadRequestError):
+    code = 401
+    message = "Operation not allowed. Recipe linked to the chef."
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})

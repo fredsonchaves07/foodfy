@@ -42,3 +42,12 @@ def list_chef():
     chefs = Chef.query.all()
 
     return [chef.as_dict() for chef in chefs]
+
+
+def is_recipe_linked_chef(chef_id):
+    chef = find_by_id(chef_id)
+
+    if chef.recipe:
+        return True
+
+    return False

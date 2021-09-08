@@ -1,6 +1,10 @@
 from io import BytesIO
 
-from app.ext.api.exceptions import AdminPermissionRequired, ChefNotFound
+from app.ext.api.exceptions import (
+    AdminPermissionRequired,
+    ChefNotFound,
+    RecipeLinkedChef,
+)
 from app.ext.api.services import token_services
 
 
@@ -100,6 +104,47 @@ def test_no_delete_if_chef_is_not_already_exist(client, admin_user):
 
     assert response.status_code == ChefNotFound.code
     assert response.json["message"] == ChefNotFound.message
+
+
+def test_no_delete_if_recipe_linked_chef(client, admin_user):
+    new_chef = {"name": "chef test", "avatar": (BytesIO(b"avatar"), "test.jpg")}
+
+    headers = {"Authorization": admin_user.get("token")}
+
+    chef = client.post(
+        "/api/v1/chef",
+        data=new_chef,
+        headers=headers,
+        follow_redirects=True,
+        content_type="multipart/form-data",
+    )
+
+    chef_id = chef.json["id"]
+
+    recipe = {
+        "name": "recipe test",
+        "ingredients": ["Ovo", "Carne de Hamburguer"],
+        "preparation_mode": ["Bata um ovo na frigideira", "Frite a carne"],
+        "additional_information": "",
+        "chef_id": chef_id,
+        "recipe_imgs": [
+            (BytesIO(b"recipe_imgs"), "test1.jpg"),
+            (BytesIO(b"recipe_imgs"), "test2.jpg"),
+        ],
+    }
+
+    client.post(
+        "/api/v1/recipe",
+        data=recipe,
+        headers=headers,
+        follow_redirects=True,
+        content_type="multipart/form-data",
+    )
+
+    response = client.delete(f"/api/v1/chef/{chef_id}", headers=headers)
+
+    assert response.status_code == RecipeLinkedChef.code
+    assert response.json["message"] == RecipeLinkedChef.message
 
 
 def test_update_avatar_file_chef(client, admin_user):
