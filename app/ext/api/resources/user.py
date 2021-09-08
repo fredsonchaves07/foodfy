@@ -16,7 +16,7 @@ def create_user(**kwargs):
     return user, 201
 
 
-@user_api.route("/list", methods=["GET"])
+@user_api.route("", methods=["GET"])
 @authentication
 @admin_required
 def list_user(**kwargs):
@@ -34,24 +34,23 @@ def delete_user(id, **kwargs):
     return {}, 204
 
 
-@user_api.route("", methods=["GET"])
+@user_api.route("/<id>", methods=["GET"])
 @authentication
-def get_user(**kwargs):
-    user_id = kwargs.get("user_id")
+def get_user(id, **kwargs):
+    current_user = kwargs.get("user_id")
 
-    user = users_controller.get_user(user_id)
+    user = users_controller.get_user(id, current_user)
 
     return user, 200
 
 
-@user_api.route("", methods=["PATCH"])
+@user_api.route("<id>", methods=["PATCH"])
 @authentication
-def update_user(**kwargs):
-    user_id = kwargs.get("user_id")
-
+def update_user(id, **kwargs):
     user_data = request.get_json()
+    current_user = kwargs.get("user_id")
 
-    user = users_controller.update_user(user_id, user_data)
+    user = users_controller.update_user(id, current_user, user_data)
 
     return user, 200
 

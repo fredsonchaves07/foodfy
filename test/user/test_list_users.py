@@ -34,7 +34,7 @@ def test_list_users(client, admin_user):
     }
 
     response = client.get(
-        "/api/v1/user/list",
+        "/api/v1/user",
         headers=headers,
     )
 
@@ -59,7 +59,7 @@ def test_no_list_user_if_user_is_not_admin(client, database):
         "content-type": "application/json",
     }
 
-    response = client.get("/api/v1/user/list", headers=headers)
+    response = client.get("/api/v1/user", headers=headers)
 
     assert response.status_code == AdminPermissionRequired.code
     assert response.json["message"] == AdminPermissionRequired.message

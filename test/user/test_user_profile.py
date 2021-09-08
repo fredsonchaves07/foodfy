@@ -14,6 +14,7 @@ def test_show_profile(database, client):
     }
 
     user = users_controller.create_user(new_user1)
+    user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
     headers = {
@@ -22,7 +23,7 @@ def test_show_profile(database, client):
     }
 
     response = client.get(
-        "/api/v1/user",
+        f"/api/v1/user/{user_id}",
         headers=headers,
     )
 
@@ -48,7 +49,7 @@ def test_no_show_profile_user_if_user_not_exist(database, client):
         "content-type": "application/json",
     }
 
-    response = client.get("/api/v1/user", headers=headers)
+    response = client.get("/api/v1/user/105542", headers=headers)
 
     assert response.status_code == UserNotFound.code
     assert response.json["message"] == UserNotFound.message
@@ -63,6 +64,7 @@ def test_update_profile_name(client, database):
     }
 
     user = users_controller.create_user(new_user1)
+    user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
     update_user = {"name": "Usuário teste2"}
@@ -73,7 +75,7 @@ def test_update_profile_name(client, database):
     }
 
     response = client.patch(
-        "/api/v1/user", headers=headers, data=json.dumps(update_user)
+        f"/api/v1/user/{user_id}", headers=headers, data=json.dumps(update_user)
     )
 
     assert response.content_type == "application/json"
@@ -90,6 +92,7 @@ def test_update_profile_password(client, database):
     }
 
     user = users_controller.create_user(new_user1)
+    user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
     update_user = {"name": "Usuário teste2", "password": "54321"}
@@ -100,7 +103,7 @@ def test_update_profile_password(client, database):
     }
 
     response = client.patch(
-        "/api/v1/user", headers=headers, data=json.dumps(update_user)
+        f"/api/v1/user/{user_id}", headers=headers, data=json.dumps(update_user)
     )
 
     user_data = {
@@ -128,6 +131,7 @@ def test_update_profile_email(client, database):
     }
 
     user = users_controller.create_user(new_user1)
+    user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
     update_user = {"email": "email1@email.com"}
@@ -138,7 +142,7 @@ def test_update_profile_email(client, database):
     }
 
     response = client.patch(
-        "/api/v1/user", headers=headers, data=json.dumps(update_user)
+        f"/api/v1/user/{user_id}", headers=headers, data=json.dumps(update_user)
     )
 
     assert response.content_type == "application/json"
@@ -163,6 +167,7 @@ def test_not_update_profile_if_email_already_exist(client, database):
 
     users_controller.create_user(new_user2)
     user = users_controller.create_user(new_user1)
+    user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
     update_user = {"email": "email1@email.com"}
@@ -173,7 +178,7 @@ def test_not_update_profile_if_email_already_exist(client, database):
     }
 
     response = client.patch(
-        "/api/v1/user", headers=headers, data=json.dumps(update_user)
+        f"/api/v1/user/{user_id}", headers=headers, data=json.dumps(update_user)
     )
 
     assert response.status_code == EmailAlreadyExist.code
@@ -199,7 +204,7 @@ def test_not_update_profile_if_user_not_already_exist(client, database):
     }
 
     response = client.patch(
-        "/api/v1/user", headers=headers, data=json.dumps(update_user)
+        "/api/v1/user/100", headers=headers, data=json.dumps(update_user)
     )
 
     assert response.status_code == UserNotFound.code
