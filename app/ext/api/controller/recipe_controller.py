@@ -121,3 +121,12 @@ def delete_recipe(recipe_id, user_id):
         file_controller.delete_file(file_id)
 
     recipe_services.delete_recipe(recipe_id)
+
+
+def get_recipe(recipe_id):
+    recipe = recipe_services.find_by_id(recipe_id)
+
+    if not recipe:
+        raise RecipeNotFound
+
+    return recipe.as_dict()
