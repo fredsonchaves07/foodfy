@@ -1,7 +1,7 @@
 import json
 
 from app.ext.api.controller import users_controller
-from app.ext.api.exceptions import UserNotFound
+from app.ext.api.exceptions import IncorrectLogin
 
 
 def test_login(client, database):
@@ -41,10 +41,12 @@ def test_no_login_with_email_no_already_exist(client, database):
     user_data = {"email": "noexist@email.com", "password": new_user.get("password")}
     headers = {"content-type": "application/json"}
 
-    try:
-        client.post("/api/v1/auth/login", data=json.dumps(user_data), headers=headers)
-    except UserNotFound:
-        assert True
+    response = client.post(
+        "/api/v1/auth/login", data=json.dumps(user_data), headers=headers
+    )
+
+    assert response.status_code == IncorrectLogin.code
+    assert response.json["message"] == IncorrectLogin.message
 
 
 def test_no_login_with_wrong_password(client, database):
@@ -60,7 +62,9 @@ def test_no_login_with_wrong_password(client, database):
     user_data = {"email": new_user.get("email"), "password": "3512"}
     headers = {"content-type": "application/json"}
 
-    try:
-        client.post("/api/v1/auth/login", data=json.dumps(user_data), headers=headers)
-    except UserNotFound:
-        assert True
+    response = client.post(
+        "/api/v1/auth/login", data=json.dumps(user_data), headers=headers
+    )
+
+    assert response.status_code == IncorrectLogin.code
+    assert response.json["message"] == IncorrectLogin.message

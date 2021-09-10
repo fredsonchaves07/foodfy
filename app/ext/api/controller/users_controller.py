@@ -1,4 +1,11 @@
-from app.ext.api.exceptions import EmailAlreadyExist, InvalidUser, UserNotFound
+from app.ext.api.controller import recipe_controller
+from app.ext.api.exceptions import (
+    EmailAlreadyExist,
+    InvalidToken,
+    InvalidUser,
+    OperationNotAllowed,
+    UserNotFound,
+)
 from app.ext.api.services import token_services, users_services, util_services  # noqa
 
 
@@ -24,7 +31,10 @@ def create_user(new_user):
 
 
 def confirm_user(token):
-    user = token_services.verify_token(token)
+    try:
+        user = token_services.verify_token(token)
+    except Exception:
+        raise InvalidToken
 
     if users_services.is_confirmed(user.get("user_id")):
         raise InvalidUser
@@ -35,3 +45,69 @@ def confirm_user(token):
         raise UserNotFound
 
     return user
+
+
+def list_user():
+    users = users_services.list_user()
+
+    return {"users": users}
+
+
+def get_user(user_id, current_user):
+    user = users_services.find_by_id(user_id)
+
+    if not user:
+        raise UserNotFound
+
+    if user_id != current_user and not users_services.is_admin(user_id):
+        raise OperationNotAllowed
+
+    return {
+        "user_id": user.id,
+        "name": user.name,
+        "email": user.email,
+        "is_admin": user.is_admin,
+    }
+
+
+def update_user(user_id, current_user, user_data):
+    user = users_services.find_by_id(user_id)
+
+    if not user:
+        raise UserNotFound
+
+    if user_id != current_user and not users_services.is_admin(current_user):
+        raise OperationNotAllowed
+
+    email = user_data.get("email")
+
+    if users_services.find_by_email(email):
+        raise EmailAlreadyExist
+
+    password = user_data.get("password")
+    name = user_data.get("name")
+    admin = user_data.get("admin")
+
+    if admin and not users_services.is_admin(current_user):
+        raise OperationNotAllowed
+
+    user = users_services.update_user(user_id, email, password, name, admin)
+
+    return {
+        "user_id": user.id,
+        "name": user.name,
+        "email": user.email,
+        "is_admin": user.is_admin,
+    }
+
+
+def delete_user(user_id):
+    user = users_services.find_by_id(user_id)
+
+    if not user:
+        UserNotFound
+
+    for recipe in user.recipes:
+        recipe_controller.delete_recipe(recipe.id, user_id)
+
+    users_services.delete_user(user_id)

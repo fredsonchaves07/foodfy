@@ -16,6 +16,13 @@ class User(db.Model):
     created_at = db.Column("created_at", db.DateTime, default=datetime.now())
     updated_at = db.Column("updated_at", db.DateTime, default=datetime.now())
 
+    recipes = db.relationship(
+        "Recipe",
+        lazy="select",
+        cascade="all, delete-orphan",
+        backref=db.backref("user", lazy="joined"),
+    )
+
     def __init__(self):
         self.id = str(uuid4())
 
