@@ -76,7 +76,7 @@ def update_user(user_id, current_user, user_data):
     if not user:
         raise UserNotFound
 
-    if user_id != current_user and not users_services.is_admin(user_id):
+    if user_id != current_user and not users_services.is_admin(current_user):
         raise OperationNotAllowed
 
     email = user_data.get("email")
@@ -86,8 +86,12 @@ def update_user(user_id, current_user, user_data):
 
     password = user_data.get("password")
     name = user_data.get("name")
+    admin = user_data.get("admin")
 
-    user = users_services.update_user(user_id, email, password, name)
+    if admin and not users_services.is_admin(current_user):
+        raise OperationNotAllowed
+
+    user = users_services.update_user(user_id, email, password, name, admin)
 
     return {
         "user_id": user.id,
