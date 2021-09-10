@@ -1,7 +1,7 @@
 import json
 
 from app.ext.api.controller import users_controller
-from app.ext.api.exceptions import EmailAlreadyExist, UserNotFound
+from app.ext.api.exceptions import EmailAlreadyExist, OperationNotAllowed, UserNotFound
 from app.ext.api.services import token_services
 
 
@@ -150,6 +150,33 @@ def test_update_profile_email(client, database):
     assert response.status_code == 200
 
 
+def test_profile_user_is_admin(admin_user, client):
+    new_user1 = {
+        "name": "Usuário teste",
+        "email": "email@email.com",
+        "password": "123456",
+        "admin": False,
+    }
+
+    user = users_controller.create_user(new_user1)
+    user_id = user.get("id")
+
+    update_user = {"admin": True}
+
+    headers = {
+        "Authorization": admin_user.get("token"),
+        "content-type": "application/json",
+    }
+
+    response = client.patch(
+        f"/api/v1/user/{user_id}", headers=headers, data=json.dumps(update_user)
+    )
+
+    assert response.content_type == "application/json"
+    assert response.json["is_admin"] == update_user.get("admin")
+    assert response.status_code == 200
+
+
 def test_not_update_profile_if_email_already_exist(client, database):
     new_user1 = {
         "name": "Usuário teste",
@@ -209,6 +236,34 @@ def test_not_update_profile_if_user_not_already_exist(client, database):
 
     assert response.status_code == UserNotFound.code
     assert response.json["message"] == UserNotFound.message
+
+
+def test_not_turn_admin_user_if_user_is_not_admin(client, database):
+    new_user1 = {
+        "name": "Usuário teste",
+        "email": "email@email.com",
+        "password": "123456",
+        "admin": False,
+    }
+
+    user = users_controller.create_user(new_user1)
+    user_id = user.get("id")
+    token = token_services.generate_token(user.get("id"), user.get("email"))
+
+    update_user = {"admin": True}
+
+    headers = {
+        "Authorization": token,
+        "content-type": "application/json",
+    }
+
+    response = client.patch(
+        f"/api/v1/user/{user_id}", headers=headers, data=json.dumps(update_user)
+    )
+
+    assert response.content_type == "application/json"
+    assert response.status_code == OperationNotAllowed.code
+    assert response.json["message"] == OperationNotAllowed.message
 
 
 def test_delete_user(client, admin_user):

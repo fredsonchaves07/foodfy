@@ -83,7 +83,7 @@ def list_user():
     return [user.as_dict() for user in users]
 
 
-def update_user(user_id, email, password, name):
+def update_user(user_id, email, password, name, admin=None):
     user = find_by_id(user_id)
 
     if email:
@@ -94,6 +94,9 @@ def update_user(user_id, email, password, name):
 
     if name:
         user.name = name
+
+    if admin:
+        user.is_admin = True
 
     db.session.commit()
 
