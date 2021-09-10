@@ -46,3 +46,11 @@ def get_recipe(recipe_id, **kwargs):
     recipe = recipe_controller.get_recipe(recipe_id)
 
     return recipe, 200
+
+
+@recipe_api.route("", methods=["GET"])
+@authentication
+def list_recipe(**kwargs):
+    recipes = recipe_controller.list_recipe()
+
+    return recipes, 200

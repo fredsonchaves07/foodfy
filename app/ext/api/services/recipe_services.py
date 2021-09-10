@@ -103,3 +103,9 @@ def delete_recipe(recipe_id):
 
     db.session.delete(recipe)
     db.session.commit()
+
+
+def list_recipe():
+    recipes = Recipe.query.all()
+
+    return [recipe.as_dict() for recipe in recipes]
