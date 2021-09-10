@@ -130,3 +130,9 @@ def get_recipe(recipe_id):
         raise RecipeNotFound
 
     return recipe.as_dict()
+
+
+def list_recipe():
+    recipes = recipe_services.list_recipe()
+
+    return {"recipes": recipes}
