@@ -17,37 +17,18 @@ def test_show_profile(database, client):
     user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
-    headers = {
-        "Authorization": token,
-        "content-type": "application/json",
-    }
+    headers = {"Authorization": token}
 
-    response = client.get(
-        f"/api/v1/user/{user_id}",
-        headers=headers,
-    )
+    response = client.get(f"/api/v1/user/{user_id}", headers=headers)
 
     assert response.content_type == "application/json"
+    assert response.status_code == 200
     assert response.json["email"] == new_user1["email"]
     assert response.json["name"] == new_user1["name"]
-    assert response.status_code == 200
 
 
-def test_no_show_profile_user_if_user_not_exist(database, client):
-    new_user1 = {
-        "name": "Usuário teste",
-        "email": "email@email.com",
-        "password": "123456",
-        "admin": False,
-    }
-
-    user = users_controller.create_user(new_user1)
-    token = token_services.generate_token("10", user.get("email"))
-
-    headers = {
-        "Authorization": token,
-        "content-type": "application/json",
-    }
+def test_no_show_profile_user_if_user_not_exist(admin_user, client):
+    headers = {"Authorization": admin_user.get("token")}
 
     response = client.get("/api/v1/user/105542", headers=headers)
 
@@ -208,27 +189,15 @@ def test_not_update_profile_if_email_already_exist(client, database):
         f"/api/v1/user/{user_id}", headers=headers, data=json.dumps(update_user)
     )
 
+    assert response.content_type == "application/json"
     assert response.status_code == EmailAlreadyExist.code
     assert response.json["message"] == EmailAlreadyExist.message
 
 
-def test_not_update_profile_if_user_not_already_exist(client, database):
-    new_user1 = {
-        "name": "Usuário teste",
-        "email": "email@email.com",
-        "password": "123456",
-        "admin": False,
-    }
-
-    user = users_controller.create_user(new_user1)
-    token = token_services.generate_token("10", user.get("email"))
-
+def test_not_update_profile_if_user_not_already_exist(client, admin_user):
     update_user = {"name": "user2"}
 
-    headers = {
-        "Authorization": token,
-        "content-type": "application/json",
-    }
+    headers = {"Authorization": admin_user.get("token")}
 
     response = client.patch(
         "/api/v1/user/100", headers=headers, data=json.dumps(update_user)

@@ -95,8 +95,8 @@ def update_user(user_id, email, password, name, admin=None):
     if name:
         user.name = name
 
-    if admin:
-        user.is_admin = True
+    if admin is not None:
+        user.is_admin = admin
 
     db.session.commit()
 
