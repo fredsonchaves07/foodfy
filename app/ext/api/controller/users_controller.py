@@ -3,7 +3,6 @@ from app.ext.api.exceptions import (
     EmailAlreadyExist,
     InvalidToken,
     InvalidUser,
-    OperationNotAllowed,
     UserNotFound,
 )
 from app.ext.api.services import token_services, users_services, util_services  # noqa
@@ -53,14 +52,11 @@ def list_user():
     return {"users": users}
 
 
-def get_user(user_id, current_user):
+def get_user(user_id):
     user = users_services.find_by_id(user_id)
 
     if not user:
         raise UserNotFound
-
-    if user_id != current_user and not users_services.is_admin(user_id):
-        raise OperationNotAllowed
 
     return {
         "user_id": user.id,
@@ -70,14 +66,11 @@ def get_user(user_id, current_user):
     }
 
 
-def update_user(user_id, current_user, user_data):
+def update_user(user_id, user_data):
     user = users_services.find_by_id(user_id)
 
     if not user:
         raise UserNotFound
-
-    if user_id != current_user and not users_services.is_admin(current_user):
-        raise OperationNotAllowed
 
     email = user_data.get("email")
 
@@ -87,9 +80,6 @@ def update_user(user_id, current_user, user_data):
     password = user_data.get("password")
     name = user_data.get("name")
     admin = user_data.get("admin")
-
-    if admin and not users_services.is_admin(current_user):
-        raise OperationNotAllowed
 
     user = users_services.update_user(user_id, email, password, name, admin)
 

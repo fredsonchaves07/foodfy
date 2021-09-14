@@ -1,6 +1,10 @@
 from functools import wraps
 
-from app.ext.api.exceptions import AdminPermissionRequired, InvalidToken
+from app.ext.api.exceptions import (
+    AdminPermissionRequired,
+    InvalidToken,
+    OperationNotAllowed,
+)
 from app.ext.api.services import token_services, users_services
 from flask import request
 from jwt import (
@@ -43,6 +47,24 @@ def admin_required(f):
     def decorated_function(*args, **kwargs):
         if not users_services.is_admin(kwargs.get("user_id")):
             raise AdminPermissionRequired
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
+def user_self_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        current_user = kwargs.get("user_id")
+        update_user = kwargs.get("id")
+        admin = request.json.get("admin") if request.json else None
+
+        if current_user != update_user and not users_services.is_admin(current_user):
+            raise OperationNotAllowed
+
+        if admin and not users_services.is_admin(current_user):
+            raise OperationNotAllowed
 
         return f(*args, **kwargs)
 
