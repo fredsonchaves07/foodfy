@@ -15,6 +15,7 @@ def app():
 
 @pytest.fixture(scope="session", autouse=True)
 def set_test_settings():
+    settings.SECRET_KEY = "X65Ca89C2V0asf9qFV"
     settings.configure(FORCE_ENV_FOR_DYNACONF="test")
 
 
