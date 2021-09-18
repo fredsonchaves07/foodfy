@@ -6,6 +6,7 @@ from app.ext.api.exceptions import (
     UserNotFound,
 )
 from app.ext.api.services import token_services, users_services, util_services  # noqa
+from dynaconf import settings
 
 
 def create_user(new_user):
@@ -22,9 +23,10 @@ def create_user(new_user):
     user = users_services.create_user(name, email, password, admin)
     token = token_services.generate_token(user["id"], user["email"])  # noqa
 
-    util_services.send_mail(
-        user["email"], "Access your account", "mail/confirm.html", token=token
-    )
+    if settings.SEND_MAIL:
+        util_services.send_mail(
+            user["email"], "Access your account", "mail/confirm.html", token=token
+        )
 
     return user
 
