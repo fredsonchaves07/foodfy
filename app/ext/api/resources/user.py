@@ -1,5 +1,10 @@
 from app.ext.api.controller import users_controller
-from app.ext.api.decorators import admin_required, authentication, user_self_required
+from app.ext.api.decorators import (
+    admin_required,
+    audit_log,
+    authentication,
+    user_self_required,
+)
 from flask import Blueprint, request
 
 user_api = Blueprint("user", __name__)
@@ -8,6 +13,7 @@ user_api = Blueprint("user", __name__)
 @user_api.route("", methods=["POST"])
 @authentication
 @admin_required
+@audit_log
 def create_user(**kwargs):
     new_user = request.get_json()
 

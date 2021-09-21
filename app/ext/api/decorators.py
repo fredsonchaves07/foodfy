@@ -5,8 +5,8 @@ from app.ext.api.exceptions import (
     InvalidToken,
     OperationNotAllowed,
 )
-from app.ext.api.services import token_services, users_services
-from flask import request
+from app.ext.api.services import audit_log_services, token_services, users_services
+from flask import request, session
 from jwt import (
     ExpiredSignatureError,
     InvalidKeyError,
@@ -67,5 +67,21 @@ def user_self_required(f):
             raise OperationNotAllowed
 
         return f(*args, **kwargs)
+
+    return decorated_function
+
+
+def audit_log(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        response = f(*args, **kwargs)
+
+        session["audit_log"].update({"done_by": kwargs.get("email")})
+
+        audit_log = session["audit_log"]
+
+        audit_log_services.create_audit(audit_log)
+
+        return response
 
     return decorated_function

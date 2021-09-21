@@ -7,6 +7,7 @@ from app.ext.api.exceptions import (
 )
 from app.ext.api.services import token_services, users_services, util_services  # noqa
 from dynaconf import settings
+from flask import session
 
 
 def create_user(new_user):
@@ -27,6 +28,13 @@ def create_user(new_user):
         util_services.send_mail(
             user["email"], "Access your account", "mail/confirm.html", token=token
         )
+
+    session["audit_log"] = {
+        "object_type": "USER",
+        "object_id": user.get("id"),
+        "object_name": user.get("name"),
+        "action": "CREATE",
+    }
 
     return user
 
