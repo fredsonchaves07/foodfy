@@ -1,5 +1,5 @@
 from app.ext.api.controller import chef_controller
-from app.ext.api.decorators import admin_required, authentication
+from app.ext.api.decorators import admin_required, audit_log, authentication
 from flask import Blueprint, request
 
 chef_api = Blueprint("chef", __name__)
@@ -8,6 +8,7 @@ chef_api = Blueprint("chef", __name__)
 @chef_api.route("", methods=["POST"])
 @authentication
 @admin_required
+@audit_log
 def create_chef(**kwargs):
     new_chef = request.form
     avatar_file = request.files.get("avatar")
@@ -20,6 +21,7 @@ def create_chef(**kwargs):
 @chef_api.route("/<chef_id>", methods=["PATCH"])
 @authentication
 @admin_required
+@audit_log
 def update_chef(chef_id, **kwargs):
     chef_data = request.form
     avatar_file = request.files.get("avatar")
@@ -32,6 +34,7 @@ def update_chef(chef_id, **kwargs):
 @chef_api.route("/<chef_id>", methods=["DELETE"])
 @authentication
 @admin_required
+@audit_log
 def delete_chef(chef_id, **kwargs):
     chef_controller.delete_chef(chef_id)
 
