@@ -27,8 +27,7 @@ jobs:
         poetry install
     - name: Test
         env:
-        SECRET_KEY: "ac8s412910a89c10v84"
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
         FLASK_ENV: "test"
       run: |
-        echo $SECRET_KEY enviroment variable
         make pytest
