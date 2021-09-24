@@ -34,6 +34,7 @@ def list_user(**kwargs):
 @user_api.route("/<id>", methods=["DELETE"])
 @authentication
 @admin_required
+@audit_log
 def delete_user(id, **kwargs):
     users_controller.delete_user(id)
 
@@ -52,6 +53,7 @@ def get_user(id, **kwargs):
 @user_api.route("<id>", methods=["PATCH"])
 @authentication
 @user_self_required
+@audit_log
 def update_user(id, **kwargs):
     user_data = request.json
 

@@ -5,7 +5,7 @@ from app.ext.api.exceptions import (
     InvalidUser,
     UserNotFound,
 )
-from app.ext.api.services import token_services, users_services, util_services  # noqa
+from app.ext.api.services import token_services, users_services, util_services
 from dynaconf import settings
 from flask import session
 
@@ -93,6 +93,13 @@ def update_user(user_id, user_data):
 
     user = users_services.update_user(user_id, email, password, name, admin)
 
+    session["audit_log"] = {
+        "object_type": "USER",
+        "object_id": user.id,
+        "object_name": user.name,
+        "action": "UPDATE",
+    }
+
     return {
         "user_id": user.id,
         "name": user.name,
@@ -109,5 +116,12 @@ def delete_user(user_id):
 
     for recipe in user.recipes:
         recipe_controller.delete_recipe(recipe.id, user_id)
+
+    session["audit_log"] = {
+        "object_type": "USER",
+        "object_id": user.id,
+        "object_name": user.name,
+        "action": "DELETE",
+    }
 
     users_services.delete_user(user_id)
