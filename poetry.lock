@@ -113,14 +113,6 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "cachelib"
-version = "0.3.0"
-description = "A collection of cache libraries in the same API interface."
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[[package]]
 name = "cfgv"
 version = "3.3.0"
 description = "Validate configuration and produce human readable error messages."
@@ -254,18 +246,6 @@ python-versions = "*"
 alembic = ">=0.7"
 Flask = ">=0.9"
 Flask-SQLAlchemy = ">=1.0"
-
-[[package]]
-name = "flask-session"
-version = "0.4.0"
-description = "Adds server-side session support to your Flask application"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-cachelib = "*"
-Flask = ">=0.8"
 
 [[package]]
 name = "flask-shell-ipython"
@@ -868,7 +848,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "85c5a8f973b671ed20f8c41c2fe6a17e7a057a6c647fea85e033465654cdb1f5"
+content-hash = "e79c5b1848b3510cc6df73e5b45f94ecd365470ab1f3a9343a31ef80c87c7da1"
 
 [metadata.files]
 alembic = [
@@ -909,10 +889,6 @@ black = [
 ]
 blinker = [
     {file = "blinker-1.4.tar.gz", hash = "sha256:471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"},
-]
-cachelib = [
-    {file = "cachelib-0.3.0-py3-none-any.whl", hash = "sha256:2d636c61a45cbcef74f7e6d688badf9a0c9141ece08d2e4e45c4326b3daf8637"},
-    {file = "cachelib-0.3.0.tar.gz", hash = "sha256:cc1856259f102c9273efa342100f70d9fafbd07b41ce05c501ee28e1dbbb5133"},
 ]
 cfgv = [
     {file = "cfgv-3.3.0-py2.py3-none-any.whl", hash = "sha256:b449c9c6118fe8cca7fa5e00b9ec60ba08145d281d52164230a69211c5d597a1"},
@@ -1010,10 +986,6 @@ flask-mail = [
 flask-migrate = [
     {file = "Flask-Migrate-3.0.1.tar.gz", hash = "sha256:4d42e8f861d78cb6e9319afcba5bf76062e5efd7784184dd2a1cccd9de34a702"},
     {file = "Flask_Migrate-3.0.1-py2.py3-none-any.whl", hash = "sha256:df9043d2050df3c0e0f6313f6b529b62c837b6033c20335e9d0b4acdf2c40e23"},
-]
-flask-session = [
-    {file = "Flask-Session-0.4.0.tar.gz", hash = "sha256:c9ed54321fa8c4ca0132ffd3369582759eda7252fb4b3bee480e690d1ba41f46"},
-    {file = "Flask_Session-0.4.0-py2.py3-none-any.whl", hash = "sha256:1e3f8a317005db72c831f85d884a5a9d23145f256c730d80b325a3150a22c3db"},
 ]
 flask-shell-ipython = [
     {file = "flask-shell-ipython-0.4.1.tar.gz", hash = "sha256:fb3b390f4dc03d7a960c62c5b51ce4deca19ceff77e4db3d4670012adc529ebd"},

@@ -3,8 +3,7 @@ EXTENSIONS = [
     "app.ext.database:init_app",
     "app.ext.migrate:init_app",
     "app.ext.api:init_app",
-    "app.ext.mail:init_app",
-    "app.ext.session:init_app"
+    "app.ext.mail:init_app"
 ]
 MAIL_SERVER = "smtp.mailtrap.io"
 MAIL_PORT = "2525"
@@ -13,8 +12,6 @@ MAIL_USERNAME = "c0ce86e978a7d3"
 MAIL_PASSWORD = "39feb26c850205"
 UPLOAD_FOLDER = "/tmp"
 SEND_MAIL = true
-SESSION_TYPE = "sqlalchemy"
-SESSION_SQLALCHEMY_TABLE = "sessions"
 
 [test]
 SEND_MAIL = false
