@@ -22,7 +22,7 @@ jobs:
         python-version: 3.9
     - name: Secret Key configure
       run: |
-        cat "a7jch20df7yas6c15Fa2C" > secrets.toml
+        echo 'SECRET_KEY = "a7jch20df7yas6c15Fa2C"' > secrets.toml
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
