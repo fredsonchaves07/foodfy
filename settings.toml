@@ -14,6 +14,7 @@ UPLOAD_FOLDER = "/tmp"
 SEND_MAIL = true
 
 [test]
+SECRET_KEY = "test"
 SEND_MAIL = false
 SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
 
