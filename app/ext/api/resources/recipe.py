@@ -1,5 +1,5 @@
 from app.ext.api.controller import recipe_controller
-from app.ext.api.decorators import authentication
+from app.ext.api.decorators import audit_log, authentication
 from flask import Blueprint, request
 
 recipe_api = Blueprint("recipe", __name__)
@@ -7,6 +7,7 @@ recipe_api = Blueprint("recipe", __name__)
 
 @recipe_api.route("", methods=["POST"])
 @authentication
+@audit_log
 def create_recipe(**kwargs):
     user_id = kwargs.get("user_id")
     new_recipe = request.form
@@ -18,6 +19,7 @@ def create_recipe(**kwargs):
 
 @recipe_api.route("/<recipe_id>", methods=["PATCH"])
 @authentication
+@audit_log
 def update_recipe(recipe_id, **kwargs):
     user_id = kwargs.get("user_id")
     recipe_data = request.form
@@ -32,6 +34,7 @@ def update_recipe(recipe_id, **kwargs):
 
 @recipe_api.route("/<recipe_id>", methods=["DELETE"])
 @authentication
+@audit_log
 def delete_recipe(recipe_id, **kwargs):
     user_id = kwargs.get("user_id")
 

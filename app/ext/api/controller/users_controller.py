@@ -3,10 +3,11 @@ from app.ext.api.exceptions import (
     EmailAlreadyExist,
     InvalidToken,
     InvalidUser,
-    OperationNotAllowed,
     UserNotFound,
 )
-from app.ext.api.services import token_services, users_services, util_services  # noqa
+from app.ext.api.services import token_services, users_services, util_services
+from dynaconf import settings
+from flask import session
 
 
 def create_user(new_user):
@@ -23,9 +24,17 @@ def create_user(new_user):
     user = users_services.create_user(name, email, password, admin)
     token = token_services.generate_token(user["id"], user["email"])  # noqa
 
-    # util_services.send_mail(
-    #     user["email"], "Access your account", "mail/confirm.html", token=token
-    # )
+    if settings.SEND_MAIL:
+        util_services.send_mail(
+            user["email"], "Access your account", "mail/confirm.html", token=token
+        )
+
+    session["audit_log"] = {
+        "object_type": "USER",
+        "object_id": user.get("id"),
+        "object_name": user.get("name"),
+        "action": "CREATE",
+    }
 
     return user
 
@@ -53,14 +62,11 @@ def list_user():
     return {"users": users}
 
 
-def get_user(user_id, current_user):
+def get_user(user_id):
     user = users_services.find_by_id(user_id)
 
     if not user:
         raise UserNotFound
-
-    if user_id != current_user and not users_services.is_admin(user_id):
-        raise OperationNotAllowed
 
     return {
         "user_id": user.id,
@@ -70,14 +76,11 @@ def get_user(user_id, current_user):
     }
 
 
-def update_user(user_id, current_user, user_data):
+def update_user(user_id, user_data):
     user = users_services.find_by_id(user_id)
 
     if not user:
         raise UserNotFound
-
-    if user_id != current_user and not users_services.is_admin(current_user):
-        raise OperationNotAllowed
 
     email = user_data.get("email")
 
@@ -88,10 +91,14 @@ def update_user(user_id, current_user, user_data):
     name = user_data.get("name")
     admin = user_data.get("admin")
 
-    if admin and not users_services.is_admin(current_user):
-        raise OperationNotAllowed
-
     user = users_services.update_user(user_id, email, password, name, admin)
+
+    session["audit_log"] = {
+        "object_type": "USER",
+        "object_id": user.id,
+        "object_name": user.name,
+        "action": "UPDATE",
+    }
 
     return {
         "user_id": user.id,
@@ -109,5 +116,12 @@ def delete_user(user_id):
 
     for recipe in user.recipes:
         recipe_controller.delete_recipe(recipe.id, user_id)
+
+    session["audit_log"] = {
+        "object_type": "USER",
+        "object_id": user.id,
+        "object_name": user.name,
+        "action": "DELETE",
+    }
 
     users_services.delete_user(user_id)

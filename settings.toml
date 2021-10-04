@@ -1,23 +1,24 @@
 [default]
-DEBUG = false
-SQLALCHEMY_TRACK_MODIFICATIONS = false
 EXTENSIONS = [
     "app.ext.database:init_app",
     "app.ext.migrate:init_app",
     "app.ext.api:init_app",
     "app.ext.mail:init_app"
 ]
-MAIL_SERVER="smtp.mailtrap.io"
-MAIL_PORT="2525"
-MAIL_USE_TLS=true
-MAIL_USERNAME="c0ce86e978a7d3"
-MAIL_PASSWORD="39feb26c850205"
-UPLOAD_FOLDER="/tmp"
-
-[development]
-DEBUG = true
+MAIL_SERVER = "smtp.mailtrap.io"
+MAIL_PORT = "2525"
+MAIL_USE_TLS = true
+MAIL_USERNAME = "c0ce86e978a7d3"
+MAIL_PASSWORD = "39feb26c850205"
+UPLOAD_FOLDER = "/tmp"
+SEND_MAIL = true
 
 [test]
+SECRET_KEY = "test"
+SEND_MAIL = false
 SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
+
+[development]
+
 
 [production]

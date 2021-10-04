@@ -9,6 +9,7 @@ from app.ext.api.exceptions import (
     RecipeWithoutPreparationMode,
 )
 from app.ext.api.services import chef_services, recipe_services, users_services
+from flask import session
 
 
 def create_recipe(user_id, recipe, files):
@@ -52,6 +53,13 @@ def create_recipe(user_id, recipe, files):
         recipe_img_list,
         user_id,
     )
+
+    session["audit_log"] = {
+        "object_type": "RECIPE",
+        "object_id": recipe.get("id"),
+        "object_name": recipe.get("name"),
+        "action": "CREATE",
+    }
 
     return recipe
 
@@ -102,6 +110,13 @@ def update_recipe(recipe_id, user_id, recipe_data, files):
         recipe_id, name, chef_id, ingredients, preparation_mode, recipe_img_list
     )
 
+    session["audit_log"] = {
+        "object_type": "RECIPE",
+        "object_id": recipe.get("id"),
+        "object_name": recipe.get("name"),
+        "action": "UPDATE",
+    }
+
     return recipe
 
 
@@ -119,6 +134,13 @@ def delete_recipe(recipe_id, user_id):
 
         recipe_services.delete_recipe_files(recipe_id, file_id)
         file_controller.delete_file(file_id)
+
+    session["audit_log"] = {
+        "object_type": "RECIPE",
+        "object_id": recipe.id,
+        "object_name": recipe.id,
+        "action": "DELETE",
+    }
 
     recipe_services.delete_recipe(recipe_id)
 
