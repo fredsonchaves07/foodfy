@@ -12,7 +12,7 @@ from jwt import (
 
 def password_reset(user_data):
     try:
-        user = decode(user_data["token"], settings.SECRET_KEY, algorithms=["HS256"])
+        user = decode(user_data.token, settings.SECRET_KEY, algorithms=["HS256"])
     except (
         ExpiredSignatureError,
         InvalidKeyError,
@@ -24,7 +24,7 @@ def password_reset(user_data):
     if not users_services.find_by_id(user.get("user_id")):
         raise UserNotFound
 
-    user = users_services.password_reset(user.get("user_id"), user_data.get("password"))
+    user = users_services.password_reset(user.get("user_id"), user_data.password)
 
     return user
 
