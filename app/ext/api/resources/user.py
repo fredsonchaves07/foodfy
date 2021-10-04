@@ -1,5 +1,10 @@
 from app.ext.api.controller import users_controller
-from app.ext.api.decorators import admin_required, authentication, user_self_required
+from app.ext.api.decorators import (
+    admin_required,
+    audit_log,
+    authentication,
+    user_self_required,
+)
 from flask import Blueprint, request
 
 user_api = Blueprint("user", __name__)
@@ -8,6 +13,7 @@ user_api = Blueprint("user", __name__)
 @user_api.route("", methods=["POST"])
 @authentication
 @admin_required
+@audit_log
 def create_user(**kwargs):
     new_user = request.get_json()
 
@@ -28,6 +34,7 @@ def list_user(**kwargs):
 @user_api.route("/<id>", methods=["DELETE"])
 @authentication
 @admin_required
+@audit_log
 def delete_user(id, **kwargs):
     users_controller.delete_user(id)
 
@@ -46,6 +53,7 @@ def get_user(id, **kwargs):
 @user_api.route("<id>", methods=["PATCH"])
 @authentication
 @user_self_required
+@audit_log
 def update_user(id, **kwargs):
     user_data = request.json
 
