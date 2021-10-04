@@ -30,14 +30,14 @@ def password_reset(user_data):
 
 
 def login(user_data):
-    email = user_data.get("email")
+    email = user_data.email
 
     user = users_services.find_by_email(email)
 
     if not user:
         raise IncorrectLogin
 
-    password = user_data.get("password")
+    password = user_data.password
 
     if not users_services.password_match(email, password):
         raise IncorrectLogin

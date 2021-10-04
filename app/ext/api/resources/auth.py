@@ -1,5 +1,8 @@
 from app.ext.api.controller import auth_controller
+from app.ext.api.exceptions import InvalidParameters
+from app.ext.api.schemas.auth_schemas import LoginSchema
 from flask import Blueprint, request
+from pydantic import ValidationError
 
 auth_api = Blueprint("auth", __name__)
 
@@ -15,7 +18,10 @@ def password_reset():
 
 @auth_api.route("/login", methods=["POST"])
 def login():
-    user_data = request.get_json()
+    try:
+        user_data = LoginSchema(**request.get_json())
+    except ValidationError:
+        raise InvalidParameters
 
     auth_data = auth_controller.login(user_data)
 
