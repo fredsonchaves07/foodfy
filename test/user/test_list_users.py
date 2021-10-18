@@ -1,5 +1,6 @@
 from app.ext.api.controller import users_controller
 from app.ext.api.exceptions import AdminPermissionRequired
+from app.ext.api.schemas.user_schemas import CreateUserSchema
 from app.ext.api.services import token_services
 
 
@@ -26,7 +27,7 @@ def test_list_users(client, admin_user):
     ]
 
     for user in users:
-        users_controller.create_user(user)
+        users_controller.create_user(CreateUserSchema(**user))
 
     headers = {
         "Authorization": admin_user.get("token"),
@@ -51,7 +52,7 @@ def test_no_list_user_if_user_is_not_admin(client, database):
         "admin": False,
     }
 
-    user = users_controller.create_user(user1)
+    user = users_controller.create_user(CreateUserSchema(**user1))
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
     headers = {

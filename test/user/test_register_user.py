@@ -8,6 +8,7 @@ from app.ext.api.exceptions import (
     InvalidUser,
     UserNotFound,
 )
+from app.ext.api.schemas.user_schemas import CreateUserSchema
 from app.ext.api.services import token_services
 
 
@@ -96,7 +97,7 @@ def test_confirm_user(client, database):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
 
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
@@ -115,7 +116,7 @@ def test_no_confirm_user_if_user_already_confirmed(client, database):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
 
     token = token_services.generate_token(user.get("id"), user.get("email"))
 

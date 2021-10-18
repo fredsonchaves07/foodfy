@@ -2,6 +2,7 @@ import json
 
 from app.ext.api.controller import users_controller
 from app.ext.api.exceptions import InvalidToken, UserNotFound
+from app.ext.api.schemas.user_schemas import CreateUserSchema
 from app.ext.api.services import token_services
 
 
@@ -13,7 +14,7 @@ def test_recovery_password(client, database):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
     token = token_services.generate_token(user.get("id"), user.get("email"))
     user_data = {"token": token, "password": "1234"}
     headers = {"content-type": "application/json"}

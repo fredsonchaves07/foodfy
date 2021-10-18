@@ -5,7 +5,10 @@ from app.ext.api.decorators import (
     authentication,
     user_self_required,
 )
+from app.ext.api.exceptions import InvalidParameters
+from app.ext.api.schemas.user_schemas import CreateUserSchema, UpdateUserSchema
 from flask import Blueprint, request
+from pydantic import ValidationError
 
 user_api = Blueprint("user", __name__)
 
@@ -15,7 +18,10 @@ user_api = Blueprint("user", __name__)
 @admin_required
 @audit_log
 def create_user(**kwargs):
-    new_user = request.get_json()
+    try:
+        new_user = CreateUserSchema(**request.get_json())
+    except ValidationError:
+        raise InvalidParameters
 
     user = users_controller.create_user(new_user)
 
@@ -55,7 +61,10 @@ def get_user(id, **kwargs):
 @user_self_required
 @audit_log
 def update_user(id, **kwargs):
-    user_data = request.json
+    try:
+        user_data = UpdateUserSchema(**request.get_json())
+    except ValidationError:
+        raise InvalidParameters
 
     user = users_controller.update_user(id, user_data)
 

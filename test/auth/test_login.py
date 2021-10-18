@@ -2,6 +2,7 @@ import json
 
 from app.ext.api.controller import users_controller
 from app.ext.api.exceptions import IncorrectLogin
+from app.ext.api.schemas.user_schemas import CreateUserSchema
 
 
 def test_login(client, database):
@@ -12,7 +13,7 @@ def test_login(client, database):
         "admin": False,
     }
 
-    users_controller.create_user(new_user)
+    users_controller.create_user(CreateUserSchema(**new_user))
 
     user_data = {"email": new_user.get("email"), "password": new_user.get("password")}
     headers = {"content-type": "application/json"}
@@ -36,7 +37,7 @@ def test_no_login_with_email_no_already_exist(client, database):
         "admin": False,
     }
 
-    users_controller.create_user(new_user)
+    users_controller.create_user(CreateUserSchema(**new_user))
 
     user_data = {"email": "noexist@email.com", "password": new_user.get("password")}
     headers = {"content-type": "application/json"}
@@ -57,7 +58,7 @@ def test_no_login_with_wrong_password(client, database):
         "admin": False,
     }
 
-    users_controller.create_user(new_user)
+    users_controller.create_user(CreateUserSchema(**new_user))
 
     user_data = {"email": new_user.get("email"), "password": "3512"}
     headers = {"content-type": "application/json"}
