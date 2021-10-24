@@ -30,7 +30,7 @@ def create_recipe(
     return recipe.as_dict()
 
 
-def create_recipe_files(file_id, recipe_id):
+def create_recipe_files(file_id, recipe_id=None):
     recipe_file = RecipeFiles()
 
     recipe_file.file_id = file_id

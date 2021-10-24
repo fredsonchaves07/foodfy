@@ -1,5 +1,6 @@
 from app.ext.api.controller import recipe_controller
 from app.ext.api.decorators import audit_log, authentication
+from app.ext.api.schemas.recipe_schemas import CreateRecipeSchema
 from flask import Blueprint, request
 
 recipe_api = Blueprint("recipe", __name__)
@@ -10,10 +11,16 @@ recipe_api = Blueprint("recipe", __name__)
 @audit_log
 def create_recipe(**kwargs):
     user_id = kwargs.get("user_id")
-    new_recipe = request.form
-    recipe_imgs = request.files.getlist("recipe_imgs")
+    new_recipe = CreateRecipeSchema(
+        name=request.form.get("name"),
+        chef_id=request.form.get("chef_id"),
+        additional_information=request.form.get("additional_information"),
+        ingredients=request.form.getlist("ingredients"),
+        preparation_mode=request.form.getlist("preparation_mode"),
+        recipe_imgs=request.files.getlist("recipe_imgs"),
+    )
 
-    recipe = recipe_controller.create_recipe(user_id, new_recipe, recipe_imgs)
+    recipe = recipe_controller.create_recipe(user_id, new_recipe)
     return recipe, 201
 
 

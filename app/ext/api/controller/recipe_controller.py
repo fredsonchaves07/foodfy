@@ -12,37 +12,35 @@ from app.ext.api.services import chef_services, recipe_services, users_services
 from flask import session
 
 
-def create_recipe(user_id, recipe, files):
-    if not files:
+def create_recipe(user_id, recipe):
+    if not recipe.recipe_imgs:
         raise RecipeWithoutImage
 
-    if len(files) > 6:
+    if len(recipe.recipe_imgs) > 6:
         raise MaximumImageCapacityError
 
-    if not recipe.getlist("ingredients"):
+    if not recipe.ingredients:
         raise RecipeWithoutIngredient
 
-    if not recipe.getlist("preparation_mode"):
+    if not recipe.preparation_mode:
         raise RecipeWithoutPreparationMode
 
     recipe_img_list = []
 
-    for file in files:
+    for file in recipe.recipe_imgs:
         new_file = file_controller.create_file(file)
-        recipe_file = recipe_services.create_recipe_files(
-            new_file.get("id"), recipe.get("id")
-        )
+        recipe_file = recipe_services.create_recipe_files(new_file.get("id"))
         recipe_img_list.append(recipe_file)
 
-    chef_id = recipe.get("chef_id")
+    chef_id = recipe.chef_id
 
     if not chef_services.find_by_id(chef_id):
         raise ChefNotFound
 
-    name = recipe.get("name")
-    ingredients = recipe.getlist("ingredients")
-    preparation_mode = recipe.getlist("preparation_mode")
-    additional_information = recipe.get("additional_information")
+    name = recipe.name
+    ingredients = recipe.ingredients
+    preparation_mode = recipe.preparation_mode
+    additional_information = recipe.additional_information
 
     recipe = recipe_services.create_recipe(
         name,
