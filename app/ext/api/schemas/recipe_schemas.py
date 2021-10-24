@@ -10,3 +10,13 @@ class CreateRecipeSchema(BaseModel):
     chef_id: str
     additional_information: str = None
     recipe_imgs: List
+
+
+class UpdateRecipeSchema(BaseModel):
+    name: str = None
+    ingredients: List[str] = None
+    preparation_mode: List[str] = None
+    chef_id: str = None
+    additional_information: str = None
+    recipe_imgs: List = None
+    delete_imgs: List[str] = None
