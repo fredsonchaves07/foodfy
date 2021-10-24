@@ -4,8 +4,9 @@ from app.ext.api.services import chef_services
 from flask import session
 
 
-def create_chef(chef, file):
-    name = chef.get("name")
+def create_chef(chef):
+    name = chef.name
+    file = chef.avatar
 
     new_file = file_controller.create_file(file)
 

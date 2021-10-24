@@ -1,6 +1,9 @@
 from app.ext.api.controller import chef_controller
 from app.ext.api.decorators import admin_required, audit_log, authentication
+from app.ext.api.exceptions import InvalidParameters
+from app.ext.api.schemas.chef_schemas import CreateChefSchema
 from flask import Blueprint, request
+from pydantic import ValidationError
 
 chef_api = Blueprint("chef", __name__)
 
@@ -10,10 +13,13 @@ chef_api = Blueprint("chef", __name__)
 @admin_required
 @audit_log
 def create_chef(**kwargs):
-    new_chef = request.form
-    avatar_file = request.files.get("avatar")
-
-    chef = chef_controller.create_chef(new_chef, avatar_file)
+    try:
+        new_chef = CreateChefSchema(
+            name=request.form.get("name"), avatar=request.files.get("avatar")
+        )
+    except ValidationError:
+        raise InvalidParameters
+    chef = chef_controller.create_chef(new_chef)
 
     return chef, 201
 
