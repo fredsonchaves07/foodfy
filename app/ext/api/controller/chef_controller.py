@@ -22,13 +22,14 @@ def create_chef(chef):
     return chef
 
 
-def update_chef(chef_id, chef_data, file):
+def update_chef(chef_id, chef_data):
     chef = chef_services.find_by_id(chef_id)
+    file = chef_data.avatar
 
     if not chef:
         raise ChefNotFound
 
-    name = chef_data.get("name")
+    name = chef_data.name
 
     file_controller.update_file(chef.file_id, file)
 
