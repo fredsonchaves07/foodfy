@@ -12,37 +12,35 @@ from app.ext.api.services import chef_services, recipe_services, users_services
 from flask import session
 
 
-def create_recipe(user_id, recipe, files):
-    if not files:
+def create_recipe(user_id, recipe):
+    if not recipe.recipe_imgs:
         raise RecipeWithoutImage
 
-    if len(files) > 6:
+    if len(recipe.recipe_imgs) > 6:
         raise MaximumImageCapacityError
 
-    if not recipe.getlist("ingredients"):
+    if not recipe.ingredients:
         raise RecipeWithoutIngredient
 
-    if not recipe.getlist("preparation_mode"):
+    if not recipe.preparation_mode:
         raise RecipeWithoutPreparationMode
 
     recipe_img_list = []
 
-    for file in files:
+    for file in recipe.recipe_imgs:
         new_file = file_controller.create_file(file)
-        recipe_file = recipe_services.create_recipe_files(
-            new_file.get("id"), recipe.get("id")
-        )
+        recipe_file = recipe_services.create_recipe_files(new_file.get("id"))
         recipe_img_list.append(recipe_file)
 
-    chef_id = recipe.get("chef_id")
+    chef_id = recipe.chef_id
 
     if not chef_services.find_by_id(chef_id):
         raise ChefNotFound
 
-    name = recipe.get("name")
-    ingredients = recipe.getlist("ingredients")
-    preparation_mode = recipe.getlist("preparation_mode")
-    additional_information = recipe.get("additional_information")
+    name = recipe.name
+    ingredients = recipe.ingredients
+    preparation_mode = recipe.preparation_mode
+    additional_information = recipe.additional_information
 
     recipe = recipe_services.create_recipe(
         name,
@@ -64,8 +62,9 @@ def create_recipe(user_id, recipe, files):
     return recipe
 
 
-def update_recipe(recipe_id, user_id, recipe_data, files):
+def update_recipe(recipe_id, user_id, recipe_data):
     recipe = recipe_services.find_by_id(recipe_id)
+    files = recipe_data.recipe_imgs
 
     if not recipe:
         raise RecipeNotFound
@@ -73,27 +72,27 @@ def update_recipe(recipe_id, user_id, recipe_data, files):
     if recipe.user_id != user_id and not users_services.is_admin(user_id):
         raise OperationNotAllowed
 
-    delete_imgs = recipe_data.getlist("delete_imgs")
+    delete_imgs = recipe_data.delete_imgs
 
     if recipe_services.is_img_capacity_max(recipe_id, files, delete_imgs):
         raise MaximumImageCapacityError
 
-    chef_id = recipe_data.get("chef_id")
+    chef_id = recipe_data.chef_id
 
     if chef_id and not chef_services.find_by_id(chef_id):
         raise ChefNotFound
 
-    ingredients = recipe_data.getlist("ingredients")
+    ingredients = recipe_data.ingredients
 
     if len(ingredients) == 0:
         raise RecipeWithoutIngredient
 
-    preparation_mode = recipe_data.getlist("preparation_mode")
+    preparation_mode = recipe_data.preparation_mode
 
     if len(preparation_mode) == 0:
         raise RecipeWithoutPreparationMode
 
-    name = recipe_data.get("name")
+    name = recipe_data.name
 
     for file_id in delete_imgs:
         recipe_services.delete_recipe_files(recipe_id, file_id)

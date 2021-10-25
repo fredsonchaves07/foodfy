@@ -4,8 +4,9 @@ from app.ext.api.services import chef_services
 from flask import session
 
 
-def create_chef(chef, file):
-    name = chef.get("name")
+def create_chef(chef):
+    name = chef.name
+    file = chef.avatar
 
     new_file = file_controller.create_file(file)
 
@@ -21,13 +22,14 @@ def create_chef(chef, file):
     return chef
 
 
-def update_chef(chef_id, chef_data, file):
+def update_chef(chef_id, chef_data):
     chef = chef_services.find_by_id(chef_id)
+    file = chef_data.avatar
 
     if not chef:
         raise ChefNotFound
 
-    name = chef_data.get("name")
+    name = chef_data.name
 
     file_controller.update_file(chef.file_id, file)
 

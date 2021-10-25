@@ -11,10 +11,10 @@ from flask import session
 
 
 def create_user(new_user):
-    name = new_user["name"]
-    email = new_user["email"]
-    password = new_user["password"]
-    admin = new_user["admin"]
+    name = new_user.name
+    email = new_user.email
+    password = new_user.password
+    admin = new_user.admin
 
     user = users_services.find_by_email(email)
 
@@ -82,14 +82,14 @@ def update_user(user_id, user_data):
     if not user:
         raise UserNotFound
 
-    email = user_data.get("email")
+    email = user_data.email
 
     if users_services.find_by_email(email):
         raise EmailAlreadyExist
 
-    password = user_data.get("password")
-    name = user_data.get("name")
-    admin = user_data.get("admin")
+    password = user_data.password
+    name = user_data.name
+    admin = user_data.admin
 
     user = users_services.update_user(user_id, email, password, name, admin)
 
