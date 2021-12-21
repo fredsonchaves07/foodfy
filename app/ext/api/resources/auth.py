@@ -20,6 +20,37 @@ def password_reset():
 
 @auth_api.route("/login", methods=["POST"])
 def login():
+    """
+    authentication endpoint
+    ---
+    tags:
+      - login
+    parameters:
+      - name: login
+        in: body
+        required: true
+        description:
+          User authentication
+        schema:
+          id: Login
+          required:
+            - email
+            - password
+          properties:
+            email:
+              type: string
+              example: "email@email.com"
+            password:
+              type: string
+              example: "1234"
+    responses:
+      200:
+        description: Authenticated successfuly
+      400:
+        description: Invalid parameters in request
+      401:
+        description: Data access incorrect
+    """
     try:
         user_data = LoginSchema(**request.get_json())
     except ValidationError:
