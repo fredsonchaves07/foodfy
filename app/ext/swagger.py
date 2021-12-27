@@ -10,7 +10,11 @@ swagger_config = {
             "url": "https://github.com/fredsonchaves07/foodfy/blob/main/LICENSE",
         },
     },
-    "headers": [],
+    "headers": [
+        ("Access-Control-Allow-Origin", "*"),
+        ("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"),
+        ("Access-Control-Allow-Credentials", "true"),
+    ],
     "specs": [
         {
             "endpoint": "apispec_1",
