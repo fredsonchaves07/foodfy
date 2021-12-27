@@ -9,6 +9,35 @@ auth_api = Blueprint("auth", __name__)
 
 @auth_api.route("/reset", methods=["PATCH"])
 def password_reset():
+    """
+    password reset endpoint
+    ---
+    tags:
+      - Authentication
+    parameters:
+      - name: password reset
+        in: body
+        required: true
+        description:
+          User password reset
+        schema:
+          properties:
+            token:
+              type: string
+              example: "12ac04g89102a05"
+            password:
+              type: string
+              example: "1234"
+    responses:
+      200:
+        description: Authenticated successfuly
+      400:
+        description: Invalid parameters in request
+      404:
+        description: User not found
+      498:
+        description: Expired or invalid token.
+    """
     try:
         user_data = ResetPasswordSchema(**request.get_json())
     except ValidationError:
@@ -24,7 +53,7 @@ def login():
     authentication endpoint
     ---
     tags:
-      - login
+      - Authentication
     parameters:
       - name: login
         in: body
