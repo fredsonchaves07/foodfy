@@ -18,6 +18,44 @@ user_api = Blueprint("user", __name__)
 @admin_required
 @audit_log
 def create_user(**kwargs):
+    """
+    user creation endpoint
+    ---
+    tags:
+      - User
+    parameters:
+      - name: user
+        in: body
+        required: true
+        description:
+          User creation endpoint
+        schema:
+          id: User
+          properties:
+            name:
+              type: string
+              example: "Teste"
+            email:
+              type: string
+              example: "Teste@email.com"
+            password:
+              type: string
+              example: "1234"
+            admin:
+              type: boolean
+              example: false
+    responses:
+      201:
+        description: User created successfully
+      400:
+        description: Invalid parameters in request
+      401:
+        description: Operation not allowed. Consult the administrator
+      422:
+        description: Email already exist
+      498:
+        description: Expired or invalid token.
+    """
     try:
         new_user = CreateUserSchema(**request.get_json())
     except ValidationError:
