@@ -81,7 +81,7 @@ def list_user(**kwargs):
       - User
     responses:
       200:
-        description: User created successfully
+        description: OK
         schema:
           $ref: '#/definitions/User'
       401:
@@ -176,7 +176,7 @@ def get_user(id, **kwargs):
               example: false
     responses:
       200:
-        description: User created successfully
+        description: OK
         schema:
           $ref: '#/definitions/User'
       401:
