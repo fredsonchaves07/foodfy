@@ -31,6 +31,10 @@ def create_user(**kwargs):
           User creation endpoint
         schema:
           id: User
+          required:
+            - name
+            - email
+            - password
           properties:
             name:
               type: string
