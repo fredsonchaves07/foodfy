@@ -88,7 +88,7 @@ def update_recipe(recipe_id, **kwargs):
     tags:
       - Recipe
     parameters:
-      - name: redipe id
+      - name: recipe id
         in: path
         required: true
       - name: recipe data
@@ -220,7 +220,7 @@ def get_recipe(recipe_id, **kwargs):
 @authentication
 def list_recipe(**kwargs):
     """
-    recipe get endpoint
+    recipe list endpoint
     ---
     tags:
       - Recipe
