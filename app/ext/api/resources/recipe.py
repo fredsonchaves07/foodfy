@@ -204,6 +204,8 @@ def get_recipe(recipe_id, **kwargs):
     responses:
       200:
         description: OK
+        schema:
+          $ref: '#/definitions/Recipe'
       404:
         description: Recipe not found
       498:
@@ -225,6 +227,8 @@ def list_recipe(**kwargs):
     responses:
       200:
         description: OK
+        schema:
+          $ref: '#/definitions/Recipe'
       498:
         description: Expired or invalid token.
     """
