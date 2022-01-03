@@ -3,7 +3,8 @@ EXTENSIONS = [
     "app.ext.database:init_app",
     "app.ext.migrate:init_app",
     "app.ext.api:init_app",
-    "app.ext.mail:init_app"
+    "app.ext.mail:init_app",
+    "app.ext.swagger:init_app"
 ]
 MAIL_SERVER = "smtp.mailtrap.io"
 MAIL_PORT = "2525"
