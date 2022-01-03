@@ -2,6 +2,7 @@ import json
 
 from app.ext.api.controller import users_controller
 from app.ext.api.exceptions import EmailAlreadyExist, OperationNotAllowed, UserNotFound
+from app.ext.api.schemas.user_schemas import CreateUserSchema
 from app.ext.api.services import token_services
 
 
@@ -13,7 +14,7 @@ def test_show_profile(database, client):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
     user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
@@ -44,7 +45,7 @@ def test_update_profile_name(client, database):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
     user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
@@ -72,7 +73,7 @@ def test_update_profile_password(client, database):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
     user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
@@ -111,7 +112,7 @@ def test_update_profile_email(client, database):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
     user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
@@ -139,7 +140,7 @@ def test_profile_user_is_admin(admin_user, client):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
     user_id = user.get("id")
 
     update_user = {"admin": True}
@@ -173,8 +174,8 @@ def test_not_update_profile_if_email_already_exist(client, database):
         "admin": False,
     }
 
-    users_controller.create_user(new_user2)
-    user = users_controller.create_user(new_user1)
+    users_controller.create_user(CreateUserSchema(**new_user2))
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
     user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
@@ -197,7 +198,10 @@ def test_not_update_profile_if_email_already_exist(client, database):
 def test_not_update_profile_if_user_not_already_exist(client, admin_user):
     update_user = {"name": "user2"}
 
-    headers = {"Authorization": admin_user.get("token")}
+    headers = {
+        "Authorization": admin_user.get("token"),
+        "content-type": "application/json",
+    }
 
     response = client.patch(
         "/api/v1/user/100", headers=headers, data=json.dumps(update_user)
@@ -215,7 +219,7 @@ def test_not_turn_admin_user_if_user_is_not_admin(client, database):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
     user_id = user.get("id")
     token = token_services.generate_token(user.get("id"), user.get("email"))
 
@@ -243,7 +247,7 @@ def test_delete_user(client, admin_user):
         "admin": False,
     }
 
-    user = users_controller.create_user(new_user1)
+    user = users_controller.create_user(CreateUserSchema(**new_user1))
 
     headers = {
         "Authorization": admin_user.get("token"),

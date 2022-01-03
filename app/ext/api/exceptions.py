@@ -144,3 +144,11 @@ class IncorrectLogin(BadRequestError):
 
     def __init__(self):
         super().__init__({"code": self.code, "message": self.message})
+
+
+class InvalidParameters(BadRequestError):
+    code = 400
+    message = "Invalid parameters in request"
+
+    def __init__(self):
+        super().__init__({"code": self.code, "message": self.message})
