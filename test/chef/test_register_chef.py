@@ -1,6 +1,10 @@
 from io import BytesIO
 
-from app.ext.api.exceptions import AdminPermissionRequired, FileNotFound
+from app.ext.api.exceptions import (
+    AdminPermissionRequired,
+    FileNotFound,
+    InvalidParameters,
+)
 from app.ext.api.services import token_services
 
 
@@ -59,3 +63,20 @@ def test_no_register_chef_if_user_not_admin(client, database):
 
     assert response.status_code == AdminPermissionRequired.code
     assert response.json["message"] == AdminPermissionRequired.message
+
+
+def test_no_register_chef_with_params_invalid(client, admin_user):
+    new_chef = {"avatar": (BytesIO(b"avatar"), "test.jpg")}
+
+    headers = {"Authorization": admin_user.get("token")}
+
+    response = client.post(
+        "/api/v1/chef",
+        data=new_chef,
+        headers=headers,
+        follow_redirects=True,
+        content_type="multipart/form-data",
+    )
+
+    assert response.status_code == InvalidParameters.code
+    assert response.json["message"] == InvalidParameters.message
