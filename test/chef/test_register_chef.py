@@ -65,7 +65,7 @@ def test_no_register_chef_if_user_not_admin(client, database):
     assert response.json["message"] == AdminPermissionRequired.message
 
 
-def test_no_register_chef_with_params_invalid(client, admin_user):
+def test_no_register_chef_with_invalid_params(client, admin_user):
     new_chef = {"avatar": (BytesIO(b"avatar"), "test.jpg")}
 
     headers = {"Authorization": admin_user.get("token")}

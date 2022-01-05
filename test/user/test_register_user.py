@@ -152,7 +152,7 @@ def test_no_confirm_user_if_token_is_invalid(client, database):
     assert response.json["message"] == InvalidToken.message
 
 
-def test_no_create_user_with_params_invalid(client, database, admin_user):
+def test_no_create_user_with_invalid_params(client, database, admin_user):
     new_user1 = {
         "email": "email@email.com",
         "password": "123456",

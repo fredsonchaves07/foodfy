@@ -300,7 +300,7 @@ def test_no_register_recipe_if_user_not_authenticated(client, admin_user):
     assert response.json["message"] == InvalidToken.message
 
 
-def test_no_register_recipe_with_params_invalid(client, admin_user):
+def test_no_register_recipe_with_invalid_params(client, admin_user):
     new_user1 = {
         "name": "Usuário teste",
         "email": "email@email.com",
