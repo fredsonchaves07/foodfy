@@ -4,7 +4,8 @@ EXTENSIONS = [
     "app.ext.migrate:init_app",
     "app.ext.api:init_app",
     "app.ext.mail:init_app",
-    "app.ext.swagger:init_app"
+    "app.ext.swagger:init_app",
+    "app.ext.comand:init_app"
 ]
 MAIL_SERVER = "smtp.mailtrap.io"
 MAIL_PORT = "2525"
@@ -24,3 +25,8 @@ SQLALCHEMY_DATABASE_URI = "sqlite:///test.db"
 
 
 [production]
+
+
+[docker]
+SECRET_KEY='\xecT\xa4\xd2\xf3\x1a\xf8^k\x9d\xd0}\x01\xa7\xc9\xc5'
+SQLALCHEMY_DATABASE_URI="postgresql://docker:foodfy@database/foodfy_db"

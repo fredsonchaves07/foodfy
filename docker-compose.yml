@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+    database:
+        image: postgres
+        container_name: database_foodfy
+        restart: always
+        ports:
+            - 5432:5432
+        environment: 
+            - POSTGRES_USER=docker
+            - POSTGRES_PASSWORD=foodfy
+            - POSTGRES_DB=foodfy_db
+        volumes:
+            - pgdata:/data/postgres
+    app:
+        build: .
+        container_name: app_foodfy
+        ports:
+            - 5000:5000
+        volumes:
+            - .:/usr/app
+        links:
+            - database
+        depends_on:
+            - database
+        entrypoint: /usr/app/entrypoint.sh
+        environment:
+            - FLASK_ENV="docker"
+
+volumes:
+    pgdata:
+        driver: local
