@@ -26,7 +26,11 @@ def create_user(new_user):
 
     if settings.SEND_MAIL:
         util_services.send_mail(
-            user["email"], "Access your account", "mail/confirm.html", token=token
+            user["email"],
+            "Access your account",
+            "mail/confirm.html",
+            token=token,
+            confirm_url=settings.CONFIRM_USER_URL,
         )
 
     session["audit_log"] = {
